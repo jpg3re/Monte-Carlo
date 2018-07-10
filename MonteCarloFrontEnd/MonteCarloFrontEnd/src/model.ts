@@ -1,17 +1,9 @@
 export default class Model {
-
-  gender : string = "male";
-  income : number;
-  age : number;
-  retirementDate;
-  deathDate;
-  filingStatus : string = "single";
-  concerns = [false, false, false, false]
   assetHolder = [];
-  matchHolder = [];
-  capHolder = [];
-  amountHolder = [];
-  additionsHolder = [];
+  lcHolder = [];
+  scHolder = [];
+  ustHolder = [];
+  corpHolder = [];
   htmlHolder = [];
   lumpSum : number;
 
@@ -19,8 +11,8 @@ export default class Model {
   // retirementDateYear = this.retirementDate.getFullYear();
   // deathDateYear = this.deathDate.getFullYear();
   assets = {  "assets" : this.assetHolder,
-                      "matching" : this.matchHolder,
-                      "caps" : this.capHolder,
-                      "amounts" : this.amountHolder,
-                      "additions" : this.additionsHolder }
+                      "matching" : this.lcHolder,
+                      "caps" : this.scHolder,
+                      "amounts" : this.ustHolder,
+                      "additions" : this.corpHolder }
 }

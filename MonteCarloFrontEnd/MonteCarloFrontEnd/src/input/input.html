@@ -8,47 +8,10 @@
     <section>
       <div class="tabs is-fullwidth is-large">
         <ul>
-          <li style="background-color: rgb(86, 150, 87)" id="tab0" click.delegate="SwitchSelected(0)">
+          <li style="background-color: rgb(86, 150, 87)" click.delegate="SwitchSelected(0)">
             <a>
-              <span class="icon" style="color:white" id="icon0">
-                <i class="fas fa-image" aria-hidden="true"></i>
-              </span>
-              <span style="color:white" id="text0">General Information</span>
+              <span style="color:white">General Information</span>
               <span class="icon" style="transform: translateX(6vw);color:white;">
-                <i class="fas fa-angle-double-right fa-3x" aria-hidden="true" id="arrow0"></i>
-              </span>
-            </a>
-          </li>
-          <li id="tab1" click.delegate="SwitchSelected(1)">
-            <a>
-              <span class="icon">
-                <i class="fas fa-music" aria-hidden="true" id="icon1"></i>
-              </span>
-              <span id="text1">Finances</span>
-              <span class="icon" style="transform: translateX(6vw);color:white">
-                <i class="fas fa-angle-double-right fa-3x" aria-hidden="true" id="arrow1"></i>
-              </span>
-            </a>
-          </li>
-          <li id="tab2" click.delegate="SwitchSelected(2)">
-            <a>
-              <span class="icon">
-                <i class="fas fa-film" aria-hidden="true" id="icon2"></i>
-              </span>
-              <span id="text2">Other</span>
-              <span class="icon" style="transform: translateX(6vw);color:white">
-                <i class="fas fa-angle-double-right fa-3x" aria-hidden="true" id="arrow2"></i>
-              </span>
-            </a>
-          </li>
-          <li id="tab3" click.delegate="SwitchSelected(3)">
-            <a>
-              <span class="icon">
-                <i class="far fa-file-alt" aria-hidden="true" id="icon3"></i>
-              </span>
-              <span id="text3">?????????</span>
-              <span class="icon" style="transform: translateX(6vw);color:white">
-                <i class="fas fa-angle-double-right fa-3x" aria-hidden="true" id="arrow3"></i>
               </span>
             </a>
           </li>
@@ -60,23 +23,47 @@
     <section id="inputs0">
       <div class="notification" style="background-color:white;height:100vh;" id="generalBody">
         <div class="message-header" style="background-color:white">
-          <span style="font-size: 3vh; font-family:Lato;color:#222222">Gender</span>
+          <span style="font-size: 3vh; font-family:Lato;color:#222222">Asset</span>
         </div>
         <div class="field">
           <div class="control">
             <div class="select is-large">
               <select value.bind="client.gender">
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="401k">401(k)</option>
+                <option value="ira">IRA</option>
+                <option value="ira">Brokerage</option>
               </select>
             </div>
           </div>
         </div>
-        <div class="message-header" style="background-color:white">
-          <span style="font-size: 3vh; font-family:Lato;color:#222222">Age</span>
+        
+        <div class="tabs is-fullwidth is-large">
+              <li style="background-color: rgb(86, 150, 87); text-decoration:none;" id="tab0" click.delegate="SwitchSelected(0)">
+                <a style="text-decoration:none">
+                  <span style="color:white" id="text0">Large Cap</span>
+                </a>
+              </li>
+              <li id="tab1" click.delegate="SwitchSelected(1)">
+                <a style="text-decoration:none">
+                  <span id="text1">Small Cap</span>
+                </a>
+              </li>
+              <li id="tab2" click.delegate="SwitchSelected(2)">
+                <a style="text-decoration:none">
+                  <span id="text2">US Treasury</span>
+                </a>
+              </li>
+              <li id="tab3" click.delegate="SwitchSelected(3)">
+                <a style="text-decoration:none">
+                  <span id="text3">Corporations</span>
+                </a>
+              </li>
+          </div>
+        <div style="transform:translate(5vw,0)">
+        <span style="font-size: 2vh; font-family:Lato;color:#222222;">Expected Return:</span>
         </div>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="22" value.bind="client.age">
+        <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
+          <input class="input" placeholder="22" value.bind="client.age" style="width:50%">
           <span class="icon is-medium is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -84,44 +71,27 @@
             <i class="fas fa-check"></i>
           </span>
         </div>
-        <div class="message-header" style="background-color:white">
-          <span style="font-size: 3vh; font-family:Lato;color:#222222">When do you plan to retire?</span>
-        </div>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="2055" value.bind="client.retirementDate">
+        <div style="transform:translate(5vw,0)">
+            <span style="font-size: 2vh; font-family:Lato;color:#222222;">Volatility</span>
+            </div>        <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
+          <input class="input" placeholder="22" value.bind="client.age" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-calendar-check"></i>
+            <i class="fas fa-user"></i>
           </span>
           <span class="icon is-medium is-right">
             <i class="fas fa-check"></i>
           </span>
         </div>
-        <div class="message-header" style="background-color:white">
-          <span style="font-size: 3vh; font-family:Lato;color:#222222">When can the money run out?</span>
-        </div>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="2067" value.bind="client.deathDate">
+        <div style="transform:translate(5vw,0)">
+            <span style="font-size: 2vh; font-family:Lato;color:#222222;">Portfolio Weight:</span>
+            </div>        <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
+          <input class="input" placeholder="22" value.bind="client.age" style="width:50%;">
           <span class="icon is-medium is-left">
-            <i class="fas fa-calendar-minus"></i>
+            <i class="fas fa-user"></i>
           </span>
           <span class="icon is-medium is-right">
             <i class="fas fa-check"></i>
           </span>
-        </div>
-        <div class="message-header" style="background-color:white">
-          <span style="font-size: 3vh; font-family:Lato;color:#222222">How will you be filing?</span>
-        </div>
-        <div class="field">
-          <div class="control">
-            <div class="select is-large">
-              <select value.bind="client.filingStatus">
-                <option value="single">Single</option>
-                <option value="joint">Joint</option>
-                <option value="HeadOfHousehold">Head of Household</option>
-                <option value="Married">Married and Filing Separate</option>
-              </select>
-            </div>
-          </div>
         </div>
       </div>
     </section>
