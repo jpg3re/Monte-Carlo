@@ -117,6 +117,7 @@ export default class Input {
 
     if (number == 10) {
       this.UpdateAsset(this.selected);
+      this.PushAsset(this.assetTab);
       this.post.SendData(this.model, 1);
     }
   }
@@ -166,8 +167,20 @@ export default class Input {
   }
 
   ChangeAsset(number) {
+
+    if (this.assetTab == 0) {
+      this.firstAssetName = this.nameHold;
+    }
+    else if (this.assetTab == 1) {
+      this.secondAssetName = this.nameHold;
+    } 
+    else if (this.assetTab == 2) {
+      this.thirdAssetName = this.nameHold;
+    }
+
     this.PushAsset(this.assetTab);
     this.SetAsset(number);
+    this.UpdatePercentages();
 
     var tab;
     var text;

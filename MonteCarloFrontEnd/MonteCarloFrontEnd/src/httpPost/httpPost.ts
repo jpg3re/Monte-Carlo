@@ -3,16 +3,18 @@ export default class HTTPPost {
 
   SendData(model,asset) {
     var self = this;
-    var api
+    var api;
+
+    console.log(model);
 
     if (asset == 1) {
-      api = 'http://localhost:64655/api/1'
+      api = 'http://localhost:64655/api/1';
     }
     else if (asset == 2) {
-      api = 'http://localhost:64655/api/2'
+      api = 'http://localhost:64655/api/2';
     }
     else {
-      api = 'http://localhost:64655/api/3'
+      api = 'http://localhost:64655/api/3';
     }
 
     async function f() {
@@ -31,11 +33,11 @@ export default class HTTPPost {
       var url = window.location.href;
       localStorage.setItem('results', JSON.stringify(self.results));
       if (url == "http://localhost:8080/input/") {
-        window.location.href = "results"
+        window.location.href = "results";
       }
       return this.results;
     }
 
-    f().then(Redirect)
+    f().then(Redirect);
   }
 }
