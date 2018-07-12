@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MonteCarlo.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class ValuesController : Controller
     {
         // GET api/values
@@ -24,9 +24,10 @@ namespace MonteCarlo.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("{id}")]
+        public string Post([FromBody]string value)
         {
+            return value;
         }
 
         // PUT api/values/5
