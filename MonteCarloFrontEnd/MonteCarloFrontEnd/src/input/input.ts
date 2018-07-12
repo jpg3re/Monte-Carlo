@@ -93,7 +93,7 @@ export default class Input {
         tab = document.getElementById("tab" + i);
         text = document.getElementById("text" + i);
 
-        tab.style.backgroundColor = "white";
+        tab.style.backgroundColor = "rgb(170, 201, 171)";
         text.style.color = "#222222";
       }
       i++;
@@ -134,16 +134,35 @@ export default class Input {
 
     this.iterator++;
 
-    var tab = document.getElementById("assetTab" + this.iterator)
-    tab.style.display = "block";
-
-    this.ChangeAsset(this.iterator);
-    this.assetTab = this.iterator;
-
-    this.nameHold = ""
-    this.erHold = "";
-    this.vHold = "";
-    this.pwHold = "";
+    if (this.iterator < 2) {
+      var tab = document.getElementById("assetTab" + this.iterator)
+      tab.style.display = "block";
+  
+      this.ChangeAsset(this.iterator);
+      this.assetTab = this.iterator;
+  
+      this.nameHold = ""
+      this.erHold = "";
+      this.vHold = "";
+      this.pwHold = "";
+    }
+    else if (this.iterator == 2) {
+      var tab = document.getElementById("assetTab" + this.iterator)
+      tab.style.display = "block";
+  
+      this.ChangeAsset(this.iterator);
+      this.assetTab = this.iterator;
+  
+      this.nameHold = ""
+      this.erHold = "";
+      this.vHold = "";
+      this.pwHold = "";
+      document.getElementById("NewButton").style.display = "none"
+    }
+    else {
+      this.ChangeAsset(this.iterator);
+      this.SwitchSelected(10);
+    }
   }
 
   ChangeAsset(number) {
@@ -159,7 +178,7 @@ export default class Input {
         tab = document.getElementById("assetTab" + i);
         text = document.getElementById("assetText" + i);
 
-        tab.style.backgroundColor = "white";
+        tab.style.backgroundColor = "rgb(170, 201, 171)";
         text.style.color = "#222222";
       }
       i++;
