@@ -4,6 +4,7 @@ export default class Asset {
   name : string;
 
   largeCap = new AssetInfo();
+  medCap = new AssetInfo();
   smallCap = new AssetInfo();
   usTreasury = new AssetInfo();
   corporations = new AssetInfo();
