@@ -86,6 +86,7 @@ export default class Input {
   SwitchSelected(number) {
     var tab;
     var text;
+    var progress;
 
     var i = 0;
     while (document.getElementById("tab" + i) != null) {
@@ -105,6 +106,7 @@ export default class Input {
     if (tab != null) {
       tab.style.backgroundColor = "rgb(86, 150, 87)";
       text.style.color = "white";
+      progress.style.display = "block";
     }
 
     if (number < 6) {
