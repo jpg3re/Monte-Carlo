@@ -1,11 +1,13 @@
 import Model from "./model/model";
 import Asset from "./asset/asset"
 import { Chart } from "chart.js"
+import HTTPPost from "../httpPost/httpPost"
 
 export default class Input {
 
   model = new Model();
   asset = new Asset();
+  post = new HTTPPost();
 
   selected = 0;
   assetTab = 0;
@@ -24,41 +26,33 @@ export default class Input {
   pwHold;
 
   myPieChart;
+  exists = 0;
   
   attached() {
-    this.InitialChart();
+    this.PieChart([100 , 0 , 0 , 0 , 0])
+    this.ConstantRun()
   }
 
-  InitialChart() {
-    this.myPieChart = new Chart(document.getElementById("pie-chart"), {
-      type: 'bar',
-      data: {
-        labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-        datasets: [{
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
-        }]
-      },
-      options: {
-        title: {
-          display: true,
-          text: 'Predicted world population (millions) in 2050'
-        }
-      }
-    });
+  ConstantRun(){
+    var self = this;
+    var element = document.getElementById("pw")
+    element.onkeyup = function(event) {
+      self.UpdateAsset(self.selected);
+      self.UpdatePercentages();
+    };
   }
-
 
   PieChart(data) {
-    this.myPieChart.destroy();
+    if (this.exists == 1) {
+      this.myPieChart.destroy();
+    }
     this.myPieChart = new Chart(document.getElementById("pie-chart"), {
-      type: 'doughnut',
+      type: 'pie',
       data: {
         labels: ["Remaining","Large Cap", "Small Cap", "US Treasury Bonds", "Corporate Bonds"],
         datasets: [{
           label: "Types",
-          backgroundColor: ['#222222','#FFC300', '#FF5733', '#C70039', '#900C3F'],
+          backgroundColor: ['#508365','#CEEB81', '#A3D444', '#679E02', '#36691D'],
           data: [data[0], data[1], data[2], data[3], data[4]]
         }]
       },
@@ -86,11 +80,10 @@ export default class Input {
       }
       }
   });
+  this.exists = 1;
   }
 
   SwitchSelected(number) {
-    this.UpdatePercentages();
-
     var tab;
     var text;
 
@@ -122,8 +115,10 @@ export default class Input {
       this.UnpackAsset(this.selected);
     }
 
-    this.UpdatePercentages();
-
+    if (number == 10) {
+      this.UpdateAsset(this.selected);
+      this.post.SendData(this.model, 1);
+    }
   }
 
   NewAsset() {
@@ -184,8 +179,27 @@ export default class Input {
     var pwSC = this.asset.smallCap.portfolioWeight; 
     var pwUST = this.asset.usTreasury.portfolioWeight; 
     var pwCB = this.asset.corporations.portfolioWeight;
-    
+    var other = 100;
+
+    if(pwLC == undefined) {
+      pwLC = 0;
+    }
+    if(pwSC == undefined) {
+      pwSC = 0;
+    }
+    if(pwUST == undefined) {
+      pwUST = 0;
+    }
+    if(pwCB == undefined) {
+      pwCB = 0;
+    }
+
     var other = 100 - pwLC - pwSC - pwUST - pwCB
+
+    if (other < 0) {
+      other = 0;
+      document.getElementById("warning").style.display = "block"
+    }
 
     var data = [other,pwLC,pwSC,pwUST,pwCB]
     this.PieChart(data)
@@ -255,5 +269,9 @@ export default class Input {
       this.vHold = this.asset.corporations.volatility;
       this.pwHold = this.asset.corporations.portfolioWeight;
     }
+  }
+
+  Hide(element) {
+    document.getElementById(element).style.display = "none";
   }
 }

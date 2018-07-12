@@ -42,45 +42,45 @@
           <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Asset Name:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="22" value.bind="nameHold" style="width:50%">
+          <input class="input is-large" placeholder="401(k)" value.bind="nameHold" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-briefcase"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
           <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Current Amount:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="22" value.bind="asset.currAmount" style="width:50%">
+          <input class="input is-large" placeholder="60000" value.bind="asset.currAmount" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-dollar-sign"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
           <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Additions Per Year:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="22" value.bind="asset.addPerYear" style="width:50%">
+          <input class="input is-large" placeholder="5000" value.bind="asset.addPerYear" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-hand-holding-usd"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
           <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Years of Additions:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="22" value.bind="asset.yearsOfAdd" style="width:50%">
+          <input class="input is-large" placeholder="30" value.bind="asset.yearsOfAdd" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-calendar-plus"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
           <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Years of Withdrawls:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="22" value.bind="asset.yearsOfWith" style="width:50%">
+          <input class="input is-large" placeholder="20" value.bind="asset.yearsOfWith" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-calendar-minus"></i>
           </span>
         </div>
         <br>
@@ -110,9 +110,9 @@
           <span style="font-size: 2vh; font-family:Lato;color:#222222;">Expected Return:</span>
         </div>
         <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
-          <input class="input" placeholder="22" value.bind="erHold" style="width:50%">
+          <input class="input" placeholder="9" value.bind="erHold" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-undo"></i>
           </span>
           <span class="icon is-medium is-right">
             <i class="fas fa-check"></i>
@@ -122,9 +122,9 @@
           <span style="font-size: 2vh; font-family:Lato;color:#222222;">Volatility</span>
         </div>
         <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
-          <input class="input" placeholder="22" value.bind="vHold" style="width:50%">
+          <input class="input" placeholder="9" value.bind="vHold" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-chart-bar"></i>
           </span>
           <span class="icon is-medium is-right">
             <i class="fas fa-check"></i>
@@ -134,9 +134,9 @@
           <span style="font-size: 2vh; font-family:Lato;color:#222222;">Portfolio Weight:</span>
         </div>
         <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
-          <input class="input" placeholder="22" value.bind="pwHold" style="width:50%;">
+          <input class="input" placeholder="25" value.bind="pwHold" style="width:50%;" id="pw">
           <span class="icon is-medium is-left">
-            <i class="fas fa-user"></i>
+            <i class="fas fa-balance-scale"></i>
           </span>
           <span class="icon is-medium is-right">
             <i class="fas fa-check"></i>
@@ -151,7 +151,7 @@
         </div>
       </div>
       <div class="content has-text-centered">
-        <div style="transform:translate(32vw,-25.4vh)">
+        <div style="transform:translate(32vw,-23vh)">
           <a class="button is-large" style="background-color: rgb(86, 150, 87); color:white;position:absolute;" click.delegate="SwitchSelected(selected + 1)">
             &nbsp; Finished &nbsp;</a>
         </div>
@@ -161,6 +161,11 @@
     <section>
         <div style="width:50%; height:50%">
             <canvas id="pie-chart" style="transform: translate(50vw,-95vh)"></canvas>
+        </div>
+        <div class="notification is-danger" style="transform: translate(64vw,-130vh); width:22%;display:none" id="warning">
+          <button class="delete" click.delegate="Hide('warning')"></button>
+          Your percentages add up to greater than 100%
+          <strong>Please fix the last percentage entered.</strong>
         </div>
     </section>
   </body>
