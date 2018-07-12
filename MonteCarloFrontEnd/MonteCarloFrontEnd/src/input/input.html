@@ -1,0 +1,174 @@
+<template>
+
+  <head>
+    <require from="./input.css" rel="stylesheet"></require>
+  </head>
+
+  <body style="overflow: hidden">
+    <section>
+      <div class="tabs is-fullwidth is-large">
+        <ul>
+          <li style="background-color: rgb(86, 150, 87)" click.delegate="ChangeAsset(0)" id="assetTab0">
+            <a>
+              <span style="color:white" id="assetText0">${firstAssetName}</span>
+              <span class="icon" style="transform: translateX(6vw);color:white;">
+              </span>
+            </a>
+          </li>
+          <li style="background-color: rgb(86, 150, 87);display:none" click.delegate="ChangeAsset(1)" id="assetTab1">
+            <a>
+              <span style="color:white" id="assetText1">${secondAssetName}</span>
+              <span class="icon" style="transform: translateX(6vw);color:white;">
+              </span>
+            </a>
+          </li>
+          <li style="background-color: rgb(86, 150, 87);display:none" click.delegate="ChangeAsset(2)" id="assetTab2">
+            <a>
+              <span style="color:white" id="assetText2">${thirdAssetName}</span>
+              <span class="icon" style="transform: translateX(6vw);color:white;">
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section id="inputs0">
+
+
+      <div class="notification" style="background-color:white;height:100vh;" id="generalBody">
+        <div class="message-header" style="background-color:white">
+          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Asset Name:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-large" placeholder="401(k)" value.bind="nameHold" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-briefcase"></i>
+          </span>
+        </div>
+        <div class="message-header" style="background-color:white">
+          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Current Amount:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-large" placeholder="60000" value.bind="asset.currAmount" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+        </div>
+        <div class="message-header" style="background-color:white">
+          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Additions Per Year:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-large" placeholder="5000" value.bind="asset.addPerYear" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-hand-holding-usd"></i>
+          </span>
+        </div>
+        <div class="message-header" style="background-color:white">
+          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Years of Additions:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-large" placeholder="30" value.bind="asset.yearsOfAdd" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-calendar-plus"></i>
+          </span>
+        </div>
+        <div class="message-header" style="background-color:white">
+          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Years of Withdrawls:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input is-large" placeholder="20" value.bind="asset.yearsOfWith" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-calendar-minus"></i>
+          </span>
+        </div>
+        <br>
+        <div class="tabs is-fullwidth is-large">
+          <li style="background-color: rgb(86, 150, 87); text-decoration:none;" id="tab0" click.delegate="SwitchSelected(0)">
+            <a style="text-decoration:none">
+              <span style="color:white" id="text0">Large Cap</span>
+            </a>
+          </li>
+          <li id="tab1" click.delegate="SwitchSelected(1)">
+            <a style="text-decoration:none">
+              <span id="text1">Small Cap</span>
+            </a>
+          </li>
+          <li id="tab2" click.delegate="SwitchSelected(2)">
+            <a style="text-decoration:none">
+              <span id="text2">US Treasury Bonds</span>
+            </a>
+          </li>
+          <li id="tab3" click.delegate="SwitchSelected(3)">
+            <a style="text-decoration:none">
+              <span id="text3">Corporate Bonds</span>
+            </a>
+          </li>
+        </div>
+        <div style="transform:translate(5vw,0)">
+          <span style="font-size: 2vh; font-family:Lato;color:#222222;">Expected Return:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
+          <input class="input" placeholder="9" value.bind="erHold" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-undo"></i>
+          </span>
+          <span class="icon is-medium is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+        <div style="transform:translate(5vw,0)">
+          <span style="font-size: 2vh; font-family:Lato;color:#222222;">Volatility</span>
+        </div>
+        <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
+          <input class="input" placeholder="9" value.bind="vHold" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-chart-bar"></i>
+          </span>
+          <span class="icon is-medium is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+        <div style="transform:translate(5vw,0)">
+          <span style="font-size: 2vh; font-family:Lato;color:#222222;">Portfolio Weight:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right" style="transform:translate(5vw,0)">
+          <input class="input" placeholder="25" value.bind="pwHold" style="width:50%;" id="pw">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-balance-scale"></i>
+          </span>
+          <span class="icon is-medium is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+
+      </div>
+      <div class="content has-text-centered">
+        <div style="transform:translate(16vw,-23vh)">
+          <a class="button is-large" style="background-color: rgb(86, 150, 87); color:white;position:absolute;" click.delegate="NewAsset()">
+            New Asset</a>
+        </div>
+      </div>
+      <div class="content has-text-centered">
+        <div style="transform:translate(32vw,-23vh)">
+          <a class="button is-large" style="background-color: rgb(86, 150, 87); color:white;position:absolute;" click.delegate="SwitchSelected(selected + 1)">
+            &nbsp; Finished &nbsp;</a>
+        </div>
+      </div>
+      </div>
+    </section>
+    <section>
+        <div style="width:50%; height:50%">
+            <canvas id="pie-chart" style="transform: translate(50vw,-95vh)"></canvas>
+        </div>
+        <div class="notification is-danger" style="transform: translate(64vw,-130vh); width:22%;display:none" id="warning">
+          <button class="delete" click.delegate="Hide('warning')"></button>
+          Your percentages add up to greater than 100%
+          <strong>Please fix the last percentage entered.</strong>
+        </div>
+    </section>
+  </body>
+
+
+</template>
