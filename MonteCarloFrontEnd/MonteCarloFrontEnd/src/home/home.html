@@ -2,6 +2,7 @@
 
   <head>
     <require from="./home.css" rel="stylesheet"></require>
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet">  
   </head>
 
   <section class="home">
@@ -10,22 +11,28 @@
         <div class="tile is-vertical is-5">
           <div class="tile is-parent is-vertical">
             <article class="tile is-child">
-              <div class="h2"> GenericCompany<span style="color:deepskyblue">Name</span></div>
+              <div class="h2"> GenericCompany<span style="color:rgb(86, 150, 87)">Name</span></div>
             </article>
             <article class="tile is-child">
-                <div class="card" style="transform: translate(5vw, 10vh)">
+                <div class="card" style="transform: translate(5vw, 10vh);background-color: rgba(255, 255, 255, 0.6)">
                     <div class="card-content">
                       <p class="title is-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus accumsan urna eu augue dapibus dignissim. Curabitur eu turpis et metus posuere lacinia.
+                          <span style="font-size:5vh;font-family:'PT Serif';">&ldquo;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus 
+                          <br><br>accumsan urna eu augue dapibus dignissim. Curabitur eu turpis et 
+                          <br><br>metus posuere lacinia.<span style="font-size:5vh;font-family:'PT Serif';">&rdquo;</span>
                       </p>
+                      <br>
+                      <br>
+                      <br>
+
                       <p class="subtitle">
                         GenericCompanyName CEO
                       </p>
                     </div>
-                    <footer class="card-footer btn">
+                    <footer class="card-footer btn" click.delegate="GetStarted()">
                       <p class="card-footer-item">
                         <span>
-                          <a href="input">Get Started</a>
+                          Get Started
                         </span>
                       </p>
                     </footer>

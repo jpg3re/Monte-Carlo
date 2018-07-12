@@ -3,5 +3,8 @@ export default class Home {
     console.log("seen")
   }
 
+  GetStarted() {
+    window.location.href = "input"
+  }
 
 }

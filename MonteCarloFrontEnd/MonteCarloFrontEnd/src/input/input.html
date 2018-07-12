@@ -90,17 +90,17 @@
               <span style="color:white" id="text0">Large Cap</span>
             </a>
           </li>
-          <li id="tab1" click.delegate="SwitchSelected(1)">
+          <li id="tab1" click.delegate="SwitchSelected(1)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
             <a style="text-decoration:none">
               <span id="text1">Small Cap</span>
             </a>
           </li>
-          <li id="tab2" click.delegate="SwitchSelected(2)">
+          <li id="tab2" click.delegate="SwitchSelected(2)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
             <a style="text-decoration:none">
               <span id="text2">US Treasury Bonds</span>
             </a>
           </li>
-          <li id="tab3" click.delegate="SwitchSelected(3)">
+          <li id="tab3" click.delegate="SwitchSelected(3)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
             <a style="text-decoration:none">
               <span id="text3">Corporate Bonds</span>
             </a>
@@ -144,7 +144,7 @@
         </div>
 
       </div>
-      <div class="content has-text-centered">
+      <div class="content has-text-centered" id="NewButton">
         <div style="transform:translate(16vw,-23vh)">
           <a class="button is-large" style="background-color: rgb(86, 150, 87); color:white;position:absolute;" click.delegate="NewAsset()">
             New Asset</a>
@@ -160,7 +160,7 @@
     </section>
     <section>
         <div style="width:50%; height:50%">
-            <canvas id="pie-chart" style="transform: translate(50vw,-95vh)"></canvas>
+            <canvas id="pie-chart" style="transform: translate(50vw,-100vh)"></canvas>
         </div>
         <div class="notification is-danger" style="transform: translate(64vw,-130vh); width:22%;display:none" id="warning">
           <button class="delete" click.delegate="Hide('warning')"></button>
