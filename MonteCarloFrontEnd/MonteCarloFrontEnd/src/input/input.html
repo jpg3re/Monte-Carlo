@@ -87,22 +87,27 @@
         <div class="tabs is-fullwidth is-large">
           <li style="background-color: rgb(86, 150, 87); text-decoration:none;" id="tab0" click.delegate="SwitchSelected(0)">
             <a style="text-decoration:none">
-              <span style="color:white" id="text0">Large Cap</span>
+              <span style="color:white" id="text0">Large Cap Equities</span>
             </a>
           </li>
           <li id="tab1" click.delegate="SwitchSelected(1)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
-            <a style="text-decoration:none">
-              <span id="text1">Small Cap</span>
-            </a>
-          </li>
+              <a style="text-decoration:none">
+                <span id="text1">Medium Cap Equities</span>
+              </a>
+            </li>
           <li id="tab2" click.delegate="SwitchSelected(2)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
             <a style="text-decoration:none">
-              <span id="text2">US Treasury Bonds</span>
+              <span id="text2">Small Cap Equities</span>
             </a>
           </li>
           <li id="tab3" click.delegate="SwitchSelected(3)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
             <a style="text-decoration:none">
-              <span id="text3">Corporate Bonds</span>
+              <span id="text3">US Treasury Bonds</span>
+            </a>
+          </li>
+          <li id="tab4" click.delegate="SwitchSelected(4)" style="background-color: rgb(170, 201, 171); text-decoration:none;">
+            <a style="text-decoration:none">
+              <span id="text4">Corporate Bonds</span>
             </a>
           </li>
         </div>
@@ -145,13 +150,13 @@
 
       </div>
       <div class="content has-text-centered" id="NewButton">
-        <div style="transform:translate(16vw,-23vh)">
+        <div style="transform:translate(16vw,-26vh)">
           <a class="button is-large" style="background-color: rgb(86, 150, 87); color:white;position:absolute;" click.delegate="NewAsset()">
             New Asset</a>
         </div>
       </div>
       <div class="content has-text-centered">
-        <div style="transform:translate(32vw,-23vh)">
+        <div style="transform:translate(32vw,-26vh)">
           <a class="button is-large" style="background-color: rgb(86, 150, 87); color:white;position:absolute;" click.delegate="SwitchSelected(10)">
             &nbsp; Finished &nbsp;</a>
         </div>

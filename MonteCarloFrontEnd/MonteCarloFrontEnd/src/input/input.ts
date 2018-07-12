@@ -49,11 +49,11 @@ export default class Input {
     this.myPieChart = new Chart(document.getElementById("pie-chart"), {
       type: 'pie',
       data: {
-        labels: ["Remaining","Large Cap", "Small Cap", "US Treasury Bonds", "Corporate Bonds"],
+        labels: ["Remaining","Large Cap", "Medium Cap", "Small Cap", "US Treasury Bonds", "Corporate Bonds"],
         datasets: [{
           label: "Types",
-          backgroundColor: ['#508365','#CEEB81', '#A3D444', '#679E02', '#36691D'],
-          data: [data[0], data[1], data[2], data[3], data[4]]
+          backgroundColor: ['#508365','#CEEB81', '#618D05' , '#A3D444', '#679E02', '#36691D'],
+          data: [data[0], data[1], data[2], data[3], data[4], data[5]]
         }]
       },
       options: {
@@ -86,6 +86,7 @@ export default class Input {
   SwitchSelected(number) {
     var tab;
     var text;
+    var progress;
 
     var i = 0;
     while (document.getElementById("tab" + i) != null) {
@@ -105,6 +106,7 @@ export default class Input {
     if (tab != null) {
       tab.style.backgroundColor = "rgb(86, 150, 87)";
       text.style.color = "white";
+      progress.style.display = "block";
     }
 
     if (number < 6) {
@@ -208,6 +210,7 @@ export default class Input {
 
   UpdatePercentages() {
     var pwLC = this.asset.largeCap.portfolioWeight;
+    var pwMC = this.asset.medCap.portfolioWeight;
     var pwSC = this.asset.smallCap.portfolioWeight; 
     var pwUST = this.asset.usTreasury.portfolioWeight; 
     var pwCB = this.asset.corporations.portfolioWeight;
@@ -215,6 +218,9 @@ export default class Input {
 
     if(pwLC == undefined) {
       pwLC = 0;
+    }
+    if(pwMC == undefined) {
+      pwMC = 0;
     }
     if(pwSC == undefined) {
       pwSC = 0;
@@ -226,14 +232,14 @@ export default class Input {
       pwCB = 0;
     }
 
-    var other = 100 - pwLC - pwSC - pwUST - pwCB
+    var other = 100 - pwLC - pwMC - pwSC - pwUST - pwCB
 
     if (other < 0) {
       other = 0;
       document.getElementById("warning").style.display = "block"
     }
 
-    var data = [other,pwLC,pwSC,pwUST,pwCB]
+    var data = [other , pwLC , pwMC , pwSC , pwUST , pwCB]
     this.PieChart(data)
   }
 
@@ -264,11 +270,16 @@ export default class Input {
       this.asset.largeCap.portfolioWeight = this.pwHold;
     }
     else if (selected == 1) {
+      this.asset.medCap.expectedReturn = this.erHold;
+      this.asset.medCap.volatility = this.vHold;
+      this.asset.medCap.portfolioWeight = this.pwHold;
+    }
+    else if (selected == 2) {
       this.asset.smallCap.expectedReturn = this.erHold;
       this.asset.smallCap.volatility = this.vHold;
       this.asset.smallCap.portfolioWeight = this.pwHold;
     }
-    else if (selected == 2) {
+    else if (selected == 3) {
       this.asset.usTreasury.expectedReturn = this.erHold;
       this.asset.usTreasury.volatility = this.vHold;
       this.asset.usTreasury.portfolioWeight = this.pwHold;
@@ -287,11 +298,16 @@ export default class Input {
       this.pwHold = this.asset.largeCap.portfolioWeight;
     }
     else if (selected == 1) {
+      this.erHold = this.asset.medCap.expectedReturn;
+      this.vHold = this.asset.medCap.volatility;
+      this.pwHold = this.asset.medCap.portfolioWeight;
+    }
+    else if (selected == 2) {
       this.erHold = this.asset.smallCap.expectedReturn;
       this.vHold = this.asset.smallCap.volatility;
       this.pwHold = this.asset.smallCap.portfolioWeight;
     }
-    else if (selected == 2) {
+    else if (selected == 3) {
       this.erHold = this.asset.usTreasury.expectedReturn;
       this.vHold = this.asset.usTreasury.volatility;
       this.pwHold = this.asset.usTreasury.portfolioWeight;
