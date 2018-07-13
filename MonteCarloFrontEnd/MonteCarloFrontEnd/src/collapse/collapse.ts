@@ -1,6 +1,23 @@
 import { bindable } from "aurelia-framework";
 
 export class collapse {
+
+users = [
+   {
+   'name':4,
+  'value':5
+   },
+  {
+   'name':4,
+  'value':5
+  },
+{
+   'name':4,
+  'value':5
+  }
+];
+
+
   @bindable number;
 toggle(){
   

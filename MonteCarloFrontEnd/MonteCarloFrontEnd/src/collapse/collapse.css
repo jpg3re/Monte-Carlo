@@ -1,17 +1,21 @@
 
 .leftColumnText{
   position: relative;
+    left: 30px;
+    top:30px;
     max-width: 600px;
     min-width: 100px;
     background-color: white;
 }
   .leftColumnHeader{
+    left: 30px;
+    top:30px;
    max-width: 600px;
     min-width: 600px;
    -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-    background-color: #92efd9;
+    background-color: #D3D3D3;
     position: relative;
     color:#222222;
   }

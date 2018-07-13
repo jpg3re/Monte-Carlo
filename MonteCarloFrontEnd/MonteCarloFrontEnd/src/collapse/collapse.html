@@ -1,6 +1,7 @@
 <template>
 
     <require from="./collapse.css" rel="stylesheet"></require>
+    <require from="../jack/jack"></require>
   <div class=leftColumnHeader>
     <p class="buttons" style="display: inline;" click.delegate="toggle()" id="button${number}">
       <a class="button is-small">
@@ -19,12 +20,25 @@
 
   <div id="text${number}" class=leftColumnText>
     <slot name="paragraph">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque ex nec diam aliquet, sed elementum arcu
-      molestie. Suspendisse arcu erat, volutpat sed mauris vitae, aliquam molestie dolor. Praesent nisi turpis, luctus id
-      aliquam et, lacinia dignissim orci. In ac orci sit amet nibh egestas lobortis. Nam varius massa eget semper bibendum.
-      Proin nisl neque, facilisis id nisl non, porttitor pharetra nibh. Donec sit amet urna sit amet tellus vestibulum venenatis.
-      Nam sit amet nibh sit amet quam varius molestie ac nec neque. Fusce vel augue vitae turpis finibus posuere. Etiam non
-      sem tempor, cursus diam eu, faucibus odio.
+        
+ <table  class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData" >
+        <thead>
+        <tr>
+            <th>Year</th>
+            <th>Current Amount</th>
+            <th>Withdrawal</th>
+            <th>Percentage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="user of $displayData">
+            <td>${user.name}</td>
+            <td>${user.value}</td>
+            <td>${user.name}</td>
+            <td>${user.value}</td>
+        </tr>
+        </tbody> 
+
     </slot>
   </div>
 

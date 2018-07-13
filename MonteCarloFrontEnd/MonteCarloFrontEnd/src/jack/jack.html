@@ -1,21 +1,7 @@
 <template>
   <require from="./jack.css"></require>
-    <table class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData" >
-        <thead>
-        <tr>
-            <th>Year</th>
-            <th>Current Amount</th>
-            <th>Withdrawal</th>
-            <th>Percentage</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr repeat.for="user of $displayData">
-            <td>${user.name}</td>
-            <td>${user.value}</td>
-            <td>${user.name}</td>
-            <td>${user.value}</td>
-        </tr>
-        </tbody>
-    </table>
+  <require from="../collapse/collapse"></require>
+  
+    <collapse number=0>
+    </collapse>
 </template>

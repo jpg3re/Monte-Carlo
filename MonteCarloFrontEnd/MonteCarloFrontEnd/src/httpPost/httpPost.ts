@@ -24,7 +24,7 @@ export default class HTTPPost {
           'Accept': 'application/json',
           'Content-Type': 'application/json; charset=utf-8'
         },
-        body: model
+        body: JSON.stringify(model)
       });
       self.results = await response.json();
     }

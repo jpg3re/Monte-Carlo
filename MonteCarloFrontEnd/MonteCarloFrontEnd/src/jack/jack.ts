@@ -1,22 +1,23 @@
+//import { Chart } from "chart.js";
+
 export class Jack{
 
- users = [
-   {
-   'name':4,
-  'value':5
-   },
-  {
-   'name':4,
-  'value':5
-  },
-{
-   'name':4,
-  'value':5
+  chart(){
+// var ctx = document.getElementById("myChart");
+// var myLineChart = new Chart(ctx, {
+//     type: 'line',
+//     data: [12, 19, 3, 5, 2, 3],
+//     options: {
+//         scales: {
+//             yAxes: [{
+//                 ticks: {
+//                     beginAtZero:true
+//                 }
+//             }]
+//         }
+//     }
+// });
+
+
   }
-];
-
- bind(){
-   console.log('hr')
- }
-
 }
