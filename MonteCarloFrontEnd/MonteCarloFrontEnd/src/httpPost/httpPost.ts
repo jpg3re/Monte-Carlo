@@ -8,13 +8,14 @@ export default class HTTPPost {
     console.log(model);
 
     if (asset == 1) {
-      api = 'http://localhost:64655/api/1';
+      api = 'http://localhost:52170/api/';
+      model = model[0];
     }
     else if (asset == 2) {
-      api = 'http://localhost:64655/api/2';
+      api = 'http://localhost:52170/api/2';
     }
     else {
-      api = 'http://localhost:64655/api/3';
+      api = 'http://localhost:52170/api/3';
     }
 
     async function f() {

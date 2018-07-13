@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MonteCarlo.Models
+namespace MonteCarlo
 {
-    public class LargeCap:Equities
+    public class FormModel
     {
-       
     }
 }
