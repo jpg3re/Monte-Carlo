@@ -1,14 +1,12 @@
-import AssetInfo from "./assetinfo"
+import AssetType from "./assettype"
 
 export default class Asset {
   name : string;
 
-  largeCap = new AssetInfo();
-  medCap = new AssetInfo();
-  smallCap = new AssetInfo();
-  usTreasury = new AssetInfo();
-  corporations = new AssetInfo();
-
+  stocks = new AssetType();
+  bonds = new AssetType();
+  cash = new AssetType();
+  
   currAmount: number;
   addPerYear: number;
   yearsOfAdd: number;

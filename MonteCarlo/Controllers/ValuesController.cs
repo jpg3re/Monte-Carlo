@@ -19,18 +19,14 @@ namespace MonteCarlo.Controllers
             Ziggurat zigg = new Ziggurat(PDFType.Normal, 9, 1);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/values
         [HttpPost]
-        public JsonResult Post([FromBody]string value)
+        public IEnumerable<string> Post([FromBody]string value)
         {
-            return Json("hi");
+            asset myAsset = new asset();
+            myAsset = jsonTool.deconstructJSON(value);
+
+            return new string[] { jsonTool.buildJSON(myAsset) };
         }
 
         // PUT api/values/5
