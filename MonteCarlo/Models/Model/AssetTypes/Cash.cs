@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Model
 {
-    public class Type
+    public class Cash
     {
+        public Lower lower { get; set; }
+        public Mid mid { get; set; }
+        public Upper upper { get; set; }
     }
 }

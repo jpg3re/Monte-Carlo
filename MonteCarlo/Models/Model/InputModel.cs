@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Model
 {
-    public class SubType
+    public class InputModel
     {
+        public Asset[] assetHolder { get; set;}
     }
 }

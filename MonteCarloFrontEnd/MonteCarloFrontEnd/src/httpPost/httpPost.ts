@@ -5,7 +5,7 @@ export default class HTTPPost {
     var self = this;
     var api;
 
-    console.log(model);
+    console.log(JSON.stringify(model));
 
     if (asset == 1) {
       api = 'http://localhost:52170/api/';

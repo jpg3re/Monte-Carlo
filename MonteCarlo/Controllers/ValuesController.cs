@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MonteCarlo.Models;
 using MonteCarlo.Models.MathThings;
 using MonteCarlo.Models.MathThings.PDFs;
-
+using MonteCarlo.Models;
+using MonteCarlo.Models.Model;
 namespace MonteCarlo.Controllers
 {
     [Produces("application/json")]
