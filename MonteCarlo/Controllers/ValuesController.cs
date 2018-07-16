@@ -25,7 +25,7 @@ namespace MonteCarlo.Controllers
         public JsonResult Post([FromBody] InputModel value)
         {
           
-            return Json("hi");
+             return Json("hi");
         }
 
         // PUT api/values/5
