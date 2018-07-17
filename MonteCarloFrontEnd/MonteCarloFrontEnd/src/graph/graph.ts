@@ -4,14 +4,11 @@ import { bindable } from "aurelia-framework";
 import { inject } from 'aurelia-framework';
 
 
-@inject(collapse)
 export class Graph {
 
-  collapse;
+  foo: collapse;
 
-  constructor(collapse) {
-    this.collapse = collapse;
-  }
+ 
 
 
   attached() {
@@ -68,7 +65,7 @@ export class Graph {
         'growth': 5113
       }
     ];
-    this.collapse.updateData(data);
+    this.foo.updateData(data);
 
   }
   createChart(inLabels, inData, title) {

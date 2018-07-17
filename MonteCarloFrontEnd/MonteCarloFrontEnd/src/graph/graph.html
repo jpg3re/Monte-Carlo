@@ -10,7 +10,7 @@
       <input class="input" type="text" placeholder="Percentile" value.bind="percentile">
     </div>
   </div>
-   <collapse number="${number}">
+   <collapse number="${number}" view-model.ref="foo">
   <div slot="title">Percentile: ${percentile}</div>
   </collapse> 
 </template>
