@@ -10,15 +10,13 @@ namespace MonteCarlo.Models
 {
     public class Carlo
     {
-        private static Mutex normalMutex = new Mutex();
-        private static Mutex triangleMutex = new Mutex();
-        private static Mutex uniformMutex = new Mutex();
-        public List<List<double>> normalDistribution = new List<List<double>> { };
+        private static Mutex mutex = new Mutex();
+        public List<List<double>> distribution = new List<List<double>> { };
         private double currentValue { get; set; }
         private double expectedReturn { get; set; }
         private double standardDeviation { get; set; }
         private double time { get; set; } //how many days,months, or years
-        private const int trials = 200; //how many trials
+        private const int trials = 10000; //how many trials
         private Ziggurat ziggurat;
 
 
@@ -47,15 +45,14 @@ namespace MonteCarlo.Models
             for (int j = 0; j < time; j++)
             {
                 change = trialValue * ((expectedReturn) + (standardDeviation * (ziggurat.GetRandom())));
-                //trialValue += change;
-                //trial.Add(trialValue);
-                trial.Add(change);
+                trialValue += change;
+                trial.Add(trialValue);
             }
             //trial = trial.Select(x => Math.Round(x, 2)).ToList();
 
-            normalMutex.WaitOne();
-            normalDistribution.Add(trial); //make sure only one thread accesses the list at any given time to record its trial
-            normalMutex.ReleaseMutex();
+            mutex.WaitOne();
+            distribution.Add(trial); //make sure only one thread accesses the list at any given time to record its trial
+            mutex.ReleaseMutex();
         }
     }
 }

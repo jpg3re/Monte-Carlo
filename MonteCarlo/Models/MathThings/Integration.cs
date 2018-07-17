@@ -18,23 +18,5 @@ namespace MonteCarlo.Models.MathThings
             }
             return h * res;
         }
-
-        //private static double even(ProbabilityFunction f, double s, double h, double intervals, double lower)
-        //{
-        //    for (int i = 2; i < intervals - 1; i += 2)
-        //    {
-        //        s += 2 * f(lower + i * h);
-        //    }
-        //    return s;
-        //}
-
-        //private static double odd(ProbabilityFunction f, double s, double h, double intervals, double lower)
-        //{
-        //    for (int i = 1; i < intervals; i += 2)
-        //    {
-        //        s += 4 * f(lower + i * h);
-        //    }
-        //    return s;
-        //}
     }
 }
