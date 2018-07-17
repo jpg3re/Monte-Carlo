@@ -1,14 +1,14 @@
 <template>
 
-    <require from="./collapse.css" rel="stylesheet"></require>
-    <require from="../jack/jack"></require>
+  <require from="./collapse.css" rel="stylesheet"></require>
+  <require from="../jack/jack"></require>
   <div class=leftColumnHeader>
-    <p class="buttons" style="display: inline;" click.delegate="toggle()" id="button${number}">
+    <p class="buttons" style="display: inline;" click.delegate="toggle()" id="button${number}" >
       <a class="button is-small">
-    <span class="icon is-small" id="minus${number}">
+    <span class="icon is-small" style="display:none" id="minus${number}">
      <i class="fas fa-minus"></i>
     </span>
-      <span class="icon is-small" style="display:none" id="plus${number}">
+      <span class="icon is-small"  id="plus${number}">
      <i class="fas fa-plus"></i>
     </span>
   </a>
@@ -18,26 +18,26 @@
     </div>
   </div>
 
-  <div id="text${number}" class=leftColumnText>
+  <div id="text${number}" class=leftColumnText style="display:none">
     <slot name="paragraph">
-        
- <table  class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData" >
+
+      <table class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData">
         <thead>
-        <tr>
+          <tr>
             <th>Year</th>
             <th>Current Amount</th>
             <th>Withdrawal</th>
-            <th>Percentage</th>
-        </tr>
+            <th>Percent Growth</th>
+          </tr>
         </thead>
         <tbody>
-        <tr repeat.for="user of $displayData">
-            <td>${user.name}</td>
-            <td>${user.value}</td>
-            <td>${user.name}</td>
-            <td>${user.value}</td>
-        </tr>
-        </tbody> 
+          <tr repeat.for="user of $displayData">
+            <td>${user.year}</td>
+            <td>${user.amount}</td>
+            <td>${user.withdrawal}</td>
+            <td>${user.growth}</td>
+          </tr>
+        </tbody>
 
     </slot>
   </div>
