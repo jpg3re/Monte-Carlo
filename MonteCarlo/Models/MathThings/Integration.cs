@@ -11,18 +11,30 @@ namespace MonteCarlo.Models.MathThings
         public static double Integrate(ProbabilityFunction f, double lower, double upper, double intervals)
         {
             double h = (upper - lower) / intervals;
-            double s = f(lower) + f(upper);
-
-            for(int i = 1; i < intervals; i += 2)
+            double res = (f(lower) + f(upper)) / 2;
+            for (int i = 1; i < intervals; i++)
             {
-                s += 4 * f(lower + i * h);
+                res += f(lower + i * h);
             }
-            for (int i = 2; i < intervals-1; i += 2)
-            {
-                s += 2 * f(lower + i * h);
-            }
-
-            return (s * h) / 3;
+            return h * res;
         }
+
+        //private static double even(ProbabilityFunction f, double s, double h, double intervals, double lower)
+        //{
+        //    for (int i = 2; i < intervals - 1; i += 2)
+        //    {
+        //        s += 2 * f(lower + i * h);
+        //    }
+        //    return s;
+        //}
+
+        //private static double odd(ProbabilityFunction f, double s, double h, double intervals, double lower)
+        //{
+        //    for (int i = 1; i < intervals; i += 2)
+        //    {
+        //        s += 4 * f(lower + i * h);
+        //    }
+        //    return s;
+        //}
     }
 }

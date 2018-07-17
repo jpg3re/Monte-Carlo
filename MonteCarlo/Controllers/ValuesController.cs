@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MonteCarlo.Models;
 using MonteCarlo.Models.MathThings;
 using MonteCarlo.Models.MathThings.PDFs;
 
@@ -14,9 +15,11 @@ namespace MonteCarlo.Controllers
     {
         // GET api/values
         [HttpGet]
-        public void Get()
+        public JsonResult Get()
         {
-            Ziggurat zigg = new Ziggurat(PDFType.Normal, 9, 1);
+            Ziggurat zigg = new Ziggurat(PDFType.T);
+            Carlo carlo = new Carlo(1000, 0, 1, 2, zigg);
+            return Json(carlo.normalDistribution);
         }
 
         // GET api/values/5
@@ -30,7 +33,7 @@ namespace MonteCarlo.Controllers
         [HttpPost]
         public JsonResult Post([FromBody]string value)
         {
-            return Json("hi");
+            return Json(value);
         }
 
         // PUT api/values/5
