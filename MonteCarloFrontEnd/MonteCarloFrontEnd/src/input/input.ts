@@ -9,16 +9,19 @@ export default class Input {
   asset = new Asset();
   post = new HTTPPost();
 
+  overSelected = 0;
   selected = 0;
   assetTab = 0;
 
-  iterator = 0;
-  assetIterator = 0;
+  stockNames = ["Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities"];
+  bondNames = ["Investment Grade" , "Noninvestment Grade" , "Treasuries"];
+  cashNames = ["CD's" , "Money Market Account" , "Commercial Paper"];
 
   firstAssetName = "Asset 1";
   secondAssetName = "Asset 2";
   thirdAssetName = "Asset 3";
 
+  iterator = 0;
 
   nameHold;
   erHold;
@@ -37,7 +40,7 @@ export default class Input {
     var self = this;
     var element = document.getElementById("pw")
     element.onkeyup = function(event) {
-      self.UpdateAsset(self.selected);
+      self.SaveSubAsset(self.selected);
       self.UpdatePercentages();
     };
   }
@@ -49,11 +52,11 @@ export default class Input {
     this.myPieChart = new Chart(document.getElementById("pie-chart"), {
       type: 'pie',
       data: {
-        labels: ["Remaining","Large Cap", "Small Cap", "US Treasury Bonds", "Corporate Bonds"],
+        labels: ["Remaining" , "Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities" , "Investment Grade" , "Noninvestment Grade" , "Treasuries" , "CD's" , "Money Market Account" , "Commercial Paper"],
         datasets: [{
           label: "Types",
-          backgroundColor: ['#508365','#CEEB81', '#A3D444', '#679E02', '#36691D'],
-          data: [data[0], data[1], data[2], data[3], data[4]]
+          backgroundColor: ['#222222','#CEEB81', '#618D05' , '#A3D444','#FFD536', '#FFE068' , '#FFEA98','#540032', '#820333' , '#C9283E'],
+          data: [data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]]
         }]
       },
       options: {
@@ -70,6 +73,9 @@ export default class Input {
           fontFamily: "Lato",
           fontColor: "#222222",
         },
+        legend : {
+          display: false,
+        },
         tooltips: {
           callbacks: {
             label: function(tooltipItems, data) { 
@@ -81,45 +87,6 @@ export default class Input {
       }
   });
   this.exists = 1;
-  }
-
-  SwitchSelected(number) {
-    var tab;
-    var text;
-
-    var i = 0;
-    while (document.getElementById("tab" + i) != null) {
-      if (i != number) {
-        tab = document.getElementById("tab" + i);
-        text = document.getElementById("text" + i);
-
-        tab.style.backgroundColor = "rgb(170, 201, 171)";
-        text.style.color = "#222222";
-      }
-      i++;
-    }
-
-    tab = document.getElementById("tab" + number);
-    text = document.getElementById("text" + number);
-
-    if (tab != null) {
-      tab.style.backgroundColor = "rgb(86, 150, 87)";
-      text.style.color = "white";
-    }
-
-    if (number < 6) {
-      this.UpdateAsset(this.selected);
-
-      this.selected = number;
-
-      this.UnpackAsset(this.selected);
-    }
-
-    if (number == 10) {
-      this.UpdateAsset(this.selected);
-      this.PushAsset(this.assetTab);
-      this.post.SendData(this.model, 1);
-    }
   }
 
   NewAsset() {
@@ -143,9 +110,9 @@ export default class Input {
       this.assetTab = this.iterator;
   
       this.nameHold = ""
-      this.erHold = "";
-      this.vHold = "";
-      this.pwHold = "";
+      this.erHold = "0";
+      this.vHold = "0";
+      this.pwHold = "0";
     }
     else if (this.iterator == 2) {
       var tab = document.getElementById("assetTab" + this.iterator)
@@ -155,9 +122,9 @@ export default class Input {
       this.assetTab = this.iterator;
   
       this.nameHold = ""
-      this.erHold = "";
-      this.vHold = "";
-      this.pwHold = "";
+      this.erHold = "0";
+      this.vHold = "0";
+      this.pwHold = "0";
       document.getElementById("NewButton").style.display = "none"
     }
     else {
@@ -206,103 +173,285 @@ export default class Input {
     this.assetTab = number;
   }
 
-  UpdatePercentages() {
-    var pwLC = this.asset.largeCap.portfolioWeight;
-    var pwSC = this.asset.smallCap.portfolioWeight; 
-    var pwUST = this.asset.usTreasury.portfolioWeight; 
-    var pwCB = this.asset.corporations.portfolioWeight;
-    var other = 100;
-
-    if(pwLC == undefined) {
-      pwLC = 0;
-    }
-    if(pwSC == undefined) {
-      pwSC = 0;
-    }
-    if(pwUST == undefined) {
-      pwUST = 0;
-    }
-    if(pwCB == undefined) {
-      pwCB = 0;
-    }
-
-    var other = 100 - pwLC - pwSC - pwUST - pwCB
-
-    if (other < 0) {
-      other = 0;
-      document.getElementById("warning").style.display = "block"
-    }
-
-    var data = [other,pwLC,pwSC,pwUST,pwCB]
-    this.PieChart(data)
-  }
-
   PushAsset(number) {
+    this.SwitchOverSelected(0);
     this.asset.name = this.nameHold;
     this.model.assetHolder[number] = this.asset;
   }
 
   SetAsset(number) {
     if(this.model.assetHolder[number] != undefined) {
-      this.SwitchSelected(0)
+      this.SwitchOverSelected(0)
       this.asset = this.model.assetHolder[number];
+      this.UnpackHolders(0);
       this.nameHold = this.asset.name;
-      this.erHold = this.asset.largeCap.expectedReturn;
-      this.vHold = this.asset.largeCap.volatility;
-      this.pwHold = this.asset.largeCap.portfolioWeight;
     }
     else {
-      this.SwitchSelected(0)
+      this.SwitchOverSelected(0)
       this.asset = new Asset();
     }
   }
 
-  UpdateAsset(selected) {
-    if (selected == 0) {
-      this.asset.largeCap.expectedReturn = this.erHold;
-      this.asset.largeCap.volatility = this.vHold;
-      this.asset.largeCap.portfolioWeight = this.pwHold;
+  UpdatePercentages() {
+    var suPW = this.asset.stocks.upper.portfolioWeight;
+    var smPW = this.asset.stocks.mid.portfolioWeight;
+    var slPW = this.asset.stocks.lower.portfolioWeight;
+
+    var buPW = this.asset.bonds.upper.portfolioWeight;
+    var bmPW = this.asset.bonds.mid.portfolioWeight;
+    var blPW = this.asset.bonds.lower.portfolioWeight;
+
+    var cuPW = this.asset.cash.upper.portfolioWeight;
+    var cmPW = this.asset.cash.mid.portfolioWeight;
+    var clPW = this.asset.cash.lower.portfolioWeight;
+
+    var other = 100;
+
+    if(suPW == undefined) {
+      suPW = 0;
     }
-    else if (selected == 1) {
-      this.asset.smallCap.expectedReturn = this.erHold;
-      this.asset.smallCap.volatility = this.vHold;
-      this.asset.smallCap.portfolioWeight = this.pwHold;
+    if(smPW == undefined) {
+      smPW = 0;
     }
-    else if (selected == 2) {
-      this.asset.usTreasury.expectedReturn = this.erHold;
-      this.asset.usTreasury.volatility = this.vHold;
-      this.asset.usTreasury.portfolioWeight = this.pwHold;
+    if(slPW == undefined) {
+      slPW = 0;
     }
-    else {
-      this.asset.corporations.expectedReturn = this.erHold;
-      this.asset.corporations.volatility = this.vHold;
-      this.asset.corporations.portfolioWeight = this.pwHold;
+
+    if(buPW == undefined) {
+      buPW = 0;
+    }
+    if(bmPW == undefined) {
+      bmPW = 0;
+    }
+    if(blPW == undefined) {
+      blPW = 0;
+    }
+
+    if(cuPW == undefined) {
+      cuPW = 0;
+    }
+    if(cmPW == undefined) {
+      cmPW = 0;
+    }
+    if(clPW == undefined) {
+      clPW = 0;
+    }
+
+
+    var other = 100 - suPW - smPW - slPW - buPW - bmPW - blPW - cuPW - cmPW - clPW
+
+    if (other < 0) {
+      other = 0;
+      document.getElementById("warning").style.display = "block"
+    }
+
+    var data = [other , suPW , smPW , slPW , buPW , bmPW , blPW , cuPW , cmPW , clPW]
+    this.PieChart(data)
+  }
+
+  SwitchSelected(number) {
+    this.SaveSubAsset(this.selected);
+    var tab;
+    var text;
+
+    var i = 0;
+    while (document.getElementById("tab" + i) != null) {
+      if (i != number) {
+        tab = document.getElementById("tab" + i);
+        text = document.getElementById("text" + i);
+
+        tab.style.backgroundColor = "rgb(170, 201, 171)";
+        text.style.color = "#222222";
+      }
+      i++;
+    }
+
+    tab = document.getElementById("tab" + number);
+    text = document.getElementById("text" + number);
+
+    if (tab != null) {
+      tab.style.backgroundColor = "rgb(86, 150, 87)";
+      text.style.color = "white";
+    }
+
+    this.selected = number;
+    this.UnpackHolders(number);
+
+    if (number == 10) {
+      this.SaveSubAsset(this.selected);
+      this.PushAsset(this.assetTab);
+      this.post.SendData(this.model, 1);
     }
   }
 
-  UnpackAsset(selected) {
-    if (selected == 0) {
-      this.erHold = this.asset.largeCap.expectedReturn;
-      this.vHold = this.asset.largeCap.volatility;
-      this.pwHold = this.asset.largeCap.portfolioWeight;
+  SwitchOverSelected(number) {
+    this.SwitchSelected(0);
+
+    var tab;
+    var text;
+    var subText;
+
+    var i = 0;
+    while (document.getElementById("overTab" + i) != null) {
+      if (i != number) {
+        tab = document.getElementById("overTab" + i);
+        text = document.getElementById("overText" + i);
+
+        tab.style.backgroundColor = "rgb(170, 201, 171)";
+        text.style.color = "#222222";
+      }
+      i++;
     }
-    else if (selected == 1) {
-      this.erHold = this.asset.smallCap.expectedReturn;
-      this.vHold = this.asset.smallCap.volatility;
-      this.pwHold = this.asset.smallCap.portfolioWeight;
+
+    tab = document.getElementById("overTab" + number);
+    text = document.getElementById("overText" + number);
+
+    if(number == 0) {
+      for (var e = 0; e < 3; e++) {
+        subText = document.getElementById("text" + e)
+        subText.innerHTML = this.stockNames[e];
+      }
     }
-    else if (selected == 2) {
-      this.erHold = this.asset.usTreasury.expectedReturn;
-      this.vHold = this.asset.usTreasury.volatility;
-      this.pwHold = this.asset.usTreasury.portfolioWeight;
+    else if (number == 1) {
+      for (var e = 0; e < 3; e++) {
+        subText = document.getElementById("text" + e)
+        subText.innerHTML = this.bondNames[e];
+      }
     }
-    else {
-      this.erHold = this.asset.corporations.expectedReturn;
-      this.vHold = this.asset.corporations.volatility;
-      this.pwHold = this.asset.corporations.portfolioWeight;
+    else if (number == 2) {
+      for (var e = 0; e < 3; e++) {
+        subText = document.getElementById("text" + e)
+        subText.innerHTML = this.cashNames[e];
+      }
+    }
+
+    if (tab != null) {
+      tab.style.backgroundColor = "rgb(86, 150, 87)";
+      text.style.color = "white";
+    }
+
+    this.overSelected = number;
+    this.UnpackHolders(this.selected);
+  }
+
+  SaveSubAsset(number) {
+    if (number == 0) {
+      if (this.overSelected == 0) {
+        this.asset.stocks.upper.expectedReturn = this.erHold;
+        this.asset.stocks.upper.volatility = this.vHold;
+        this.asset.stocks.upper.portfolioWeight = this.pwHold;
+      }
+      if (this.overSelected == 1) {
+        this.asset.bonds.upper.expectedReturn = this.erHold;
+        this.asset.bonds.upper.volatility = this.vHold;
+        this.asset.bonds.upper.portfolioWeight = this.pwHold;
+      }
+      if (this.overSelected == 2) {
+        this.asset.cash.upper.expectedReturn = this.erHold;
+        this.asset.cash.upper.volatility = this.vHold;
+        this.asset.cash.upper.portfolioWeight = this.pwHold;
+      }
+    }
+    if (number == 1) {
+      if (this.overSelected == 0) {
+        this.asset.stocks.mid.expectedReturn = this.erHold;
+        this.asset.stocks.mid.volatility = this.vHold;
+        this.asset.stocks.mid.portfolioWeight = this.pwHold;
+      }
+      if (this.overSelected == 1) {
+        this.asset.bonds.mid.expectedReturn = this.erHold;
+        this.asset.bonds.mid.volatility = this.vHold;
+        this.asset.bonds.mid.portfolioWeight = this.pwHold;
+      }
+      if (this.overSelected == 2) {
+        this.asset.cash.mid.expectedReturn = this.erHold;
+        this.asset.cash.mid.volatility = this.vHold;
+        this.asset.cash.mid.portfolioWeight = this.pwHold;
+      }
+    }
+    if (number == 2) {
+      if (this.overSelected == 0) {
+        this.asset.stocks.lower.expectedReturn = this.erHold;
+        this.asset.stocks.lower.volatility = this.vHold;
+        this.asset.stocks.lower.portfolioWeight = this.pwHold;
+      }
+      if (this.overSelected == 1) {
+        this.asset.bonds.lower.expectedReturn = this.erHold;
+        this.asset.bonds.lower.volatility = this.vHold;
+        this.asset.bonds.lower.portfolioWeight = this.pwHold;
+      }
+      if (this.overSelected == 2) {
+        this.asset.cash.lower.expectedReturn = this.erHold;
+        this.asset.cash.lower.volatility = this.vHold;
+        this.asset.cash.lower.portfolioWeight = this.pwHold;
+      }
     }
   }
 
+  UnpackHolders(number) {
+    if (number == 0) {
+      if (this.overSelected == 0) {
+        this.erHold = this.asset.stocks.upper.expectedReturn;
+        this.vHold = this.asset.stocks.upper.volatility;
+        this.pwHold = this.asset.stocks.upper.portfolioWeight;
+      }
+      if (this.overSelected == 1) {
+        this.erHold = this.asset.bonds.upper.expectedReturn;
+        this.vHold = this.asset.bonds.upper.volatility;
+        this.pwHold = this.asset.bonds.upper.portfolioWeight;
+      }
+      if (this.overSelected == 2) {
+        this.erHold = this.asset.cash.upper.expectedReturn;
+        this.vHold = this.asset.cash.upper.volatility;
+        this.pwHold = this.asset.cash.upper.portfolioWeight;
+      }
+    }
+    if (number == 1) {
+      if (this.overSelected == 0) {
+        this.erHold = this.asset.stocks.mid.expectedReturn;
+        this.vHold = this.asset.stocks.mid.volatility;
+        this.pwHold = this.asset.stocks.mid.portfolioWeight;
+      }
+      if (this.overSelected == 1) {
+        this.erHold = this.asset.bonds.mid.expectedReturn;
+        this.vHold = this.asset.bonds.mid.volatility;
+        this.pwHold = this.asset.bonds.mid.portfolioWeight;
+      }
+      if (this.overSelected == 2) {
+        this.erHold = this.asset.cash.mid.expectedReturn;
+        this.vHold = this.asset.cash.mid.volatility;
+        this.pwHold = this.asset.cash.mid.portfolioWeight;
+      }
+    }
+    if (number == 2) {
+      if (this.overSelected == 0) {
+        this.erHold = this.asset.stocks.lower.expectedReturn;
+        this.vHold = this.asset.stocks.lower.volatility;
+        this.pwHold = this.asset.stocks.lower.portfolioWeight;
+      }
+      if (this.overSelected == 1) {
+        this.erHold = this.asset.bonds.lower.expectedReturn;
+        this.vHold = this.asset.bonds.lower.volatility;
+        this.pwHold = this.asset.bonds.lower.portfolioWeight;
+      }
+      if (this.overSelected == 2) {
+        this.erHold = this.asset.cash.lower.expectedReturn;
+        this.vHold = this.asset.cash.lower.volatility;
+        this.pwHold = this.asset.cash.lower.portfolioWeight;
+      }
+    }
+  }
+
+  SaveAsset(number) {
+
+  }
+
+  Finish() {
+
+  }
+
+
+  
   Hide(element) {
     document.getElementById(element).style.display = "none";
   }

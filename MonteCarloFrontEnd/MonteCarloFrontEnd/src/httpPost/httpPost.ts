@@ -8,7 +8,8 @@ export default class HTTPPost {
     console.log(JSON.stringify(model));
 
     if (asset == 1) {
-      api = 'http://localhost:52170/api/1';
+      api = 'http://localhost:52170/api/';
+      model = model[0];
     }
     else if (asset == 2) {
       api = 'http://localhost:52170/api/2';
@@ -22,7 +23,7 @@ export default class HTTPPost {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=utf-8'
         },
         body: JSON.stringify(model)
       });
