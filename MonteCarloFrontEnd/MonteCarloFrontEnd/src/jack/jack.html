@@ -1,21 +1,22 @@
 <template>
-  <require from="./jack.css"></require>
-    <table class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData" >
-        <thead>
-        <tr>
-            <th>Year</th>
-            <th>Current Amount</th>
-            <th>Withdrawal</th>
-            <th>Percentage</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr repeat.for="user of $displayData">
-            <td>${user.name}</td>
-            <td>${user.value}</td>
-            <td>${user.name}</td>
-            <td>${user.value}</td>
-        </tr>
-        </tbody>
-    </table>
+  <require from="../graph/graph"></require>
+  <require from="../collapse/collapse"></require>
+  <require from="./jack.css" rel="stylesheet"></require>
+  <div class=title>Jack's results page</div>
+
+
+  <div class="columns">
+    <div class="column">
+      <graph number=0 title="graph0"></graph>
+      <graph number=1 title="graph1"></graph>
+      <graph number=2 title="graph2"></graph>
+    </div>
+    <div class="column">
+      <graph number=3 title="graph3"></graph>
+      <graph number=4 title="graph4"></graph>
+      <graph number=5 title="graph5"></graph>
+    </div>
+  </div>
+
+
 </template>

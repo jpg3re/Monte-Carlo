@@ -1,8 +1,5 @@
-.table.is-hoverable12 tbody tr:not(.is-selected):hover {
-  background-color: green;
-}
-
-.table.is-hoverable12.is-striped tbody tr:not(.is-selected):hover {
-  background-color: rgb(86, 150, 87); 
-  color:white;
+.title{
+   position: relative;
+   color: palevioletred;
+   text-align: center;
 }

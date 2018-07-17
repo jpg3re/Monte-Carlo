@@ -10,34 +10,40 @@ using MonteCarlo.Models.MathThings.PDFs;
 namespace MonteCarlo.Controllers
 {
     [Produces("application/json")]
-    [Route("api/1")]
+    [Route("api/")]
     public class ValuesController : Controller
     {
-        // GET api/values
-        [HttpGet]
-        public void Get()
+        private double initialAmount = 1000;
+        private double mean = 0.09;
+        private double std = 0.14;
+        private double years = 20;
+
+        [HttpGet("t")]
+        public JsonResult GetT()
         {
-            Ziggurat zigg = new Ziggurat(PDFType.Normal, 9, 1);
+            Carlo carlo = new Carlo(initialAmount, mean, std, years, Startup.tZigg);
+            return Json(carlo.distribution);
+        }
+
+        [HttpGet("normal")]
+        public JsonResult GetNormal()
+        {
+            Carlo carlo = new Carlo(initialAmount, mean, std, years, Startup.normalZigg);
+            return Json(carlo.distribution);
+        }
+
+        [HttpGet("leplace")]
+        public JsonResult GetLeplace()
+        {
+            Carlo carlo = new Carlo(initialAmount, mean, std, years, Startup.leplaceZigg);
+            return Json(carlo.distribution);
         }
 
         // POST api/values
         [HttpPost]
-        public JsonResult Post([FromBody] InputModel value)
+        public JsonResult Post([FromBody]string value)
         {
-          
-            return Json("hi");
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Json(value);
         }
     }
 }

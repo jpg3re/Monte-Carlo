@@ -1,19 +1,28 @@
 
 .leftColumnText{
   position: relative;
+    left: 30px;
     max-width: 600px;
     min-width: 100px;
     background-color: white;
 }
   .leftColumnHeader{
+    left: 30px;
    max-width: 600px;
     min-width: 600px;
    -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-    background-color: #92efd9;
+    background-color: #D3D3D3;
     position: relative;
     color:#222222;
   }
+.table.is-hoverable12 tbody tr:not(.is-selected):hover {
+  background-color: rgb(86, 150, 87);
+}
 
+.table.is-hoverable12.is-striped tbody tr:not(.is-selected):hover {
+  background-color: #D3D3D3; 
+  color:white;
+}
  

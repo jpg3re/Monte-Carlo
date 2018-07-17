@@ -8,14 +8,23 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MonteCarlo.Models.MathThings;
+using MonteCarlo.Models.MathThings.PDFs;
 
 namespace MonteCarlo
 {
     public class Startup
     {
+        public static Ziggurat normalZigg;
+        public static Ziggurat leplaceZigg;
+        public static Ziggurat tZigg;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            normalZigg = new Ziggurat(PDFType.Normal);
+            leplaceZigg = new Ziggurat(PDFType.Laplace);
+            tZigg = new Ziggurat(PDFType.T);
         }
 
         public IConfiguration Configuration { get; }
