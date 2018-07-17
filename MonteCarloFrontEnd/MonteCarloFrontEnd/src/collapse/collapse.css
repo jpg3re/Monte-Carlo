@@ -19,5 +19,12 @@ border-radius: 5px;
     position: relative;
     color:#222222;
   }
+.table.is-hoverable12 tbody tr:not(.is-selected):hover {
+  background-color: rgb(86, 150, 87);
+}
 
+.table.is-hoverable12.is-striped tbody tr:not(.is-selected):hover {
+  background-color: #D3D3D3; 
+  color:white;
+}
  

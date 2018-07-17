@@ -1,5 +1,4 @@
 import { bindable } from "aurelia-framework";
-
 export class collapse {
 
 users = [

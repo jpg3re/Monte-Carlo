@@ -12,7 +12,6 @@ export function configure(aurelia: Aurelia) {
   aurelia.use
     .standardConfiguration()
     .plugin(PLATFORM.moduleName('au-table'))
-   // .plugin(PLATFORM.moduleName('chart.js'))
     .feature(PLATFORM.moduleName('resources/index'));
 
   // Uncomment the line below to enable animation.
