@@ -11,4 +11,5 @@ export default class Asset {
   addPerYear: number;
   yearsOfAdd: number;
   yearsOfWith: number;
+  withPerYear: number;
 }

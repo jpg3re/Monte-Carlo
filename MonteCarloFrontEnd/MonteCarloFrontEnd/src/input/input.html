@@ -39,46 +39,55 @@
 
       <div class="notification" style="background-color:white;height:100vh;" id="generalBody">
         <div class="message-header" style="background-color:white">
-          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Asset Name:</span>
+          <span style="font-size: 2vh; font-family:Lato;color:#222222">Asset Name:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="401(k)" value.bind="nameHold" style="width:50%">
+          <input class="input" placeholder="401(k)" value.bind="nameHold" style="width:50%">
           <span class="icon is-medium is-left">
             <i class="fas fa-briefcase"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
-          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Current Amount:</span>
+          <span style="font-size: 2vh; font-family:Lato;color:#222222">Current Amount:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="60000" value.bind="asset.currAmount" style="width:50%">
+          <input class="input" placeholder="60000" value.bind="asset.currAmount" style="width:50%">
           <span class="icon is-medium is-left">
             <i class="fas fa-dollar-sign"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
-          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Additions Per Year:</span>
+          <span style="font-size: 2vh; font-family:Lato;color:#222222">Additions Per Year:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="5000" value.bind="asset.addPerYear" style="width:50%">
+          <input class="input" placeholder="5000" value.bind="asset.addPerYear" style="width:50%">
           <span class="icon is-medium is-left">
             <i class="fas fa-hand-holding-usd"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
-          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Years of Additions:</span>
+          <span style="font-size: 2vh; font-family:Lato;color:#222222">Years of Additions:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="30" value.bind="asset.yearsOfAdd" style="width:50%">
+          <input class="input" placeholder="30" value.bind="asset.yearsOfAdd" style="width:50%">
           <span class="icon is-medium is-left">
             <i class="fas fa-calendar-plus"></i>
           </span>
         </div>
         <div class="message-header" style="background-color:white">
-          <span style="font-size: 2.25vh; font-family:Lato;color:#222222">Years of Withdrawls:</span>
+          <span style="font-size: 2vh; font-family:Lato;color:#222222">Years of Withdrawls:</span>
         </div>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-large" placeholder="20" value.bind="asset.yearsOfWith" style="width:50%">
+          <input class="input" placeholder="20" value.bind="asset.yearsOfWith" style="width:50%">
+          <span class="icon is-medium is-left">
+            <i class="fas fa-calendar-minus"></i>
+          </span>
+        </div>
+        <div class="message-header" style="background-color:white">
+          <span style="font-size: 2vh; font-family:Lato;color:#222222">Withdrawls per Year:</span>
+        </div>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" placeholder="50000" value.bind="asset.withPerYear" style="width:50%">
           <span class="icon is-medium is-left">
             <i class="fas fa-calendar-minus"></i>
           </span>
