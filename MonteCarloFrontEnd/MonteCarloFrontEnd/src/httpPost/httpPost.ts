@@ -9,7 +9,6 @@ export default class HTTPPost {
 
     if (asset == 1) {
       api = 'http://localhost:52170/api/';
-      model = model[0];
     }
     else if (asset == 2) {
       api = 'http://localhost:52170/api/2';
