@@ -1,5 +1,6 @@
 ﻿using MonteCarlo.Models.MathThings;
 using MonteCarlo.Models.MathThings.PDFs;
+using MonteCarlo.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,59 +10,127 @@ namespace MonteCarlo.Models.MathThings
 {
     public class Ziggurat
     {
-        public int numberOfBlocks = 256;
-        public double[] x = new double[256];
-        public double[] y = new double[256];
-        public double area;
-        public double mean;
-        public double std;
-        public double t; //tail area
-        public ProbabilityFunction pFunc;
-        public PDF pdf;
+        private const int numberOfBlocks = 256;
+        private double[] x = new double[256];
+        private double[] y = new double[256];
+        private double t; //tail area
+        private ProbabilityFunction pFunc;
+        private PDF pdf;
         private int iterations = 10000;
+        private double lowerBound;
+        private double upperBound;
+        private double guess;
+        private double tailBound;
 
-        public Ziggurat(PDFType pdfType, double mean, double std)
+        public Ziggurat(PDFType pdfType)
         {
-            pdf = new PDF(mean, std);
+            pdf = new PDF(0, 1);
 
             switch (pdfType)
             {
                 case PDFType.Normal:
                     pFunc = pdf.NormalPDF;
+                    lowerBound = 0;
+                    upperBound = 0x100000000;
+                    guess = 3.56;
+                    tailBound = 6;
+                    break;
+                case PDFType.Laplace:
+                    pFunc = pdf.LaplacePDF;
+                    lowerBound = 0;
+                    upperBound = 5000;
+                    guess = 10;
+                    tailBound = 15;
+                    break;
+                case PDFType.T:
+                    pFunc = pdf.TPDF;
+                    lowerBound = 0;
+                    upperBound = Int16.MaxValue;
+                    guess = 4;
+                    tailBound = 6;
                     break;
             }
-            this.mean = mean;
-            this.std = std;
             GenerateZigTable();
         }
 
         public void GenerateZigTable()
         {
-            Console.WriteLine(RootFinder.FindRoot(guess =>
-            {
-                double area;
-                double sanityCheck;
-                x[0] = guess; //guess
+            double area;
+            double sanityCheck = pFunc(0);
 
-                sanityCheck = pFunc(0);
-                t = Integration.Integrate(pFunc, x[0], (5 * std), iterations);
+            RootFinder.FindGuess(guess =>
+            {
+                x[0] = guess;
+                t = Integration.Integrate(pFunc, x[0], tailBound, iterations);
                 y[0] = pFunc(x[0]);
                 area = x[0] * y[0] + t;
                 for (int i = 0; i < numberOfBlocks - 1; i++)
                 {
                     y[i + 1] = y[i] + (area / x[i]);
-                    x[i + 1] = RootFinder.FindRoot(x => pFunc(x) - y[i + 1], 3.5);
+                    x[i + 1] = RootFinder.Root(x => { return (pFunc(x) - y[i + 1]); }, lowerBound, upperBound);
                 }
-                return (y[numberOfBlocks - 1] - sanityCheck);
-            }, 3.5));
+                return (y[numberOfBlocks - 1]);
+            }, guess, sanityCheck);
+
         }
 
-        public void FindArea()
+        public double GetRandom()
         {
-            for (int i = 0; i < numberOfBlocks; i++)
+            int block = SafeRandom.NextInt(0, numberOfBlocks - 1);
+            if (block == 0)
             {
-
+                return TailFallback();
             }
+            double xRand = SafeRandom.NextDouble();
+            double yRand = SafeRandom.NextDouble();
+            int flip = SafeRandom.NextInt(0, 2);
+
+            double xVal = xRand * x[block];
+
+            if (xVal < x[block + 1])
+            {
+                if (flip == 1)
+                {
+                    xVal = -xVal;
+                }
+                return xVal;
+            }
+
+            double yVal = y[block] + (yRand * (y[block + 1] - y[block]));
+
+            if (yVal < pFunc(xVal))
+            {
+                if (flip == 1)
+                {
+                    xVal = -xVal;
+                }
+                return xVal;
+            }
+            return GetRandom();
+        }
+
+        public double TailFallback()
+        {
+            double xRand = SafeRandom.NextDouble();
+            double yRand = SafeRandom.NextDouble();
+
+            double xVal = -Math.Log(xRand) / x[0];
+            double yVal = -Math.Log(yRand);
+            int flip = SafeRandom.NextInt(0, 2);
+
+            if ((2 * yVal) > Math.Pow(xVal, 2))
+            {
+                if (flip == 1)
+                {
+                    xVal = -xVal - x[0];
+                }
+                else
+                {
+                    xVal += x[0];
+                }
+                return xVal;
+            }
+            return TailFallback();
         }
     }
 }

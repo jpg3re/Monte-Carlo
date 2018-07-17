@@ -20,14 +20,44 @@ namespace MonteCarlo.Models.MathThings.PDFs
         {
             double variance = Math.Pow(std, 2);
             double y;
-            y = (1 / (Math.Sqrt(2 * Math.PI * variance))) * (Math.Exp(-1 * ((Math.Pow((x - mean),2)) / (2 * variance))));
+            y = (1.0 / (Math.Sqrt(2.0 * Math.PI * variance))) * (Math.Exp(-1.0 * ((Math.Pow((x - mean), 2)) / (2.0 * variance))));
             return y;
+        }
+
+        public double LaplacePDF(double x)
+        {
+            double y;
+            y = (1.0 / 2.0) * Math.Exp(-1 * x);
+            return y;
+        }
+
+        public double TPDF(double x)
+        {
+            double y;
+            //y = (1.0 / 2.0) + (Math.Atan(x) / Math.PI);
+            //y = (1.0 / 2.0) + (x / (2 * Math.Sqrt(2 + Math.Pow(x, 2))));
+            
+            y = (1 / (Math.PI * 2)) * (4 / (Math.Pow(x, 2) + 4)); //cauchy
+            return y;
+        }
+
+        private double Factorial(double x)
+        {
+            double result = 1;
+            while (x != 1)
+            {
+                result = result * x;
+                x = x - 1;
+            }
+            return result;
         }
     }
     public delegate double ProbabilityFunction(double x);
 
     public enum PDFType
     {
-        Normal
+        Normal,
+        Laplace,
+        T
     }
 }
