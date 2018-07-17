@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using MonteCarlo.Models;
 using MonteCarlo.Models.MathThings;
 using MonteCarlo.Models.MathThings.PDFs;
+using MonteCarlo.Models.Model;
 
 namespace MonteCarlo.Controllers
 {
@@ -41,7 +42,7 @@ namespace MonteCarlo.Controllers
 
         // POST api/values
         [HttpPost]
-        public JsonResult Post([FromBody]string value)
+        public JsonResult Post([FromBody]InputModel value)
         {
             return Json(value);
         }

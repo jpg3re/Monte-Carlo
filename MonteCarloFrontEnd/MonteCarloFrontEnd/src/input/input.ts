@@ -24,9 +24,9 @@ export default class Input {
   iterator = 0;
 
   nameHold;
-  erHold;
-  vHold;
-  pwHold;
+  erHold=0;
+  vHold=0;
+  pwHold=0;
 
   myPieChart;
   exists = 0;
@@ -110,9 +110,9 @@ export default class Input {
       this.assetTab = this.iterator;
   
       this.nameHold = ""
-      this.erHold = "0";
-      this.vHold = "0";
-      this.pwHold = "0";
+      this.erHold = 0;
+      this.vHold = 0;
+      this.pwHold = 0;
     }
     else if (this.iterator == 2) {
       var tab = document.getElementById("assetTab" + this.iterator)
@@ -122,9 +122,9 @@ export default class Input {
       this.assetTab = this.iterator;
   
       this.nameHold = ""
-      this.erHold = "0";
-      this.vHold = "0";
-      this.pwHold = "0";
+      this.erHold = 0;
+      this.vHold = 0;
+      this.pwHold = 0;
       document.getElementById("NewButton").style.display = "none"
     }
     else {

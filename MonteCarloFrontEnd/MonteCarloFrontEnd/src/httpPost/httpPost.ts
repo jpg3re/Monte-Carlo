@@ -23,11 +23,13 @@ export default class HTTPPost {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json; charset=utf-8'
+          'Content-Type': 'application/json; charset=utf-8',
+          'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify(model)
       });
       self.results = await response.json();
+      console.log(self.results)
     }
 
     var Redirect = () => {
