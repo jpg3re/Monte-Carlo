@@ -42,7 +42,6 @@ export class collapse {
   }
   updateData(data) {
     this.users = data;
-    console.log(this)
-    console.log(this.users);
+    
   }
 }

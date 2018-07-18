@@ -1,5 +1,7 @@
-export default class Results {
+import {Jack} from "../jack/jack"
 
+export default class Results {
+  tab:Jack;
   attached() {
     var results = JSON.parse(localStorage.getItem('results'));
     console.log(results);

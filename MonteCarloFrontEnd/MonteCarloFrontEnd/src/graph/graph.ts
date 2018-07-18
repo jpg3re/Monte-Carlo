@@ -10,12 +10,12 @@ export class Graph {
   @bindable title;
   @bindable number;
   @bindable percentile;
-  @bindable currentPercentile=10;
+  @bindable currentPercentile = 10;
   currentTableData;
 
   distribution = [
     {
-      amount: [0, 1, 2, 3, 4, 5, 6],
+      amount: [600, 1, 2, 3, 4, 5, 6],
       withdrawal: [0, 2, 3, 2, 3, 2, 3],
       growth: [0, 2, 0, 0, 2, 1, 8]
     },
@@ -61,57 +61,17 @@ export class Graph {
     }
   ];
 
+
   attached() {
     var labels = [];
     for (var i = 0; i < this.distribution[0].amount.length; i++) {
       labels.push(+2018 + +i);
     }
-    var data0 = [];
+    var data = [];
     for (var i = 0; i < 9; i++) {
-      data0.push(this.distribution[i].amount);
+      data.push(this.distribution[i].amount);
     }
-
-    var data1 = [];
-    for (var i = 0; i < 9; i++) {
-      data1.push(this.distribution[i].amount);
-    }
-    var data2 = [];
-    for (var i = 0; i < 9; i++) {
-      data2.push(this.distribution[i].amount);
-    }
-    var data3 = [];
-    for (var i = 0; i < 9; i++) {
-      data3.push(this.distribution[i].amount);
-    }
-    var data4 = [];
-    for (var i = 0; i < 9; i++) {
-      data4.push(this.distribution[i].amount);
-    }
-    var data5 = [];
-    for (var i = 0; i < 9; i++) {
-      data5.push(this.distribution[i].amount);
-    }
-
-    if (this.number == 0) {
-      this.createChart(labels, data0, this.title);
-    }
-    if (this.number == 1) {
-      this.createChart(labels, data1, this.title);
-    }
-    if (this.number == 2) {
-      this.createChart(labels, data2, this.title);
-    }
-    if (this.number == 3) {
-      this.createChart(labels, data3, this.title);
-    }
-    if (this.number == 4) {
-      this.createChart(labels, data4, this.title);
-    }
-    if (this.number == 5) {
-      this.createChart(labels, data5, this.title);
-    }
-    
-
+    this.createChart(labels, data, this.title);
     this.displayData(this.currentPercentile);
   }
 
@@ -131,12 +91,9 @@ export class Graph {
         }
     }
     this.currentTableData = newTableData;
-
   }
   displayData(percentile) {
-    console.log(percentile);
-    this.currentPercentile=percentile;
-    console.log(Math.floor(Math.floor((+percentile - +1) / +10)));
+    this.currentPercentile = percentile;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
   }
@@ -172,5 +129,9 @@ export class Graph {
       data: data,
       options: options
     });
+  }
+
+  inputData(distribution) {
+    this.distribution = distribution;
   }
 }
