@@ -1,7 +1,7 @@
-import {Jack} from "../jack/jack"
+import {Asset} from "../asset/asset"
 
 export default class Results {
-  tab:Jack;
+  tab:Asset;
   attached() {
     var results = JSON.parse(localStorage.getItem('results'));
     console.log(results);

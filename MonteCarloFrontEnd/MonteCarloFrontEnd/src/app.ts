@@ -12,7 +12,6 @@ export default class App {
       { route: 'input', name: 'input', moduleId: PLATFORM.moduleName('./input/input'), nav: true, title: 'About Client' },
       { route: 'results', name: 'results', moduleId: PLATFORM.moduleName('./results/results'), nav: true, title: 'Results' },
       { route: 'portfolio', name: 'portfolio', moduleId: PLATFORM.moduleName('./portfolio/portfolio'), nav: true, title: 'Portfolio' },
-      { route: 'jack', name: 'jack', moduleId: PLATFORM.moduleName('./jack/jack'), nav: true, title: 'jack'}, 
     ]);
     this.router = router;
   }
