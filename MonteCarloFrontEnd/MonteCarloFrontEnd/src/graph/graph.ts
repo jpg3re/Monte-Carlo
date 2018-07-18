@@ -10,7 +10,7 @@ export class Graph {
   @bindable title;
   @bindable number;
   @bindable percentile;
-
+  @bindable currentPercentile=10;
   currentTableData;
 
   distribution = [
@@ -110,6 +110,9 @@ export class Graph {
     if (this.number == 5) {
       this.createChart(labels, data5, this.title);
     }
+    
+
+    this.displayData(this.currentPercentile);
   }
 
   selectPercentileData(percentile) {
@@ -117,7 +120,7 @@ export class Graph {
   }
 
   constructTableData(amount, withdrawal, growth) {
-    var newTableData=[];
+    var newTableData = [];
     for (var i = 0; i < amount.length; i++) {
       newTableData[i] =
         {
@@ -132,8 +135,9 @@ export class Graph {
   }
   displayData(percentile) {
     console.log(percentile);
-    console.log(Math.floor(Math.floor((+percentile- +1)/ +10)));
-    this.selectPercentileData(Math.floor((+percentile- +1)/ +10));
+    this.currentPercentile=percentile;
+    console.log(Math.floor(Math.floor((+percentile - +1) / +10)));
+    this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
   }
 
