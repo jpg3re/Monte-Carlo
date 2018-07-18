@@ -6,21 +6,91 @@ import { inject } from 'aurelia-framework';
 
 export class Graph {
 
-  foo: collapse;
+  table: collapse;
+  @bindable title;
+  @bindable number;
+  @bindable percentile;
 
- 
+  currentTableData;
 
+  distribution = [
+    {
+      amount: [0, 1, 2, 3, 4, 5, 6],
+      withdrawal: [0, 2, 3, 2, 3, 2, 3],
+      growth: [0, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [7, 8, 9, 10, 11, 12, 13],
+      withdrawal: [1, 2, 3, 2, 3, 2, 3],
+      growth: [1, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [14, 15, 16, 17, 18, 19, 20],
+      withdrawal: [2, 2, 3, 2, 3, 2, 3],
+      growth: [2, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [21, 22, 23, 24, 25, 26, 27],
+      withdrawal: [3, 2, 3, 2, 3, 2, 3],
+      growth: [3, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [28, 29, 30, 31, 32, 33, 34],
+      withdrawal: [4, 2, 3, 2, 3, 2, 3],
+      growth: [4, 2, 0, 0, 2, 1, 8],
+    },
+    {
+      amount: [30, 220, 239, 247, 251, 262, 272],
+      withdrawal: [3, 2, 3, 2, 3, 2, 3],
+      growth: [3, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [31, 222, 123, 204, 825, 226, 27],
+      withdrawal: [3, 2, 3, 2, 3, 2, 3],
+      growth: [3, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [32, 100, 200, 214, 325, 26, 27],
+      withdrawal: [3, 2, 3, 2, 3, 2, 3],
+      growth: [3, 2, 0, 0, 2, 1, 8]
+    },
+    {
+      amount: [33, 22, 23, 24, 25, 26, 27],
+      withdrawal: [3, 2, 3, 2, 3, 2, 3],
+      growth: [3, 2, 0, 0, 2, 1, 8]
+    }
+  ];
 
   attached() {
-    var labels = [1, 2, 3, 4, 5];
-    var data0 = [[2, 3, 4, 5, 6], [1, 2, 7, 1, 5], [2, 1, 4, 8, 2], [7, 1, 0, 3, 2]];
-    var data1 = [[2, 3, 4, 5, 6], [1, 2, 7, 1, 5]];
-    var data2 = [[1, 2, 7, 1, 5], [2, 1, 4, 8, 2], [7, 1, 0, 3, 2]];
-    var data3 = [[1, 2, 7, 1, 5], [2, 1, 4, 8, 2], [7, 1, 0, 3, 2]];
-    var data4 = [[1, 2, 7, 1, 5], [2, 1, 4, 8, 2], [7, 1, 0, 3, 2]];
-    var data5 = [[1, 2, 7, 1, 5], [2, 1, 4, 8, 2], [7, 1, 0, 3, 2]];
+    var labels = [];
+    for (var i = 0; i < this.distribution[0].amount.length; i++) {
+      labels.push(+2018 + +i);
+    }
+    var data0 = [];
+    for (var i = 0; i < 9; i++) {
+      data0.push(this.distribution[i].amount);
+    }
 
-
+    var data1 = [];
+    for (var i = 0; i < 9; i++) {
+      data1.push(this.distribution[i].amount);
+    }
+    var data2 = [];
+    for (var i = 0; i < 9; i++) {
+      data2.push(this.distribution[i].amount);
+    }
+    var data3 = [];
+    for (var i = 0; i < 9; i++) {
+      data3.push(this.distribution[i].amount);
+    }
+    var data4 = [];
+    for (var i = 0; i < 9; i++) {
+      data4.push(this.distribution[i].amount);
+    }
+    var data5 = [];
+    for (var i = 0; i < 9; i++) {
+      data5.push(this.distribution[i].amount);
+    }
 
     if (this.number == 0) {
       this.createChart(labels, data0, this.title);
@@ -41,33 +111,32 @@ export class Graph {
       this.createChart(labels, data5, this.title);
     }
   }
-  @bindable title;
-  @bindable number;
-  @bindable percentile;
-  displayData() {
-    var data = [
-      {
-        'year': 4111,
-        'amount': 11111,
-        'withdrawal': 1411,
-        'growth': 2511
-      },
-      {
-        'year': 4311,
-        'amount': 5111,
-        'withdrawal': 441,
-        'growth': 115
-      },
-      {
-        'year': 4412,
-        'amount': 5111,
-        'withdrawal': 4111,
-        'growth': 5113
-      }
-    ];
-    this.foo.updateData(data);
+
+  selectPercentileData(percentile) {
+    this.constructTableData(this.distribution[percentile].amount, this.distribution[percentile].withdrawal, this.distribution[percentile].growth);
+  }
+
+  constructTableData(amount, withdrawal, growth) {
+    var newTableData=[];
+    for (var i = 0; i < amount.length; i++) {
+      newTableData[i] =
+        {
+          'year': +2018 + +i,
+          'amount': amount[i],
+          'withdrawal': withdrawal[i],
+          'growth': growth[i]
+        }
+    }
+    this.currentTableData = newTableData;
 
   }
+  displayData(percentile) {
+    console.log(percentile);
+    console.log(Math.floor(Math.floor((+percentile- +1)/ +10)));
+    this.selectPercentileData(Math.floor((+percentile- +1)/ +10));
+    this.table.updateData(this.currentTableData);
+  }
+
   createChart(inLabels, inData, title) {
     var tempData = [];
     for (var i = 0; i < inData.length; i++) {

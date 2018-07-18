@@ -1,16 +1,19 @@
 <template>
  <require from="../collapse/collapse"></require>
   <div>
-    <canvas style="width:512px ; height:256px" id="myChart${number}" click.delegate="display()"></canvas>
+    <canvas style="width:512px ; height:256px" id="myChart${number}" ></canvas>
   </div>
-  <a class="button" click.delegate="displayData()">Normal</a>
+  <!-- <a class="button" click.delegate="displayData(percentile)">Normal</a>
   <div class="field">
     <label class="label">Name</label>
     <div class="control">
       <input class="input" type="text" placeholder="Percentile" value.bind="percentile">
     </div>
-  </div>
-   <collapse number="${number}" view-model.ref="foo">
+  </div> -->
+  Select Percentile: 
+  <input type="number" name="quantity" min="10" max="90" step="10" value.bind="percentile">
+  <input type="submit" click.delegate="displayData(percentile)">
+   <collapse number="${number}" view-model.ref="table">
   <div slot="title">Percentile: ${percentile}</div>
   </collapse> 
 </template>

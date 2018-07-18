@@ -1,5 +1,5 @@
-import { bindable,inject } from "aurelia-framework";
-export  class collapse {
+import { bindable, inject } from "aurelia-framework";
+export class collapse {
 
   users = [
     {
@@ -39,35 +39,10 @@ export  class collapse {
       plus.style.display = "block"
       minus.style.display = "none"
     }
-    var data = [
-      {
-        'year': 4111,
-        'amount': 11111,
-        'withdrawal': 1411,
-        'growth': 2511
-      },
-      {
-        'year': 4311,
-        'amount': 5111,
-        'withdrawal': 441,
-        'growth': 115
-      },
-      {
-        'year': 4412,
-        'amount': 5111,
-        'withdrawal': 4111,
-        'growth': 5113
-      }
-    ];
-    // var self = this;
-    // setTimeout(function(){ 
-    //   self.updateData(data);
-    // }, 5000);  
-    
   }
- updateData(data) {
- this.users=data;
- console.log(this)
- console.log(this.users);
+  updateData(data) {
+    this.users = data;
+    console.log(this)
+    console.log(this.users);
   }
 }
