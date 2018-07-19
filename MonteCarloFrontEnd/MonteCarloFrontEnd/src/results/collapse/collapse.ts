@@ -1,26 +1,7 @@
 import { bindable, inject } from "aurelia-framework";
 export class collapse {
 
-  users = [
-    {
-      'year': 4,
-      'amount': 1,
-      'withdrawal': 14,
-      'growth': 25
-    },
-    {
-      'year': 43,
-      'amount': 51,
-      'withdrawal': 44,
-      'growth': 15
-    },
-    {
-      'year': 442,
-      'amount': 51,
-      'withdrawal': 41,
-      'growth': 53
-    }
-  ];
+  users = [];
 
 
   @bindable number;

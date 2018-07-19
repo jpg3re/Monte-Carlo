@@ -13,59 +13,13 @@ export class Graph {
   @bindable currentPercentile = 10;
   currentTableData;
 
-  distribution = [
-    {
-      amount: [600, 1, 2, 3, 4, 5, 6],
-      withdrawal: [0, 2, 3, 2, 3, 2, 3],
-      growth: [0, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [7, 8, 9, 10, 11, 12, 13],
-      withdrawal: [1, 2, 3, 2, 3, 2, 3],
-      growth: [1, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [14, 15, 16, 17, 18, 19, 20],
-      withdrawal: [2, 2, 3, 2, 3, 2, 3],
-      growth: [2, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [21, 22, 23, 24, 25, 26, 27],
-      withdrawal: [3, 2, 3, 2, 3, 2, 3],
-      growth: [3, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [28, 29, 30, 31, 32, 33, 34],
-      withdrawal: [4, 2, 3, 2, 3, 2, 3],
-      growth: [4, 2, 0, 0, 2, 1, 8],
-    },
-    {
-      amount: [30, 220, 239, 247, 251, 262, 272],
-      withdrawal: [3, 2, 3, 2, 3, 2, 3],
-      growth: [3, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [31, 222, 123, 204, 825, 226, 27],
-      withdrawal: [3, 2, 3, 2, 3, 2, 3],
-      growth: [3, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [32, 100, 200, 214, 325, 26, 27],
-      withdrawal: [3, 2, 3, 2, 3, 2, 3],
-      growth: [3, 2, 0, 0, 2, 1, 8]
-    },
-    {
-      amount: [33, 22, 23, 24, 25, 26, 27],
-      withdrawal: [3, 2, 3, 2, 3, 2, 3],
-      growth: [3, 2, 0, 0, 2, 1, 8]
-    }
-  ];
+  distribution;
 
-
-  attached() {
+  populateGraph() {
     var labels = [];
+    var year =(new Date()).getFullYear();
     for (var i = 0; i < this.distribution[0].amount.length; i++) {
-      labels.push(+2018 + +i);
+      labels.push(+year + +i);
     }
     var data = [];
     for (var i = 0; i < 9; i++) {
@@ -81,10 +35,11 @@ export class Graph {
 
   constructTableData(amount, withdrawal, growth) {
     var newTableData = [];
+     var year =(new Date()).getFullYear();
     for (var i = 0; i < amount.length; i++) {
       newTableData[i] =
         {
-          'year': +2018 + +i,
+          'year': +year + +i,
           'amount': amount[i],
           'withdrawal': withdrawal[i],
           'growth': growth[i]
@@ -93,7 +48,7 @@ export class Graph {
     this.currentTableData = newTableData;
   }
   displayData(percentile) {
-    this.currentPercentile = percentile;
+    this.currentPercentile = Math.floor((+percentile) / +10)* +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
   }
@@ -133,5 +88,6 @@ export class Graph {
 
   inputData(distribution) {
     this.distribution = distribution;
+    this.populateGraph();
   }
 }
