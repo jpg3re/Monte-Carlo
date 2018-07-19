@@ -1,14 +1,12 @@
-﻿using System;
+﻿using MonteCarlo.Models.Model.UpperMidLower;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MonteCarlo.Models.Model
 {
-    public class Lower
+    public class Lower : Breakdown
     {
-        public double number { get; set; }
-        public double volatility { get; set; }
-        public double portfolioWeight { get; set; }
     }
 }

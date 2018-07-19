@@ -16,14 +16,14 @@ namespace MonteCarlo
     public class Startup
     {
         public static Ziggurat normalZigg;
-        public static Ziggurat leplaceZigg;
+        public static Ziggurat laplaceZigg;
         public static Ziggurat tZigg;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             normalZigg = new Ziggurat(PDFType.Normal);
-            leplaceZigg = new Ziggurat(PDFType.Laplace);
+            laplaceZigg = new Ziggurat(PDFType.Laplace);
             tZigg = new Ziggurat(PDFType.T);
         }
 
