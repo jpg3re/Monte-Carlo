@@ -12,15 +12,15 @@ namespace MonteCarlo.Models
     {
         //private static Mutex mutex = new Mutex();
         private static Mutex rateMutex = new Mutex();
-        public List<List<double>> rates = new List<List<double>>();
         private double expectedReturn { get; set; }
         private double standardDeviation { get; set; }
-        private double time { get; set; } //how many days,months, or years
-        private const int trials = 10000; //how many trials
+        private int time { get; set; } //how many days,months, or years
+        private const int trials = 1000; //how many trials
+        public List<List<double>> rates = new List<List<double>>(trials);
         private Ziggurat ziggurat;
 
 
-        public Carlo(double expectedReturn, double standardDeviation, double time, Ziggurat ziggurat)
+        public Carlo(double expectedReturn, double standardDeviation, int time, Ziggurat ziggurat)
         {
             this.expectedReturn = expectedReturn;
             this.standardDeviation = standardDeviation;
@@ -36,7 +36,7 @@ namespace MonteCarlo.Models
 
         private void GetRates()
         {
-            List<double> rate = new List<double>();
+            List<double> rate = new List<double>(time);
             for (int i = 0; i < time; i++)
             {
                 rate.Add(expectedReturn + (standardDeviation * (ziggurat.GetRandom())));

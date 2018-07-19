@@ -13,8 +13,8 @@ namespace MonteCarlo.Models.Model
 
         public double currAmount { get; set; }
         public double addPerYear { get; set; }
-        public double yearsOfAdd { get; set; }
-        public double yearsOfWith { get; set; }
+        public int yearsOfAdd { get; set; }
+        public int yearsOfWith { get; set; }
         public double withperYear { get; set; }
     }
 }

@@ -42,9 +42,9 @@ namespace MonteCarlo.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]InputModel value)
+        public JsonResult Post([FromBody]InputModel value)
         {
-            new OutputModel(value);
+            return Json(new OutputModel(value));
         }
     }
 }

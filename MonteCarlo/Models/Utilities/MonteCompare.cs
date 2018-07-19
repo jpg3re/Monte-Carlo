@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using MonteCarlo.Models.Model;
+using MonteCarlo.Models.Model.Output;
+using System.Collections.Generic;
 using System.Linq;
 
 
 namespace MonteCarlo.Utilities
 {
-    public class MonteCompare : IComparer<List<double>>
+    public class MonteCompare : IComparer<Percentiles>
     {
-        public int Compare(List<double> x, List<double> y)
+        public int Compare(Percentiles x, Percentiles y)
         {
-            return x.Last().CompareTo(y.Last());
+            return x.averageWithdrawls.CompareTo(y.averageWithdrawls);
         }
     }
 }
