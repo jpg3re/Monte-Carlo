@@ -278,7 +278,7 @@ export default class Input {
     this.UnpackHolders(number);
 
     if (number == 10) {
-      this.model.numberOfAssets = this.iterator +1;
+      this.model.numberOfAssets = this.iterator + 1;
       this.SaveSubAsset(this.selected);
       this.PushAsset(this.assetTab);
       this.post.SendData(this.model, 1);

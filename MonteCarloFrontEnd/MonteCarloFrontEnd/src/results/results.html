@@ -1,31 +1,28 @@
 <template>
-  <require from="../graph/graph"></require>
-  <require from="../collapse/collapse"></require>
-  <require from="../asset/asset"></require>
+  <require from="./graph/graph"></require>
+  <require from="./collapse/collapse"></require>
+  <require from="./asset/asset"></require>
   <require from="./results.css"></require>
   <div class=title>Jack's results page</div>
 
 
   <div class="tabs is-large">
   <ul>
-    <li class="tabThings is-active" id="asset1" click.delegate="switchTab(1)" data-tab="1"><a>Asset1</a></li>
-    <li class="tabThings" id="asset2" click.delegate="switchTab(2)" data-tab="2"><a>Asset2</a></li>
-    <li class="tabThings" id="asset3" click.delegate="switchTab(3)" data-tab="3"><a>Asset3</a></li>
+    <li class="tabThings is-active" id="asset0" click.delegate="switchTab(0)" data-tab="0"><a>Asset1</a></li>
+    <li class="tabThings" id="asset1" click.delegate="switchTab(1)" data-tab="1"><a>Asset2</a></li>
+    <li class="tabThings" id="asset2" click.delegate="switchTab(2)" data-tab="2"><a>Asset3</a></li>
   </ul>
   </div>
 
 <div id="tab-content" class="tabContents">
-  <p class=" tabInfo is-active" id="dataContent1">
-    tab1
-    <asset></asset>
+  <p class=" tabInfo is-active" id="dataContent0">
+    <asset  view-model.ref="tab0"></asset>
+  </p>
+  <p class="tabInfo" id="dataContent1">
+    <asset  view-model.ref="tab1"></asset>
   </p>
   <p class="tabInfo" id="dataContent2">
-    tab2
-    <asset></asset>
-  </p>
-  <p class="tabInfo" id="dataContent3">
-    tab3
-    <asset></asset>
+    <asset view-model.ref="tab2"></asset>
   </p>
 </div>
 
