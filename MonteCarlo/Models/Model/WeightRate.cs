@@ -78,7 +78,7 @@ namespace MonteCarlo.Models.Model
             double currentTotal = 0;
             for (int i = 0; i < tasks[0].Result.Count; i++)
             {
-                weightedTrial = new List<double>();
+                weightedTrial = new List<double>(tasks[0].Result[0].Count);
                 for (int j = 0; j < tasks[0].Result[0].Count; j++)
                 {
                     for(int a = 0; a < tasks.Length; a++)
@@ -91,13 +91,13 @@ namespace MonteCarlo.Models.Model
                 switch (pdf)
                 {
                     case PDFType.Normal:
-                        weightedRatesNormal[i] = (weightedTrial);
+                        weightedRatesNormal.Add(weightedTrial);
                         break;
                     case PDFType.Laplace:
-                        weightedRatesLaplace[i] = (weightedTrial);
+                        weightedRatesLaplace.Add(weightedTrial);
                         break;
                     case PDFType.T:
-                        weightedRatesT[i] = (weightedTrial);
+                        weightedRatesT.Add(weightedTrial);
                         break;
                 }
             }
