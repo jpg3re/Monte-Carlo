@@ -16,7 +16,7 @@ namespace MonteCarlo.Models.Model
         private Asset[] assets;
         private Task<WeightRate>[] rateTasks;
         private Task<Distributions>[] distributionTasks;
-        public List<List<List<Yearly>>> distributions;
+        public List<List<Percentiles>> distributions;
 
         public OutputModel(InputModel model)
         {
@@ -24,9 +24,14 @@ namespace MonteCarlo.Models.Model
             assets = model.assetHolder;
             rateTasks = new Task<WeightRate>[amount];
             distributionTasks = new Task<Distributions>[amount*3];
-            distributions = new List<List<List<Yearly>>>(amount*3);
+            distributions = new List<List<Percentiles>>(amount*3);
             CalculateWeightRate();
             CalculateDistributions();
+        }
+
+        private void MakeAssets()
+        {
+
         }
 
         //These next two classes should have been implemented using loops but I had problems with threads coming back and trying to access indexes out of bound so this is my solution
