@@ -18,33 +18,32 @@ namespace MonteCarlo.Models.Model
         public WeightRate(Asset asset)
         {
             this.asset = asset;
-            List<Task> tasks = new List<Task>();
+            Task[] tasks = new Task[3];
 
-            tasks.Add(Task.Run(() => CalculateRates(PDFType.Normal)));
-            tasks.Add(Task.Run(() => CalculateRates(PDFType.Laplace)));
-            tasks.Add(Task.Run(() => CalculateRates(PDFType.T)));
+            tasks[0] = (Task.Run(() => CalculateRates(PDFType.Normal)));
+            tasks[1] = (Task.Run(() => CalculateRates(PDFType.Laplace)));
+            tasks[2] = (Task.Run(() => CalculateRates(PDFType.T)));
 
-            Task.WaitAll(tasks.ToArray());
-            Console.WriteLine("WeightRate done");
+            Task.WaitAll(tasks);
         }
 
         private void CalculateRates(PDFType pdf)
         {
-            List<Task<List<List<double>>>> tasks = new List<Task<List<List<double>>>>();
+            Task<List<List<double>>>[] tasks = new Task<List<List<double>>>[9];
 
-            tasks.Add(Task.Run(() => RunCarlo(asset.stocks.lower, pdf)));
-            tasks.Add(Task.Run(() => RunCarlo(asset.stocks.mid, pdf)));
-            tasks.Add(Task.Run(() => RunCarlo(asset.stocks.upper, pdf)));
+            tasks[0] = (Task.Run(() => RunCarlo(asset.stocks.lower, pdf)));
+            tasks[1] = (Task.Run(() => RunCarlo(asset.stocks.mid, pdf)));
+            tasks[2] = (Task.Run(() => RunCarlo(asset.stocks.upper, pdf)));
 
-            tasks.Add(Task.Run(() => RunCarlo(asset.bonds.lower, pdf)));
-            tasks.Add(Task.Run(() => RunCarlo(asset.bonds.mid, pdf)));
-            tasks.Add(Task.Run(() => RunCarlo(asset.bonds.upper, pdf)));
+            tasks[3] = (Task.Run(() => RunCarlo(asset.bonds.lower, pdf)));
+            tasks[4] = (Task.Run(() => RunCarlo(asset.bonds.mid, pdf)));
+            tasks[5] = (Task.Run(() => RunCarlo(asset.bonds.upper, pdf)));
 
-            tasks.Add(Task.Run(() => RunCarlo(asset.cash.lower, pdf)));
-            tasks.Add(Task.Run(() => RunCarlo(asset.cash.mid, pdf)));
-            tasks.Add(Task.Run(() => RunCarlo(asset.cash.upper, pdf)));
+            tasks[6] = (Task.Run(() => RunCarlo(asset.cash.lower, pdf)));
+            tasks[7] = (Task.Run(() => RunCarlo(asset.cash.mid, pdf)));
+            tasks[8] = (Task.Run(() => RunCarlo(asset.cash.upper, pdf)));
 
-            Task.WaitAll(tasks.ToArray());
+            Task.WaitAll(tasks);
             MakeWeightRates(pdf, tasks);
         }
 
@@ -73,7 +72,7 @@ namespace MonteCarlo.Models.Model
         }
 
 
-        private void MakeWeightRates(PDFType pdf, List<Task<List<List<double>>>> tasks)
+        private void MakeWeightRates(PDFType pdf, Task<List<List<double>>>[] tasks)
         {
             List<double> weightedTrial;
             double currentTotal = 0;
@@ -82,23 +81,23 @@ namespace MonteCarlo.Models.Model
                 weightedTrial = new List<double>();
                 for (int j = 0; j < tasks[0].Result[0].Count; j++)
                 {
-                    tasks.ForEach(a =>
+                    for(int a = 0; a < tasks.Length; a++)
                     {
-                        currentTotal += a.Result[i][j];
-                    });
+                        currentTotal += tasks[a].Result[i][j];
+                    }
                     weightedTrial.Add(currentTotal);
                     currentTotal = 0;
                 }
                 switch (pdf)
                 {
                     case PDFType.Normal:
-                        weightedRatesNormal.Add(weightedTrial);
+                        weightedRatesNormal[i] = (weightedTrial);
                         break;
                     case PDFType.Laplace:
-                        weightedRatesLaplace.Add(weightedTrial);
+                        weightedRatesLaplace[i] = (weightedTrial);
                         break;
                     case PDFType.T:
-                        weightedRatesT.Add(weightedTrial);
+                        weightedRatesT[i] = (weightedTrial);
                         break;
                 }
             }
