@@ -23,10 +23,10 @@ export default class Input {
 
   iterator = 0;
 
-  nameHold;
-  erHold=0;
-  vHold=0;
-  pwHold=0;
+  nameHold = null;
+  erHold = null;
+  vHold = null;
+  pwHold = null;
 
   myPieChart;
   exists = 0;
@@ -37,7 +37,11 @@ export default class Input {
 
     }
     else if (url == "http://localhost:8080/results") {
-
+      this.model = JSON.parse(localStorage.getItem('model'));
+      for (var e = this.model.numberOfAssets; e > 1; e--) {
+        this.NewAsset();
+        this.ChangeAsset(0);
+      }
     }
     else {
       window.location.href = "home";
@@ -45,6 +49,35 @@ export default class Input {
 
     this.PieChart([100 , 0 , 0 , 0 , 0])
     this.ConstantRun()
+  }
+
+  UseDefaults() {
+    this.asset.stocks.upper.expectedReturn = 5.333;
+    this.asset.stocks.upper.volatility = 17.667;
+
+    this.asset.stocks.mid.expectedReturn = 5.333;
+    this.asset.stocks.mid.volatility = 17.667;
+
+    this.asset.stocks.lower.expectedReturn = 5.333;
+    this.asset.stocks.lower.volatility = 17.667;
+
+    this.asset.bonds.upper.expectedReturn = 2.9;
+    this.asset.bonds.upper.volatility = 4.95;
+
+    this.asset.bonds.mid.expectedReturn = 4.15;
+    this.asset.bonds.mid.volatility = 10.1;
+
+    this.asset.bonds.lower.expectedReturn = 2.5;
+    this.asset.bonds.lower.volatility = 4.95;
+
+    this.asset.cash.upper.expectedReturn = 2.15;
+    this.asset.cash.upper.volatility = 0.65;
+
+    this.asset.cash.mid.expectedReturn = 2.15;
+    this.asset.cash.mid.volatility = 0.65;
+
+    this.asset.cash.lower.expectedReturn = 2.15;
+    this.asset.cash.lower.volatility = 0.65;
   }
 
   ConstantRun(){
@@ -120,10 +153,10 @@ export default class Input {
       this.ChangeAsset(this.iterator);
       this.assetTab = this.iterator;
   
-      this.nameHold = ""
-      this.erHold = 0;
-      this.vHold = 0;
-      this.pwHold = 0;
+      this.nameHold = null;
+      this.erHold = null;
+      this.vHold = null;
+      this.pwHold = null;
     }
     else if (this.iterator == 2) {
       var tab = document.getElementById("assetTab" + this.iterator)
@@ -132,10 +165,10 @@ export default class Input {
       this.ChangeAsset(this.iterator);
       this.assetTab = this.iterator;
   
-      this.nameHold = ""
-      this.erHold = 0;
-      this.vHold = 0;
-      this.pwHold = 0;
+      this.nameHold = null;
+      this.erHold = null;
+      this.vHold = null;
+      this.pwHold = null;
       document.getElementById("NewButton").style.display = "none"
     }
     else {
