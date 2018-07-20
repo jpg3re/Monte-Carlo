@@ -74,9 +74,7 @@ export class Graph {
         text: title
       }
     }
-    console.log("myChart" + this.number)
 if(this.myChart){
-  console.log("destoryed");
  this.myChart.destroy();
 }
     const element: any = document.getElementById("myChart" + this.number);

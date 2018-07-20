@@ -34,9 +34,7 @@ export default class HTTPPost {
     var Redirect = () => {
       var url = window.location.href;
       localStorage.setItem('results', JSON.stringify(self.results));
-      if (url == "http://localhost:8080/input/") {
-        window.location.href = "results";
-      }
+      window.location.href = "results";
       return this.results;
     }
 
