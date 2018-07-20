@@ -1,1 +1,9 @@
-
+.percentile{
+  height: 30px;
+  bottom:10px
+}
+.input{
+  height: 30px;
+  width:300px;
+  bottom:10px;
+}

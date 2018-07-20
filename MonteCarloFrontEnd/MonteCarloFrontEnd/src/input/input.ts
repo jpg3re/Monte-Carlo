@@ -52,7 +52,7 @@ export default class Input {
     this.myPieChart = new Chart(document.getElementById("pie-chart"), {
       type: 'pie',
       data: {
-        labels: ["Remaining" , "Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities" , "Investment Grade" , "Noninvestment Grade" , "Treasuries" , "CD's" , "Money Market Account" , "Commercial Paper"],
+        labels: ["Remaining" , "Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities" , "Investment Grade" , "High Yield" , "Treasuries" , "CD's" , "Money Market Account" , "Commercial Paper"],
         datasets: [{
           label: "Types",
           backgroundColor: ['#222222','#CEEB81', '#618D05' , '#A3D444','#FFD536', '#FFE068' , '#FFEA98','#540032', '#820333' , '#C9283E'],

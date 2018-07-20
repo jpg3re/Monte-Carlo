@@ -6,7 +6,7 @@
   <div class=title>Jack's results page</div>
 
 
-  <div class="tabs is-large">
+  <div class="tabs is-large is-toggle is-fullwidth">
   <ul>
     <li class="tabThings is-active" id="asset0" click.delegate="switchTab(0)" data-tab="0"><a>Asset1</a></li>
     <li class="tabThings" id="asset1" click.delegate="switchTab(1)" data-tab="1"><a>Asset2</a></li>
@@ -16,12 +16,15 @@
 
 <div id="tab-content" class="tabContents">
   <p class=" tabInfo is-active" id="dataContent0">
+    tab0
     <asset  view-model.ref="tab0"></asset>
   </p>
   <p class="tabInfo" id="dataContent1">
+    tab1
     <asset  view-model.ref="tab1"></asset>
   </p>
   <p class="tabInfo" id="dataContent2">
+    tab2
     <asset view-model.ref="tab2"></asset>
   </p>
 </div>
