@@ -860,7 +860,7 @@ export default class Results {
 
   attached() {
     var results = JSON.parse(localStorage.getItem('results'));
-    console.log(results);
+   // console.log(results);
     this.numTabs = this.Data.length;
     if (this.numTabs == 1) {
       var tab1 = document.getElementById("asset1");
@@ -917,14 +917,19 @@ export default class Results {
     }
     var number = document.getElementById("asset" + tab);
     if (tab == 0) {
+      console.log(tab)
       this.tab0.populateAsset(this.Data[0]);
     }
     if (tab == 1) {
-      this.tab1.populateAsset(this.Data[1]);
+      console.log(tab)
+      
+      this.tab0.populateAsset(this.Data[1]);
 
     }
     if (tab == 2) {
-      this.tab2.populateAsset(this.Data[2]);
+      console.log(tab)
+      
+      this.tab0.populateAsset(this.Data[2]);
 
     }
     number.classList.add('is-active');
