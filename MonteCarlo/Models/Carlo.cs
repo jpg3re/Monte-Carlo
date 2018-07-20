@@ -15,7 +15,7 @@ namespace MonteCarlo.Models
         private double expectedReturn { get; set; }
         private double standardDeviation { get; set; }
         private int time { get; set; } //how many days,months, or years
-        private const int trials = 1000; //how many trials
+        public const int trials = 1000; //how many trials
         public List<List<double>> rates = new List<List<double>>(trials);
         private Ziggurat ziggurat;
 
