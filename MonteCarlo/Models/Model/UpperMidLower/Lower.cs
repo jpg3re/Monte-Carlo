@@ -8,5 +8,8 @@ namespace MonteCarlo.Models.Model
 {
     public class Lower : Breakdown
     {
+        public Lower(double expectedReturn, double volatility, double portfolioWeight) : base(expectedReturn, volatility, portfolioWeight)
+        {
+        }
     }
 }

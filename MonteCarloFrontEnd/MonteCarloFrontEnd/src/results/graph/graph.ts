@@ -13,6 +13,7 @@ export class Graph {
   currentTableData;
   myChart;
   distribution;
+
   populateGraph() {
     var labels = [];
     var year = (new Date()).getFullYear();
@@ -73,7 +74,13 @@ export class Graph {
         text: title
       }
     }
-     this.myChart = new Chart(document.getElementById("myChart" + this.number), {
+    console.log("myChart" + this.number)
+if(this.myChart){
+  console.log("destoryed");
+ this.myChart.destroy();
+}
+    const element: any = document.getElementById("myChart" + this.number);
+      this.myChart=new  Chart(element.getContext('2d'), {
       type: 'line',
       data: data,
       options: options
@@ -84,26 +91,7 @@ export class Graph {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
 
-    // this.myChart = new Chart(document.getElementById("myChart" + this.number), {
-    //   type: 'bar',
-    //   data: {
-    //     labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-    //     datasets: [
-    //       {
-    //         label: "Population (millions)",
-    //         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-    //         data: [2478, 5267, 734, 784, 433]
-    //       }
-    //     ]
-    //   },
-    //   options: {
-    //     legend: { display: false },
-    //     title: {
-    //       display: true,
-    //       text: 'Predicted world population (millions) in 2050'
-    //     }
-    //   }
-    // });
+   
     this.populateGraph();
   }
 }
