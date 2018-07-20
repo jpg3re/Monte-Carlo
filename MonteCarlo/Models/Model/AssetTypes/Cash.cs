@@ -10,5 +10,12 @@ namespace MonteCarlo.Models.Model
         public Lower lower { get; set; }
         public Mid mid { get; set; }
         public Upper upper { get; set; }
+
+        public Cash(Upper upper, Mid mid, Lower lower)
+        {
+            this.lower = lower;
+            this.mid = mid;
+            this.upper = upper;
+        }
     }
 }

@@ -33,21 +33,21 @@ namespace MonteCarlo.Models.MathThings
                     lowerBound = 0;
                     upperBound = 0x100000000;
                     guess = 3.56;
-                    tailBound = 6;
+                    tailBound = 10;
                     break;
                 case PDFType.Laplace:
                     pFunc = pdf.LaplacePDF;
                     lowerBound = 0;
                     upperBound = 5000;
-                    guess = 10;
-                    tailBound = 15;
+                    guess = 9;
+                    tailBound = 10;
                     break;
                 case PDFType.T:
                     pFunc = pdf.TPDF;
                     lowerBound = 0;
                     upperBound = Int16.MaxValue;
                     guess = 4;
-                    tailBound = 6;
+                    tailBound = 10;
                     break;
             }
             GenerateZigTable();

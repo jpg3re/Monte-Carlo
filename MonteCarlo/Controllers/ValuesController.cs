@@ -14,10 +14,10 @@ namespace MonteCarlo.Controllers
     [Route("api/")]
     public class ValuesController : Controller
     {
-        private double initialAmount = 1000;
-        private double mean = 0.09;
-        private double std = 0.14;
-        private double years = 20;
+        //private double initialAmount = 1000;
+        //private double mean = 0.09;
+        //private double std = 0.14;
+        //private double years = 20;
 
         //[HttpGet("t")]
         //public JsonResult GetT()
