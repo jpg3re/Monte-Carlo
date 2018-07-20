@@ -1,7 +1,7 @@
 section.home {
   position: relative;
   background-image: url("../img/Autoportret_Claude_Monet.jpg");
-  height:150vh;
+  height:100vh;
   background-position: center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -27,7 +27,7 @@ section.home .overlay {
 }
 
 .btn:hover{
-  background-color: rgb(86, 150, 87);
+  background-color: rgb(214, 8, 255);
   color:white;
 }
 
