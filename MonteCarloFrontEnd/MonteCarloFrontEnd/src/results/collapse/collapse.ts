@@ -22,7 +22,7 @@ export class collapse {
     }
   }
   updateData(data) {
-    console.log(data);
+    //console.log(data);
     this.users = data;
     
   }

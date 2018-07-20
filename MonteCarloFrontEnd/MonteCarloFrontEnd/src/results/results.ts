@@ -1,9 +1,7 @@
 import { Asset } from "./asset/asset"
-import {Chart} from "chart.js"
+import { Chart } from "chart.js"
 export default class Results {
   tab0: Asset;
-  tab1: Asset;
-  tab2: Asset;
   numTabs;
   Data = [[
     [
@@ -860,7 +858,10 @@ export default class Results {
 
   attached() {
     var results = JSON.parse(localStorage.getItem('results'));
-    console.log(results);
+    console.log("hi");
+     console.log(results);
+     console.log("uiygiugiu");
+     this.formatData(results);
     this.numTabs = this.Data.length;
     if (this.numTabs == 1) {
       var tab1 = document.getElementById("asset1");
@@ -872,42 +873,34 @@ export default class Results {
       var tab2 = document.getElementById("asset2");
       tab2.style.display = "none";
     }
-
-
-    var t0 = document.getElementById("dataContent0")
-
-    
     this.tab0.populateAsset(this.Data[0]);
+  }
+  formatData(data) {
+    var Data = [];
 
-
-
+    for (var x = 0; x < data.length; x++){
+      var tempPercentiles = [];
+    for (var i = 0; i < 9; i++) {
+      var tempAmount = [];
+      var tempWithdrawal = [];
+      var tempGrowth = [];
+      for (var j = 0; j < data[0][0].yearly.length; j++) {
+        tempAmount[j] = data[i][j].yearly.amount;
+        tempWithdrawal = data[i][j].yearly.withdrawal;
+        tempGrowth = data[i][j].yearly.growth;
+      }
+      tempPercentiles[i] = {
+        'amount': tempAmount,
+        'withdrawal': tempWithdrawal,
+        'growth': tempGrowth
+      }
+    }
+    Data[x] = tempPercentiles;
+    }
+  this.Data=Data;
   }
 
-  // switchTab(tab) {
-  //   var tabs = document.getElementsByClassName("tabThings");
-  //   for (var i = 0; i < tabs.length; i++) {
-  //     tabs[i].classList.remove('is-active');
-  //   }
-  //   var number = document.getElementById("asset" + tab);
-  //   //   if(tab==0){
-  //   //   this.tab0.populateAsset(this.Data[0]);
-  //   //   }
-  //   // if(tab==1){
-  //   //   this.tab1.populateAsset(this.Data[1]);
-  //   //   }
-  //   // if(tab==2){
-  //   //   this.tab2.populateAsset(this.Data[2]);
-  //   //   }
-  //   number.classList.add('is-active');
 
-  //   var dataTabs = document.getElementsByClassName("tabInfo");
-  //   for (var i = 0; i < dataTabs.length; i++) {
-  //     dataTabs[i].classList.remove('is-active');
-  //   }
-  //   var displayTab = document.getElementById("dataContent" + tab);
-  //   displayTab.classList.add('is-active');
-
-  // }
 
 
   switchTab(tab) {
@@ -920,11 +913,11 @@ export default class Results {
       this.tab0.populateAsset(this.Data[0]);
     }
     if (tab == 1) {
-      this.tab1.populateAsset(this.Data[1]);
+      this.tab0.populateAsset(this.Data[1]);
 
     }
     if (tab == 2) {
-      this.tab2.populateAsset(this.Data[2]);
+      this.tab0.populateAsset(this.Data[2]);
 
     }
     number.classList.add('is-active');
