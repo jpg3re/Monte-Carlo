@@ -8,5 +8,6 @@ namespace MonteCarlo.Models.Model
     public class InputModel
     {
         public Asset[] assetHolder { get; set;}
+        public int numberOfAssets { get; set; }
     }
 }

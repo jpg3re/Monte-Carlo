@@ -1,5 +1,6 @@
 import { Chart } from "chart.js"
 import { Graph } from "../graph/graph"
+import { bindable } from "aurelia-framework";
 export class Asset {
 
   graph0: Graph;
@@ -10,10 +11,9 @@ export class Asset {
   graph5: Graph;
   
   asset;
-
-
  
   populateAsset(asset) {
+    //var graph=document.getElementById("graph"+number);
     console.log("hello");
     console.log(asset);
     this.asset = asset;

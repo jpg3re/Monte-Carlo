@@ -3,21 +3,19 @@ import { collapse } from "../collapse/collapse"
 import { bindable } from "aurelia-framework";
 import { inject } from 'aurelia-framework';
 
-
 export class Graph {
 
   table: collapse;
   @bindable title;
   @bindable number;
-  @bindable percentile;
+  @bindable percentile = 10;
   @bindable currentPercentile = 10;
   currentTableData;
-
+  myChart;
   distribution;
-
   populateGraph() {
     var labels = [];
-    var year =(new Date()).getFullYear();
+    var year = (new Date()).getFullYear();
     for (var i = 0; i < this.distribution[0].amount.length; i++) {
       labels.push(+year + +i);
     }
@@ -35,7 +33,7 @@ export class Graph {
 
   constructTableData(amount, withdrawal, growth) {
     var newTableData = [];
-     var year =(new Date()).getFullYear();
+    var year = (new Date()).getFullYear();
     for (var i = 0; i < amount.length; i++) {
       newTableData[i] =
         {
@@ -48,8 +46,9 @@ export class Graph {
     this.currentTableData = newTableData;
   }
   displayData(percentile) {
-    this.currentPercentile = Math.floor((+percentile) / +10)* +10;
+    this.currentPercentile = Math.floor((+percentile) / +10) * +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
+    //console.log(this.currentTableData);
     this.table.updateData(this.currentTableData);
   }
 
@@ -62,15 +61,10 @@ export class Graph {
         data: inData[i]
       })
     }
-
-
     var data = {
       labels: inLabels,
       datasets: tempData
     }
-
-
-
     var options = {
       responsive: false,
       legend: { display: false },
@@ -79,7 +73,7 @@ export class Graph {
         text: title
       }
     }
-    var myChart = new Chart(document.getElementById("myChart" + this.number), {
+     this.myChart = new Chart(document.getElementById("myChart" + this.number), {
       type: 'line',
       data: data,
       options: options
@@ -87,7 +81,29 @@ export class Graph {
   }
 
   inputData(distribution) {
+    this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
+
+    // this.myChart = new Chart(document.getElementById("myChart" + this.number), {
+    //   type: 'bar',
+    //   data: {
+    //     labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+    //     datasets: [
+    //       {
+    //         label: "Population (millions)",
+    //         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+    //         data: [2478, 5267, 734, 784, 433]
+    //       }
+    //     ]
+    //   },
+    //   options: {
+    //     legend: { display: false },
+    //     title: {
+    //       display: true,
+    //       text: 'Predicted world population (millions) in 2050'
+    //     }
+    //   }
+    // });
     this.populateGraph();
   }
 }
