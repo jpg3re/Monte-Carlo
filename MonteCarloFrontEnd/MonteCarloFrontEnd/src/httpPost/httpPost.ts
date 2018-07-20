@@ -34,10 +34,6 @@ export default class HTTPPost {
     var Redirect = () => {
       var url = window.location.href;
       localStorage.setItem('results', JSON.stringify(self.results));
-<<<<<<< HEAD
-=======
-      localStorage.setItem('model', JSON.stringify(model));
->>>>>>> fed9ecbf7888de9a907593b0d5d6cfcc1c4bd237
       window.location.href = "results";
       return this.results;
     }
