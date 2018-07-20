@@ -32,6 +32,17 @@ export default class Input {
   exists = 0;
   
   attached() {
+    var url = document.referrer;
+    if (url == "http://localhost:8080/home") {
+
+    }
+    else if (url == "http://localhost:8080/results") {
+
+    }
+    else {
+      window.location.href = "home";
+    }
+
     this.PieChart([100 , 0 , 0 , 0 , 0])
     this.ConstantRun()
   }
