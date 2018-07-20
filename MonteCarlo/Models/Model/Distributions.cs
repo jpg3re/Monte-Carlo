@@ -11,24 +11,31 @@ namespace MonteCarlo.Models.Model
 {
     public class Distributions
     {
+        public double probabilityOfSuccess;
         public List<Percentiles> percentiles;
+        private List<Percentiles> Allpercentiles;
         private int yearsOfAdditions;
         private int yearsOfWithdrawls;
+        private InputModel model;
         private double additions;
         private double withdrawls;
         private double initialAmount;
+        private Asset asset;
         private List<List<double>> weightedRates;
         private Mutex mutex = new Mutex();
         private Mutex withdrawlMutex = new Mutex();
 
-        public Distributions(Asset asset, WeightRate weightRate, PDFType pdf)
+        public Distributions(Asset asset, WeightRate weightRate, PDFType pdf, InputModel model)
         {
             yearsOfAdditions = asset.yearsOfAdd;
             yearsOfWithdrawls = asset.yearsOfWith;
             additions = asset.addPerYear;
             withdrawls = asset.withperYear;
             initialAmount = asset.currAmount;
-            
+            this.model = model;
+            this.asset = asset;
+            percentiles = new List<Percentiles>(9);
+
             switch (pdf)
             {
                 case PDFType.Normal:
@@ -41,10 +48,12 @@ namespace MonteCarlo.Models.Model
                     weightedRates = weightRate.weightedRatesT;
                     break;
             }
-            percentiles = new List<Percentiles>(weightedRates.Count);
+            Allpercentiles = new List<Percentiles>(weightedRates.Count);
             GetYearlyBreakdown();
             CalculateAverageWithdrawls();
             Sort();
+            ConfidenceIntervals();
+            ProbabilityOfSuccess();
         }
 
         private void GetYearlyBreakdown()
@@ -61,47 +70,75 @@ namespace MonteCarlo.Models.Model
             double currentValue = initialAmount;
             double previousYear;
 
-            for(int i = 0; i < yearsOfAdditions; i++)
+            for (int i = 0; i < yearsOfAdditions; i++)
             {
                 currentValue += additions;
                 currentValue += currentValue * rate[i];
-                yearlies.Add(new Yearly(Math.Round(currentValue,2), Math.Round(additions,2), Math.Round(rate[i], 4)));
+                yearlies.Add(new Yearly(Math.Round(currentValue, 2), Math.Round(additions, 2), Math.Round(rate[i], 4)));
             }
-            for(int i = yearsOfAdditions; i < yearsOfWithdrawls + yearsOfAdditions; i++)
+            for (int i = yearsOfAdditions; i < yearsOfWithdrawls + yearsOfAdditions; i++)
             {
-                previousYear = currentValue;   
+                previousYear = currentValue;
                 withdrawls = PaymentCalculator.GetPayments(previousYear, rate[i], (yearsOfWithdrawls + yearsOfAdditions) - i);
                 currentValue += currentValue * rate[i];
                 currentValue -= withdrawls;
-                
-                yearlies.Add(new Yearly(Math.Round(currentValue,2), Math.Round(-withdrawls,2), Math.Round(rate[i],4)));
+
+                yearlies.Add(new Yearly(Math.Round(currentValue, 2), Math.Round(-withdrawls, 2), Math.Round(rate[i], 4)));
             }
 
             mutex.WaitOne();
-            percentiles.Add(new Percentiles(yearlies));
+            Allpercentiles.Add(new Percentiles(yearlies));
             mutex.ReleaseMutex();
         }
 
         private void CalculateAverageWithdrawls()
         {
-            Parallel.For(0, percentiles.Count, i =>
+            Parallel.For(0, Allpercentiles.Count, i =>
             {
                 double total = 0;
                 for (int j = yearsOfAdditions; j < yearsOfAdditions + yearsOfWithdrawls; j++)
                 {
-                    total -= percentiles[i].yearlies[j].withdrawl;
+                    total -= Allpercentiles[i].yearlies[j].withdrawl;
                 }
                 withdrawlMutex.WaitOne();
-                percentiles[i].averageWithdrawls = (Math.Round(total / yearsOfWithdrawls,2));
+                Allpercentiles[i].averageWithdrawls = (Math.Round(total / yearsOfWithdrawls, 2));
                 withdrawlMutex.ReleaseMutex();
             });
+        }
+
+        private void ConfidenceIntervals()
+        {
+            int multiplier = Carlo.trials / 100;
+            for (int j = 1; j < 10; j++)
+            {
+                percentiles.Add(Allpercentiles[(10 * j) * multiplier]);
+            }
         }
 
         private void Sort()
         {
             MonteCompare compare = new MonteCompare();
             StoParallelMergeSort<Percentiles> mergeSort = new StoParallelMergeSort<Percentiles>(compare);
-            mergeSort.Sort(percentiles, false);
+            mergeSort.Sort(Allpercentiles, false);
+        }
+
+        private void ProbabilityOfSuccess()
+        {
+            int successCount = 0;
+            double total;
+            Allpercentiles.ForEach(percentile =>
+            {
+                total = 0;
+                for (int i = yearsOfAdditions; i < yearsOfAdditions+yearsOfWithdrawls; i++)
+                {
+                    total -= percentile.yearlies[i].withdrawl;
+                }
+                if(total >= (asset.withperYear * yearsOfWithdrawls))
+                {
+                    successCount++;
+                }
+            });
+            probabilityOfSuccess = (double)successCount / (double)Carlo.trials;
         }
     }
 }
