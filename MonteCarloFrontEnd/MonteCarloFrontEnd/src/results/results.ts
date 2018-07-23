@@ -3,15 +3,13 @@ import { Chart } from "chart.js"
 export default class Results {
   tab0: Asset;
   numTabs;
-  Data ;
-
+  Data;
+  Withdrawals = [];
+  ProbOfSucces = [];
   attached() {
     var results = JSON.parse(localStorage.getItem('results'));
-    console.log("hi");
-     console.log(results);
-     console.log("uiygiugiu");
-     this.formatData(results);
-    this.numTabs = this.Data.length/6;
+    this.formatData(results);
+    this.numTabs = this.Data.length / 6;
     if (this.numTabs == 1) {
       var tab1 = document.getElementById("asset1");
       var tab2 = document.getElementById("asset2");
@@ -22,38 +20,48 @@ export default class Results {
       var tab2 = document.getElementById("asset2");
       tab2.style.display = "none";
     }
-   this.tab0.populateAsset(this.Data);
+    var asset1Data = [];
+    var asset1With = [];
+    var asset1Prob = [];
+    for (var i = 0; i < 6; i++) {
+      asset1Data.push(this.Data[i]);
+      asset1Prob.push(this.ProbOfSucces[i]);
+      asset1With.push(this.Withdrawals[i]);
+    }
+    this.tab0.populateAsset(asset1Data, asset1Prob, asset1With);
   }
 
   formatData(data) {
-    console.log("start");
     var Data = [];
-    console.log(data);
-console.log(data.distributions.length)
-console.log(data.distributions.length)
-console.log(data.distributions[0].percentiles[0].yearlies.length)
-    for (var x = 0; x < data.distributions.length; x++){
+    for (var x = 0; x < data.distributions.length; x++) {
       var tempPercentiles = [];
-    for (var i = 0; i < 9; i++) {
-      var tempAmount = [];
-      var tempWithdrawal = [];
-      var tempGrowth = [];
-      for (var j = 0; j < data.distributions[0].percentiles[0].yearlies.length; j++) {
-        tempAmount.push(data.distributions[x].percentiles[i].yearlies[j].amount);
-        tempWithdrawal.push(data.distributions[x].percentiles[i].yearlies[j].withdrawl);
-        tempGrowth.push(data.distributions[x].percentiles[i].yearlies[j].growth);
+      for (var i = 0; i < 9; i++) {
+        var tempAmount = [];
+        var tempWithdrawal = [];
+        var tempGrowth = [];
+        for (var j = 0; j < data.distributions[x].percentiles[i].yearlies.length; j++) {
+          tempAmount.push(data.distributions[x].percentiles[i].yearlies[j].amount);
+          tempWithdrawal.push(data.distributions[x].percentiles[i].yearlies[j].withdrawl);
+          tempGrowth.push(data.distributions[x].percentiles[i].yearlies[j].growth);
+        }
+        tempPercentiles.push({
+          'amount': tempAmount,
+          'withdrawal': tempWithdrawal,
+          'growth': tempGrowth
+        });
       }
-      tempPercentiles.push({
-        'amount': tempAmount,
-        'withdrawal': tempWithdrawal,
-        'growth': tempGrowth
-      });
+      Data.push(tempPercentiles);
     }
-    Data.push(tempPercentiles);
-    
+    this.Data = Data;
+   
+    for (var i = 0; i < data.distributions.length; i++) {
+       var tempAvgWithdrawal = [];
+      this.ProbOfSucces.push(data.distributions[i].probabilityOfSuccess);
+      for (var j = 0; j < 9; j++) {
+        tempAvgWithdrawal.push(data.distributions[i].percentiles[j].averageWithdrawls);
+      }
+      this.Withdrawals.push(tempAvgWithdrawal);
     }
-  this.Data=Data;
-  console.log(this.Data);
   }
 
 
@@ -66,14 +74,38 @@ console.log(data.distributions[0].percentiles[0].yearlies.length)
     }
     var number = document.getElementById("asset" + tab);
     if (tab == 0) {
-      this.tab0.populateAsset(this.Data[0]);
+      var asset1Data = [];
+      var asset1With = [];
+      var asset1Prob = [];
+      for (var i = 0; i < 6; i++) {
+        asset1Prob.push(this.ProbOfSucces[i]);
+        asset1With.push(this.Withdrawals[i]);
+        asset1Data.push(this.Data[i]);
+      }
+      this.tab0.populateAsset(asset1Data, asset1Prob, asset1With);
     }
     if (tab == 1) {
-      this.tab0.populateAsset(this.Data[1]);
+      var asset2Data = [];
+      var asset2With = [];
+      var asset2Prob = [];
+      for (var i = 6; i < 12; i++) {
+        asset2Data.push(this.Data[i]);
+        asset2Prob.push(this.ProbOfSucces[i]);
+        asset2With.push(this.Withdrawals[i]);
+      }
+      this.tab0.populateAsset(asset2Data, asset2Prob, asset2With);
 
     }
     if (tab == 2) {
-      this.tab0.populateAsset(this.Data[2]);
+      var asset3Data = [];
+      var asset3With = [];
+      var asset3Prob = [];
+      for (var i = 12; i < 18; i++) {
+        asset3Data.push(this.Data[i]);
+        asset3Prob.push(this.ProbOfSucces[i]);
+        asset3With.push(this.Withdrawals[i]);
+      }
+      this.tab0.populateAsset(asset3Data, asset3Prob, asset3With);
 
     }
     number.classList.add('is-active');
