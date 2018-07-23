@@ -16,6 +16,7 @@ namespace MonteCarlo.Models.Model
         public int yearsOfAdd { get; set; } = 0;
         public int yearsOfWith { get; set; } = 0;
         public double withperYear { get; set; } = 0;
+        public string name { get; set; }
 
         public Asset(Stocks stocks, Bonds bonds, Cash cash, double currAmount, double addPerYear, int yearsOfAdd, int yearsOfWith, double withperYear)
         {
