@@ -9,7 +9,7 @@
    -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-    background-color: #D3D3D3;
+    background-color: #66a266;
     position: relative;
     color:#222222;
   }
@@ -18,7 +18,7 @@ border-radius: 5px;
 }
 
 .table.is-hoverable12.is-striped tbody tr:not(.is-selected):hover {
-  background-color: #D3D3D3; 
+  background-color: #66a266; 
   color:white;
 }
  

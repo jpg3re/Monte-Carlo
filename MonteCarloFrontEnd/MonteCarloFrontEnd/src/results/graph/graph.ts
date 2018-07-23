@@ -9,7 +9,7 @@ export class Graph {
   @bindable title;
   @bindable number;
   @bindable percentile = 10;
-  @bindable currentPercentile=10;
+  @bindable currentPercentile = 10;
   @bindable averageWithdrawal;
   withdrawalData;
   @bindable probOfSucces;
@@ -53,7 +53,7 @@ export class Graph {
     this.currentPercentile = Math.floor((+percentile) / +10) * +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
-    this.averageWithdrawal=this.withdrawalData[(Math.floor((+percentile - +1) / +10))];
+    this.averageWithdrawal = this.withdrawalData[(Math.floor((+percentile - +1) / +10))];
   }
 
   createChart(inLabels, inData, title) {
@@ -108,6 +108,11 @@ export class Graph {
     }
     var options = {
       responsive: false,
+      elements:{
+      line: {
+        tension: 0
+      }
+      },
       legend: { display: true },
       title: {
         display: true,
@@ -126,12 +131,12 @@ export class Graph {
     });
   }
 
-  inputData(distribution,prob,withdrawal) {
+  inputData(distribution, prob, withdrawal) {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
-    this.withdrawalData=withdrawal;
-    this.probOfSucces=prob;
-    this.averageWithdrawal=withdrawal[0];
+    this.withdrawalData = withdrawal;
+    this.probOfSucces = prob;
+    this.averageWithdrawal = withdrawal[0];
     this.populateGraph();
   }
 }
