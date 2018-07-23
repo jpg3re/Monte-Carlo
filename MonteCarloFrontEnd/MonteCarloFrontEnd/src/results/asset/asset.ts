@@ -16,6 +16,7 @@ export class Asset {
     //var graph=document.getElementById("graph"+number);
    // console.log("hello");
    // console.log(asset);
+   console.log(asset)
     this.asset = asset;
     this.graph0.inputData(this.asset[0]);
     this.graph1.inputData(this.asset[1]);

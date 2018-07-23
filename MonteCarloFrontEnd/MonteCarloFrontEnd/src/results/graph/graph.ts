@@ -41,7 +41,7 @@ export class Graph {
           'year': +year + +i,
           'amount': amount[i],
           'withdrawal': withdrawal[i],
-          'growth': growth[i]
+          'growth': (growth[i]*100).toFixed(2)+"%"
         }
     }
     this.currentTableData = newTableData;
@@ -74,9 +74,7 @@ export class Graph {
         text: title
       }
     }
-    console.log("myChart" + this.number)
 if(this.myChart){
-  console.log("destoryed");
  this.myChart.destroy();
 }
     const element: any = document.getElementById("myChart" + this.number);
@@ -88,6 +86,7 @@ if(this.myChart){
   }
 
   inputData(distribution) {
+    console.log(distribution);
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
 
