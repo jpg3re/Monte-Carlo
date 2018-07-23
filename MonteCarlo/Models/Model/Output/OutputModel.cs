@@ -31,14 +31,14 @@ namespace MonteCarlo.Models.Model
             distributionTasks = new Task<Distributions>[amount * 6];
             distributions = new List<Distributions>(amount * 6);
             distributions = new List<Distributions>(amount * 6);
-            Names();
             MakeHistoricalAssets();
+            Names();
             CalculateWeightRate();
         }
 
         private void Names()
         {
-            for (int i = 0; i < amount; i++)
+            for (int i = 0; i < amount*2; i+=2)
             {
                 names.Add(assets[i].name);
             }
