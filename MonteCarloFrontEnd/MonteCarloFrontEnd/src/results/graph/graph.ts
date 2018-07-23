@@ -100,7 +100,7 @@ export class Graph {
       }
       tempData.push({
         fill: false,
-        label: label,
+        label: label+"th",
         borderColor: color,
         hidden: hidden,
         data: inData[i]
