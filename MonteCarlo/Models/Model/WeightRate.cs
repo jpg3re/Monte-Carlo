@@ -66,7 +66,7 @@ namespace MonteCarlo.Models.Model
                     break;
             }
 
-            Carlo carlo = new Carlo(breakdown.expectedReturn, breakdown.volatility, asset.yearsOfAdd + asset.yearsOfWith, zigg);
+            Carlo carlo = Task<Carlo>.Run(() => new Carlo(breakdown.expectedReturn, breakdown.volatility, asset.yearsOfAdd + asset.yearsOfWith, zigg)).Result;
             List<List<double>> rates = carlo.rates.Select(element => element.Select(individual => individual * breakdown.portfolioWeight).ToList()).ToList();
             return rates;
         }

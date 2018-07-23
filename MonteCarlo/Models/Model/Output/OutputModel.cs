@@ -23,7 +23,7 @@ namespace MonteCarlo.Models.Model
         public OutputModel(InputModel model)
         {
             amount = model.numberOfAssets;
-            assets = model.assetHolder;
+            assets = new Asset[amount * 2];
             this.model = model;
             weightRates = new WeightRate[amount * 2];
             names = new List<string>(amount);
@@ -32,7 +32,7 @@ namespace MonteCarlo.Models.Model
             distributions = new List<Distributions>(amount * 6);
             distributions = new List<Distributions>(amount * 6);
             Names();
-            MakeHistoricalAssets(model);
+            MakeHistoricalAssets();
             CalculateWeightRate();
         }
 
@@ -44,7 +44,7 @@ namespace MonteCarlo.Models.Model
             }
         }
 
-        private void MakeHistoricalAssets(InputModel model)
+        private void MakeHistoricalAssets()
         {
             int counter = 1;
             for (int i = 0; i < amount * 2; i += 2)
