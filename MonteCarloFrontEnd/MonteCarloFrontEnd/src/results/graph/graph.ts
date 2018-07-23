@@ -9,10 +9,10 @@ export class Graph {
   @bindable title;
   @bindable number;
   @bindable percentile = 10;
-  @bindable currentPercentile=10;
+  @bindable currentPercentile = 10;
   @bindable averageWithdrawal;
   withdrawalData;
-  @bindable probOfSucces;
+  @bindable probOfSuccess;
   currentTableData;
   myChart;
   distribution;
@@ -35,6 +35,9 @@ export class Graph {
     this.constructTableData(this.distribution[percentile].amount, this.distribution[percentile].withdrawal, this.distribution[percentile].growth);
   }
 
+  numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //thanks internet
+  }
   constructTableData(amount, withdrawal, growth) {
     var newTableData = [];
     var year = (new Date()).getFullYear();
@@ -42,8 +45,8 @@ export class Graph {
       newTableData[i] =
         {
           'year': +year + +i,
-          'amount': amount[i],
-          'withdrawal': withdrawal[i],
+          'amount': "$" + this.numberWithCommas(amount[i]),
+          'withdrawal': "$" + this.numberWithCommas(withdrawal[i]),
           'growth': (growth[i] * 100).toFixed(2) + "%"
         }
     }
@@ -53,42 +56,43 @@ export class Graph {
     this.currentPercentile = Math.floor((+percentile) / +10) * +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
-    this.averageWithdrawal=this.withdrawalData[(Math.floor((+percentile - +1) / +10))];
+    this.averageWithdrawal = this.withdrawalData[(Math.floor((+percentile - +1) / +10))];
   }
 
   createChart(inLabels, inData, title) {
     var tempData = [];
+    var self=this;
     for (var i = 0; i < inData.length; i++) {
       var color;
       var label;
       var hidden = true;
       if (i == 0) {
-        color = "#4147BF"
+        color = "#000000"
 
       }
       if (i == 1) {
-        color = "#419BBF"
+        color = "#001f33"
       }
       if (i == 2) {
-        color = "#F2E205"
+        color = " #003d66"
       }
       if (i == 3) {
-        color = "#F2CB05"
+        color = "#005c99"
       }
       if (i == 4) {
-        color = "#D90404"
+        color = "#007acc"
       }
       if (i == 5) {
-        color = "#222222"
+        color = "#0099ff"
       }
       if (i == 6) {
-        color = "#2A3890"
+        color = "#33adff"
       }
       if (i == 7) {
-        color = "#089AD8"
+        color = "#66c2ff"
       }
       if (i == 8) {
-        color = "#670200"
+        color = "#99d6ff"
       }
       label = (i + 1) + "0";
       if (i == 0 || i == 4 || i == 8) {
@@ -96,7 +100,7 @@ export class Graph {
       }
       tempData.push({
         fill: false,
-        label: label,
+        label: label+"th",
         borderColor: color,
         hidden: hidden,
         data: inData[i]
@@ -108,10 +112,41 @@ export class Graph {
     }
     var options = {
       responsive: false,
+      elements: {
+        line: {
+          tension: 0
+        }
+      },
       legend: { display: true },
       title: {
+        fontSize: 25,
         display: true,
         text: title
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            callback: function(value, index, values) {
+              return '$' + self.numberWithCommas(value);
+            }
+          }
+        }]
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function (tooltipItem, data) {
+            var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || 'Other';
+            var label = self.numberWithCommas((data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).toFixed(2).toString());
+            return datasetLabel + ': $' + label;
+          }
+        }
       }
     }
 
@@ -126,12 +161,12 @@ export class Graph {
     });
   }
 
-  inputData(distribution,prob,withdrawal) {
+  inputData(distribution, prob, withdrawal) {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
-    this.withdrawalData=withdrawal;
-    this.probOfSucces=prob;
-    this.averageWithdrawal=withdrawal[0];
+    this.withdrawalData = withdrawal;
+    this.probOfSuccess = +prob * 100;
+    this.averageWithdrawal = withdrawal[0];
     this.populateGraph();
   }
 }

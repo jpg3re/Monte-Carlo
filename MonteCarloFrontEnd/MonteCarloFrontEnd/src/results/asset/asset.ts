@@ -9,7 +9,8 @@ export class Asset {
   graph3: Graph;
   graph4: Graph;
   graph5: Graph;
-  
+  header;
+  sticky;
   asset;
  
   populateAsset(asset,prob,withdrawal) {
@@ -24,4 +25,26 @@ export class Asset {
     this.graph4.inputData(this.asset[4],prob[4],withdrawal[4]);
     this.graph5.inputData(this.asset[5],prob[5],withdrawal[5]);
   }
+attached(){
+  // When the user scrolls the page, execute myFunction 
+  var self=this;
+window.onscroll = function() {self.myFunction()};
+
+// Get the header
+this.header=document.getElementById("myHeader");
+
+// Get the offset position of the navbar
+this.sticky=this.header.offsetTop;
 }
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+ myFunction() {
+  if (window.pageYOffset > this.sticky) {
+    this.header.classList.add("sticky");
+  } else {
+    this.header.classList.remove("sticky");
+  }
+}
+
+}
+
+

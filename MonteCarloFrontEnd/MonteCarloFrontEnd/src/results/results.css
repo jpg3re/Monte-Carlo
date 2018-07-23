@@ -1,8 +1,19 @@
 
 #tab-content p {
   display: none;
+  background-color:#66a266;
+  margin:0;
 }
 
 #tab-content p.is-active {
+  margin:0;
   display: block;
 }
+
+.tabs.is-toggle li.is-active a {
+    background-color: #66a266 !important;
+    border-color: #66a266 !important;
+    color: #fff;
+    z-index: 1;
+    margin:0;
+  }

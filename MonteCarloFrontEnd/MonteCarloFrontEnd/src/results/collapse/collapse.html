@@ -1,31 +1,20 @@
 <template>
 
   <require from="./collapse.css" rel="stylesheet"></require>
-  <div class=leftColumnHeader>
-    <p class="buttons" style="display: inline;" click.delegate="toggle()" id="button${number}" >
-      <a class="button is-small">
-    <span class="icon is-small" style="display:none" id="minus${number}">
-     <i class="fas fa-minus"></i>
-    </span>
-      <span class="icon is-small"  id="plus${number}">
-     <i class="fas fa-plus"></i>
-    </span>
-  </a>
-    </p>
-    <div style="display: inline;">
-      <slot name="title"> Fallback content</slot>
-    </div>
+     <slot name="title" style="color:black!important;"> Fallback content</slot> 
+  <div  class=leftColumnHeader style="height:200; text-align: center;" click.delegate="toggle()" id="button${number}">
+    <span  style="font-size:20px;  text-align: center; font-family:lato; color:white" >Yearly Breakdown</span>
   </div>
 
   <div id="text${number}" class=leftColumnText style="display:none">
     <slot name="paragraph">
 
-      <table class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData" >
+      <table class="table is-bordered is-striped is-narrow is-hoverable12 is-fullwidth" aurelia-table="data.bind: users; display-data.bind: $displayData">
         <thead>
           <tr>
             <th>Year</th>
             <th>Current Amount</th>
-            <th>Withdrawal</th>
+            <th>Withdrawal/Contributions</th>
             <th>Percent Growth</th>
           </tr>
         </thead>
