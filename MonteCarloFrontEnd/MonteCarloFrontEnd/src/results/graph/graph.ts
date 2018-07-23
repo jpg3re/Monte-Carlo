@@ -35,6 +35,9 @@ export class Graph {
     this.constructTableData(this.distribution[percentile].amount, this.distribution[percentile].withdrawal, this.distribution[percentile].growth);
   }
 
+  numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); //thanks internet
+  }
   constructTableData(amount, withdrawal, growth) {
     var newTableData = [];
     var year = (new Date()).getFullYear();
@@ -42,8 +45,8 @@ export class Graph {
       newTableData[i] =
         {
           'year': +year + +i,
-          'amount': amount[i],
-          'withdrawal': withdrawal[i],
+          'amount': "$" + this.numberWithCommas(amount[i]),
+          'withdrawal': "$" + this.numberWithCommas(withdrawal[i]),
           'growth': (growth[i] * 100).toFixed(2) + "%"
         }
     }
@@ -58,6 +61,7 @@ export class Graph {
 
   createChart(inLabels, inData, title) {
     var tempData = [];
+    var self=this;
     for (var i = 0; i < inData.length; i++) {
       var color;
       var label;
@@ -88,7 +92,7 @@ export class Graph {
         color = "#66c2ff"
       }
       if (i == 8) {
-        color ="#99d6ff" 
+        color = "#99d6ff"
       }
       label = (i + 1) + "0";
       if (i == 0 || i == 4 || i == 8) {
@@ -108,16 +112,41 @@ export class Graph {
     }
     var options = {
       responsive: false,
-      elements:{
-      line: {
-        tension: 0
-      }
+      elements: {
+        line: {
+          tension: 0
+        }
       },
       legend: { display: true },
       title: {
-        fontSize:25,
+        fontSize: 25,
         display: true,
         text: title
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            callback: function(value, index, values) {
+              return '$' + self.numberWithCommas(value);
+            }
+          }
+        }]
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function (tooltipItem, data) {
+            var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || 'Other';
+            var label = self.numberWithCommas((data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]).toFixed(2).toString());
+            return datasetLabel + ': $' + label;
+          }
+        }
       }
     }
 
@@ -136,7 +165,7 @@ export class Graph {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
     this.withdrawalData = withdrawal;
-    this.probOfSuccess = +prob*100;
+    this.probOfSuccess = +prob * 100;
     this.averageWithdrawal = withdrawal[0];
     this.populateGraph();
   }
