@@ -40,8 +40,8 @@ export default class Input {
       this.model = JSON.parse(localStorage.getItem('model'));
       for (var e = this.model.numberOfAssets; e > 1; e--) {
         this.NewAsset();
-        this.ChangeAsset(0);
       }
+      this.ChangeAsset(0);
     }
     else {
       window.location.href = "home";
@@ -52,8 +52,10 @@ export default class Input {
   }
 
   UseDefaults() {
-    this.asset.stocks.upper.expectedReturn = 5.333;
-    this.asset.stocks.upper.volatility = 17.667;
+    this.SwitchOverSelected(0);
+
+    this.erHold = 5.333;
+    this.vHold = 17.667;
 
     this.asset.stocks.mid.expectedReturn = 5.333;
     this.asset.stocks.mid.volatility = 17.667;
