@@ -33,15 +33,15 @@ export default class Input {
   
   attached() {
     var url = document.referrer;
-    if (url == "http://localhost:8088/home") {
+    if (url == "http://localhost:8089/home") {
 
      }
-    else if (url == "http://localhost:8088/results") {
+    else if (url == "http://localhost:8089/results") {
       this.model = JSON.parse(localStorage.getItem('model'));
       for (var e = this.model.numberOfAssets; e > 1; e--) {
         this.NewAsset();
-        this.ChangeAsset(0);
       }
+      this.ChangeAsset(0);
     }
     else {
       window.location.href = "home";
@@ -52,8 +52,10 @@ export default class Input {
   }
 
   UseDefaults() {
-    this.asset.stocks.upper.expectedReturn = 5.333;
-    this.asset.stocks.upper.volatility = 17.667;
+    this.SwitchOverSelected(0);
+
+    this.erHold = 5.333;
+    this.vHold = 17.667;
 
     this.asset.stocks.mid.expectedReturn = 5.333;
     this.asset.stocks.mid.volatility = 17.667;
