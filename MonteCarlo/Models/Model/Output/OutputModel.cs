@@ -38,7 +38,7 @@ namespace MonteCarlo.Models.Model
 
         private void Names()
         {
-            for (int i = 0; i < amount*2; i+=2)
+            for (int i = 0; i < amount; i+=2)
             {
                 names.Add(assets[i].name);
             }
@@ -51,10 +51,10 @@ namespace MonteCarlo.Models.Model
             {
                 assets[i] = model.assetHolder[i];
                 assets[counter] = (new Asset(
-                    new Stocks(new Upper(historicalRates[0], historicalRates[1], assets[i].stocks.upper.portfolioWeight * 100), new Mid(historicalRates[2], historicalRates[3], assets[i].stocks.mid.portfolioWeight * 100), new Lower(historicalRates[4], historicalRates[5], assets[i].stocks.lower.portfolioWeight * 100)),
-                    new Bonds(new Upper(historicalRates[6], historicalRates[7], assets[i].bonds.upper.portfolioWeight * 100), new Mid(historicalRates[8], historicalRates[9], assets[i].bonds.mid.portfolioWeight * 100), new Lower(historicalRates[10], historicalRates[11], assets[i].bonds.lower.portfolioWeight * 100)),
-                    new Cash(new Upper(historicalRates[12], historicalRates[13], assets[i].cash.upper.portfolioWeight * 100), new Mid(historicalRates[14], historicalRates[15], assets[i].cash.mid.portfolioWeight * 100), new Lower(historicalRates[16], historicalRates[17], assets[i].cash.lower.portfolioWeight * 100)),
-                    assets[i].currAmount, assets[i].addPerYear, assets[i].yearsOfAdd, assets[i].yearsOfWith, assets[i].withperYear));
+                    new Stocks(new Upper(historicalRates[0], historicalRates[1], model.assetHolder[i].stocks.upper.portfolioWeight * 100), new Mid(historicalRates[2], historicalRates[3], model.assetHolder[i].stocks.mid.portfolioWeight * 100), new Lower(historicalRates[4], historicalRates[5], model.assetHolder[i].stocks.lower.portfolioWeight * 100)),
+                    new Bonds(new Upper(historicalRates[6], historicalRates[7], model.assetHolder[i].bonds.upper.portfolioWeight * 100), new Mid(historicalRates[8], historicalRates[9], model.assetHolder[i].bonds.mid.portfolioWeight * 100), new Lower(historicalRates[10], historicalRates[11], model.assetHolder[i].bonds.lower.portfolioWeight * 100)),
+                    new Cash(new Upper(historicalRates[12], historicalRates[13], model.assetHolder[i].cash.upper.portfolioWeight * 100), new Mid(historicalRates[14], historicalRates[15], model.assetHolder[i].cash.mid.portfolioWeight * 100), new Lower(historicalRates[16], historicalRates[17], model.assetHolder[i].cash.lower.portfolioWeight * 100)),
+                    model.assetHolder[i].currAmount, model.assetHolder[i].addPerYear, model.assetHolder[i].yearsOfAdd, model.assetHolder[i].yearsOfWith, model.assetHolder[i].withperYear));
                 counter += 2;
             }
         }
