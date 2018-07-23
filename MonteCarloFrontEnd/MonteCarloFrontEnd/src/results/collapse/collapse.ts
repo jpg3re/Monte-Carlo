@@ -22,7 +22,6 @@ export class collapse {
     }
   }
   updateData(data) {
-    //console.log(data);
     this.users = data;
     
   }

@@ -2,18 +2,21 @@
   <div>
  <require from="../collapse/collapse"></require>
   <div style="text-align:center;position:relative; left:70px;">
-    <h1>${probOfSucces}</h1>
+  
     <canvas  width="800px" height="400px"  id="myChart${number}" ></canvas>
   </div>
   <div style="font-size:160%"  style="float:left">
-  Select Percentile: 
+    <div style="text-align: center;">
+      Probability of Success: ${probOfSuccess}%
+    </div>
+  Percentile: 
   <input value=10 type="number" min="10" max="90" step="10" value.bind="percentile" click.delegate="displayData(percentile)" >
   </div>
 <!-- <div>  
  <a class="button is-success is-outlined is-fullwidth" click.delegate="displayData(percentile)" style="text-align: center">Outlined</a>
 </div> -->
   <collapse number="${number}" view-model.ref="table">
-  <span slot="title" style="color:white">Average Withdrawal: ${averageWithdrawal}</span>
+  <span slot="title" style="text-align:center;color:black;">Average Withdrawal: ${averageWithdrawal}</span>
   </collapse> 
 </div>
 </template>

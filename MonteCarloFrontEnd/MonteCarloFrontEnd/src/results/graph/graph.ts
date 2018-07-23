@@ -12,7 +12,7 @@ export class Graph {
   @bindable currentPercentile = 10;
   @bindable averageWithdrawal;
   withdrawalData;
-  @bindable probOfSucces;
+  @bindable probOfSuccess;
   currentTableData;
   myChart;
   distribution;
@@ -63,32 +63,32 @@ export class Graph {
       var label;
       var hidden = true;
       if (i == 0) {
-        color = "#4147BF"
+        color = "#000000"
 
       }
       if (i == 1) {
-        color = "#419BBF"
+        color = "#001f33"
       }
       if (i == 2) {
-        color = "#F2E205"
+        color = " #003d66"
       }
       if (i == 3) {
-        color = "#F2CB05"
+        color = "#005c99"
       }
       if (i == 4) {
-        color = "#D90404"
+        color = "#007acc"
       }
       if (i == 5) {
-        color = "#222222"
+        color = "#0099ff"
       }
       if (i == 6) {
-        color = "#2A3890"
+        color = "#33adff"
       }
       if (i == 7) {
-        color = "#089AD8"
+        color = "#66c2ff"
       }
       if (i == 8) {
-        color = "#670200"
+        color ="#99d6ff" 
       }
       label = (i + 1) + "0";
       if (i == 0 || i == 4 || i == 8) {
@@ -115,6 +115,7 @@ export class Graph {
       },
       legend: { display: true },
       title: {
+        fontSize:25,
         display: true,
         text: title
       }
@@ -135,7 +136,7 @@ export class Graph {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
     this.withdrawalData = withdrawal;
-    this.probOfSucces = prob;
+    this.probOfSuccess = +prob*100;
     this.averageWithdrawal = withdrawal[0];
     this.populateGraph();
   }
