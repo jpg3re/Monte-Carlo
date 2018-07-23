@@ -22,6 +22,7 @@ namespace MonteCarlo.Models.Model
         {
             amount = model.numberOfAssets;
             //assets = model.assetHolder;
+            assets = new Asset[amount*2];
             this.model = model;
             rateTasks = new Task<WeightRate>[amount * 2];
             distributionTasks = new Task<Distributions>[amount*6];
@@ -34,16 +35,18 @@ namespace MonteCarlo.Models.Model
 
         private void MakeHistoricalAssets(InputModel model)
         {
-            int counter = 1; 
-            for(int i = 0; i < amount+1; i+=2)
+            int counter = 1;
+            int anotherCounter = 0;
+            for(int i = 0; i < amount*2; i+=2)
             {
-                assets[i] = model.assetHolder[i];
+                assets[i] = model.assetHolder[anotherCounter];
                 assets[counter] = (new Asset(
                     new Stocks(new Upper(historicalRates[0], historicalRates[1], assets[i].stocks.upper.portfolioWeight * 100), new Mid(historicalRates[2],historicalRates[3], assets[i].stocks.mid.portfolioWeight * 100), new Lower(historicalRates[4], historicalRates[5], assets[i].stocks.lower.portfolioWeight * 100)),
                     new Bonds(new Upper(historicalRates[6], historicalRates[7], assets[i].bonds.upper.portfolioWeight * 100), new Mid(historicalRates[8], historicalRates[9], assets[i].bonds.mid.portfolioWeight * 100), new Lower(historicalRates[10], historicalRates[11], assets[i].bonds.lower.portfolioWeight * 100)),
                     new Cash(new Upper(historicalRates[12], historicalRates[13], assets[i].cash.upper.portfolioWeight * 100), new Mid(historicalRates[14], historicalRates[15], assets[i].cash.mid.portfolioWeight * 100), new Lower(historicalRates[16], historicalRates[17], assets[i].cash.lower.portfolioWeight * 100)),
                     assets[i].currAmount,assets[i].addPerYear,assets[i].yearsOfAdd,assets[i].yearsOfWith,assets[i].withperYear));
                 counter+=2;
+                anotherCounter++;
             }
         }
 
