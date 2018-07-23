@@ -48,7 +48,7 @@ namespace MonteCarlo.Models.Model
         {
             int counter = 1;
             int anotherCounter = 0;
-            for (int i = 0; i < amount; i += 2)
+            for (int i = 0; i < amount * 2; i += 2)
             {
                 assets[i] = model.assetHolder[anotherCounter];
                 assets[counter] = (new Asset(
