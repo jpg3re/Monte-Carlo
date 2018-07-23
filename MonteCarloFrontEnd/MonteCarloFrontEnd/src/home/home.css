@@ -27,7 +27,7 @@ section.home .overlay {
 }
 
 .btn:hover{
-  background-color: green;
+  background-color: rgb(86, 150, 87);
   color:white;
 }
 
