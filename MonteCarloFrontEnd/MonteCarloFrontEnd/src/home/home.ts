@@ -1,6 +1,11 @@
+import HTTPPost from "../httpPost/httpPost"
+
 export default class Home {
+  post = new HTTPPost();
+
   attached() {
-    console.log("seen")
+    var model = JSON.parse(localStorage.getItem('model'));
+    this.post.SendData(model, 1);
   }
 
   GetStarted() {
