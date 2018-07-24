@@ -5,12 +5,6 @@ export class Asset {
 
   graph0: Graph;
   graph1: Graph;
-  graph2: Graph;
-  graph3: Graph;
-  graph4: Graph;
-  graph5: Graph;
-  // header;
-  // sticky;
   asset;
   normalMax = 0;
   laPlaceMax = 0;
@@ -18,10 +12,21 @@ export class Asset {
   prob;
   withdrawal;
 
+
+  resetTabs(){
+    var tabs = document.getElementsByClassName("tabThing");
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].classList.remove('is-active');
+    }
+    var num = document.getElementById("dist" + 0);
+    num.classList.add('is-active');
+  }
   populateAsset(asset, prob, withdrawal) {
     //var graph=document.getElementById("graph"+number);
     // console.log("hello");
-    console.log(asset);
+    this.normalMax=0;
+    this.laPlaceMax=0;
+    this.cauchyMax=0;
     this.prob = prob;
     this.withdrawal = withdrawal;
     for (var i = 0; i < asset[0][0].amount.length; i++) {
@@ -44,7 +49,6 @@ export class Asset {
         this.cauchyMax = asset[5][0].amount[i];
       }
     }
-
     this.asset = asset;
 
     this.graph0.inputData(this.asset[0], prob[0], withdrawal[0], this.normalMax, "Projected Normally Distributed Returns");
