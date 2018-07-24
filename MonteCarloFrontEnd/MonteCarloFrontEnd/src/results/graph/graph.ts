@@ -56,7 +56,7 @@ export class Graph {
     this.currentPercentile = Math.floor((+percentile) / +10) * +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
-    this.averageWithdrawal = this.withdrawalData[(Math.floor((+percentile - +1) / +10))];
+    this.averageWithdrawal = "$"+this.numberWithCommas(this.withdrawalData[(Math.floor((+percentile - +1) / +10))]);
   }
 
   createChart(inLabels, inData, title) {
@@ -162,13 +162,14 @@ export class Graph {
     });
   }
 
-  inputData(distribution, prob, withdrawal,max) {
+  inputData(distribution, prob, withdrawal,max,title) {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
     this.withdrawalData = withdrawal;
     this.probOfSuccess = (+prob * 100).toFixed(2);
     this.averageWithdrawal = withdrawal[0];
     this.max=max;
+    this.title=title;
     this.populateGraph();
   }
 }

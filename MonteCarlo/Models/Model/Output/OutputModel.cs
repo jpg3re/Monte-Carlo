@@ -14,10 +14,10 @@ namespace MonteCarlo.Models.Model
         private Asset[] assets;
         private InputModel model;
         private List<Task> rateTasks;
-        private Task<Distributions>[] distributionTasks;
         private WeightRate[] weightRates;
         public List<string> names;
-        public List<Distributions> distributions;
+        public Distributions[] distributions;
+        private List<Distributions> allDistributions;
         private double[] historicalRates = { 9.68, 14.68, 10.71, 15.91, 9.32, 19.06, 7.06, 2.91, 9.01, 2.87, 5.84, 2.85, 5.88, 3.48, 0.18, 0.12, 2.32, 2.19 };
 
         public OutputModel(InputModel model)
@@ -27,17 +27,18 @@ namespace MonteCarlo.Models.Model
             this.model = model;
             weightRates = new WeightRate[amount * 2];
             names = new List<string>(amount);
-            rateTasks = new List<Task>(amount * 2);
-            distributionTasks = new Task<Distributions>[amount * 6];
-            distributions = new List<Distributions>(amount * 6);
+            rateTasks = new List<Task>(amount * 6);
+            allDistributions = new List<Distributions>(amount * 6);
+            distributions = new Distributions[amount * 6];
             MakeHistoricalAssets();
             Names();
             CalculateWeightRate();
+            SortDistributions();
         }
 
         private void Names()
         {
-            for (int i = 0; i < amount * 2; i+=2)
+            for (int i = 0; i < amount * 2; i += 2)
             {
                 names.Add(assets[i].name);
             }
@@ -54,90 +55,219 @@ namespace MonteCarlo.Models.Model
                     new Stocks(new Upper(historicalRates[0], historicalRates[1], model.assetHolder[anotherCounter].stocks.upper.portfolioWeight * 100), new Mid(historicalRates[2], historicalRates[3], model.assetHolder[anotherCounter].stocks.mid.portfolioWeight * 100), new Lower(historicalRates[4], historicalRates[5], model.assetHolder[anotherCounter].stocks.lower.portfolioWeight * 100)),
                     new Bonds(new Upper(historicalRates[6], historicalRates[7], model.assetHolder[anotherCounter].bonds.upper.portfolioWeight * 100), new Mid(historicalRates[8], historicalRates[9], model.assetHolder[anotherCounter].bonds.mid.portfolioWeight * 100), new Lower(historicalRates[10], historicalRates[11], model.assetHolder[anotherCounter].bonds.lower.portfolioWeight * 100)),
                     new Cash(new Upper(historicalRates[12], historicalRates[13], model.assetHolder[anotherCounter].cash.upper.portfolioWeight * 100), new Mid(historicalRates[14], historicalRates[15], model.assetHolder[anotherCounter].cash.mid.portfolioWeight * 100), new Lower(historicalRates[16], historicalRates[17], model.assetHolder[anotherCounter].cash.lower.portfolioWeight * 100)),
-                    model.assetHolder[anotherCounter].currAmount, model.assetHolder[anotherCounter].addPerYear, model.assetHolder[anotherCounter].yearsOfAdd, model.assetHolder[anotherCounter].yearsOfWith, model.assetHolder[anotherCounter].withperYear));
+                    model.assetHolder[anotherCounter].currAmount, model.assetHolder[anotherCounter].addPerYear, model.assetHolder[anotherCounter].yearsOfAdd, model.assetHolder[anotherCounter].yearsOfWith, model.assetHolder[anotherCounter].withperYear, model.assetHolder[anotherCounter].name + " historical"));
                 counter += 2;
                 anotherCounter++;
+            }
+        }
+
+        private void SortDistributions()
+        {
+            for (int i = 0; i < allDistributions.Count; i++) //that sweet sweet O(n) sorting algorithm
+            {
+                switch (amount)
+                {
+                    case 1:
+                        if (allDistributions[i].asset.name.Equals(names[0]))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[0] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[1] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[2] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[0] + " historical"))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[3] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[4] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[5] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (allDistributions[i].asset.name.Equals(names[0]))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[0] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[1] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[2] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[0] + " historical"))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[3] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[4] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[5] = allDistributions[i];
+                                    break;
+                            }
+                            distributions[1] = allDistributions[i];
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[1]))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[6] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[7] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[8] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[1] + " historical"))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[9] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[10] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[11] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (allDistributions[i].asset.name.Equals(names[0]))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[0] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[1] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[2] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[0] + " historical"))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[3] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[4] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[5] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[1]))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[6] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[7] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[8] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[1] + " historical"))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[9] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[10] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[11] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[2]))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[12] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[13] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[14] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        else if (allDistributions[i].asset.name.Equals(names[2] + " historical"))
+                        {
+                            switch (allDistributions[i].pdf)
+                            {
+                                case PDFType.Normal:
+                                    distributions[15] = allDistributions[i];
+                                    break;
+                                case PDFType.Laplace:
+                                    distributions[16] = allDistributions[i];
+                                    break;
+                                case PDFType.T:
+                                    distributions[17] = allDistributions[i];
+                                    break;
+                            }
+                        }
+                        break;
+                }
             }
         }
 
         private void CalculateWeightRate()
         {
             Parallel.For(0, amount * 2, element =>
-            {
-                weightRates[element] = new WeightRate(assets[element]);
-                rateTasks.Add(Task.Run(() => { distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Normal, model)); }));
-                rateTasks.Add(Task.Run(() => { distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Laplace, model)); }));
-                rateTasks.Add(Task.Run(() => { distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); }));
-            });
-
+              {
+                  weightRates[element] = new WeightRate(assets[element]);
+                  rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Normal, model)); }));
+                  rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Laplace, model)); }));
+                  rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); }));
+              });
             Task.WaitAll(rateTasks.ToArray());
         }
-
-        //private void CalculateDistributions()
-        //{
-        //    if (amount == 3)
-        //    {
-        //        distributionTasks[0] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Normal, model); });
-        //        distributionTasks[1] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Laplace, model); });
-        //        distributionTasks[2] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.T, model); });
-
-        //        distributionTasks[3] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Normal, model); });
-        //        distributionTasks[4] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Laplace, model); });
-        //        distributionTasks[5] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.T, model); });
-
-        //        distributionTasks[6] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Normal, model); });
-        //        distributionTasks[7] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Laplace, model); });
-        //        distributionTasks[8] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.T, model); });
-
-        //        distributionTasks[9] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Normal, model); });
-        //        distributionTasks[10] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Laplace, model); });
-        //        distributionTasks[11] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.T, model); });
-
-        //        distributionTasks[12] = Task.Run(() => { return new Distributions(assets[4], rateTasks[4].Result, PDFType.Normal, model); });
-        //        distributionTasks[13] = Task.Run(() => { return new Distributions(assets[4], rateTasks[4].Result, PDFType.Laplace, model); });
-        //        distributionTasks[14] = Task.Run(() => { return new Distributions(assets[4], rateTasks[4].Result, PDFType.T, model); });
-
-        //        distributionTasks[15] = Task.Run(() => { return new Distributions(assets[5], rateTasks[5].Result, PDFType.Normal, model); });
-        //        distributionTasks[16] = Task.Run(() => { return new Distributions(assets[5], rateTasks[5].Result, PDFType.Laplace, model); });
-        //        distributionTasks[17] = Task.Run(() => { return new Distributions(assets[5], rateTasks[5].Result, PDFType.T, model); });
-        //    }
-        //    else if (amount == 2)
-        //    {
-        //        distributionTasks[0] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Normal, model); });
-        //        distributionTasks[1] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Laplace, model); });
-        //        distributionTasks[2] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.T, model); });
-
-        //        distributionTasks[3] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Normal, model); });
-        //        distributionTasks[4] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Laplace, model); });
-        //        distributionTasks[5] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.T, model); });
-
-        //        distributionTasks[6] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Normal, model); });
-        //        distributionTasks[7] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Laplace, model); });
-        //        distributionTasks[8] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.T, model); });
-
-        //        distributionTasks[9] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Normal, model); });
-        //        distributionTasks[10] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Laplace, model); });
-        //        distributionTasks[11] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.T, model); });
-        //    }
-        //    else
-        //    {
-        //        distributionTasks[0] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Normal, model); });
-        //        distributionTasks[1] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Laplace, model); });
-        //        distributionTasks[2] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.T, model); });
-
-        //        distributionTasks[3] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Normal, model); });
-        //        distributionTasks[4] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Laplace, model); });
-        //        distributionTasks[5] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.T, model); });
-        //    }
-
-        //    Parallel.For()
-
-        //    Task.WaitAll(distributionTasks);
-
-        //    for (int i = 0; i < distributionTasks.Length; i++)
-        //    {
-        //        distributions.Add(distributionTasks[i].Result);
-        //    }
-        //}
     }
 }
