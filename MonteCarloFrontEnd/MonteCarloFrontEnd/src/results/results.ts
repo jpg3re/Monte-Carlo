@@ -26,8 +26,10 @@ export default class Results {
       var tab2 = document.getElementById("asset2");
       tab2.style.display = "none";
       this.name2=results.names[1];
+      
     }else{
       this.name3=results.names[2];
+      this.name2=results.names[1];
 
     }
     var asset1Data = [];
@@ -78,6 +80,7 @@ export default class Results {
 
 
   switchTab(tab) {
+    this.tab0.resetTabs();
     var tabs = document.getElementsByClassName("tabThings");
     for (var i = 0; i < tabs.length; i++) {
       tabs[i].classList.remove('is-active');
@@ -121,7 +124,6 @@ export default class Results {
     number.classList.add('is-active');
 
     var dataTabs = document.getElementsByClassName("tabInfo");
-
   }
 }
 
