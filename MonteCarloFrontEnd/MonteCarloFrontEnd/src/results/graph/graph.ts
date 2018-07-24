@@ -56,7 +56,7 @@ export class Graph {
     this.currentPercentile = Math.floor((+percentile) / +10) * +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
-    this.averageWithdrawal = this.withdrawalData[(Math.floor((+percentile - +1) / +10))];
+    this.averageWithdrawal = "$"+this.numberWithCommas(this.withdrawalData[(Math.floor((+percentile - +1) / +10))]);
   }
 
   createChart(inLabels, inData, title) {

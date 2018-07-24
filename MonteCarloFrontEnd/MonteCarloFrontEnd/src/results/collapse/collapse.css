@@ -9,16 +9,16 @@
    -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-    background-color: #66a266;
+    background-color: hsl(141, 71%, 48%);
     position: relative;
     color:#222222;
   }
 .table.is-hoverable12 tbody tr:not(.is-selected):hover {
-  background-color: rgb(86, 150, 87);
+  background-color: hsl(141, 71%, 48%);
 }
 
 .table.is-hoverable12.is-striped tbody tr:not(.is-selected):hover {
-  background-color: #66a266; 
+  background-color: hsl(141, 71%, 48%); 
   color:white;
 }
  
