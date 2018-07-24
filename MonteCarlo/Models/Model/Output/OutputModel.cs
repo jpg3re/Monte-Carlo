@@ -30,7 +30,6 @@ namespace MonteCarlo.Models.Model
             rateTasks = new List<Task>(amount * 2);
             distributionTasks = new Task<Distributions>[amount * 6];
             distributions = new List<Distributions>(amount * 6);
-            distributions = new List<Distributions>(amount * 6);
             MakeHistoricalAssets();
             Names();
             CalculateWeightRate();
@@ -38,7 +37,7 @@ namespace MonteCarlo.Models.Model
 
         private void Names()
         {
-            for (int i = 0; i < amount; i+=2)
+            for (int i = 0; i < amount * 2; i+=2)
             {
                 names.Add(assets[i].name);
             }

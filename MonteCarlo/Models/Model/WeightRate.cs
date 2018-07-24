@@ -66,24 +66,24 @@ namespace MonteCarlo.Models.Model
                     break;
             }
 
-            Carlo carlo = Task<Carlo>.Run(() => new Carlo(breakdown.expectedReturn, breakdown.volatility, asset.yearsOfAdd + asset.yearsOfWith, zigg)).Result;
-            List<List<double>> rates = carlo.rates.Select(element => element.Select(individual => individual * breakdown.portfolioWeight).ToList()).ToList();
+            Carlo carlo = Task.Run(() => new Carlo(breakdown.expectedReturn, breakdown.volatility, asset.yearsOfAdd + asset.yearsOfWith, zigg)).Result;
+            List<List<double>> rates = carlo.rates.Select(element => element.Select(individual => individual * breakdown.portfolioWeight).ToList()).ToList(); //multiplies every rate by its portfolio weight
             return rates;
         }
 
 
-        private void MakeWeightRates(PDFType pdf, Task<List<List<double>>>[] tasks)
+        private void MakeWeightRates(PDFType pdf, Task<List<List<double>>>[] tasks) //calculates the total gain % for the whole portfolio for each 10,000 trials 
         {
             List<double> weightedTrial;
             double currentTotal = 0;
-            for (int i = 0; i < tasks[0].Result.Count; i++)
+            for(int i = 0; i < tasks[0].Result.Count; i++)
             {
                 weightedTrial = new List<double>(tasks[0].Result[0].Count);
                 for (int j = 0; j < tasks[0].Result[0].Count; j++)
                 {
                     for(int a = 0; a < tasks.Length; a++)
                     {
-                        currentTotal += tasks[a].Result[i][j];
+                        currentTotal += tasks[a].Result[i][j];      //a is the 9 asset classes, i is each trial, and j is the inividual year
                     }
                     weightedTrial.Add(currentTotal);
                     currentTotal = 0;

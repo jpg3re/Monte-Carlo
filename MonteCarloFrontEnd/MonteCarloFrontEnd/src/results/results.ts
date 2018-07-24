@@ -1,14 +1,20 @@
 import { Asset } from "./asset/asset"
 import { Chart } from "chart.js"
+import { bindable } from "aurelia-framework";
 export default class Results {
   tab0: Asset;
   numTabs;
   Data;
   Withdrawals = [];
   ProbOfSucces = [];
+  @bindable name1;
+  @bindable name2;
+  @bindable name3;
   attached() {
     var results = JSON.parse(localStorage.getItem('results'));
+    console.log(results);
     this.formatData(results);
+    this.name1=results.names[0];
     this.numTabs = this.Data.length / 6;
     if (this.numTabs == 1) {
       var tab1 = document.getElementById("asset1");
@@ -19,6 +25,10 @@ export default class Results {
     else if (this.numTabs == 2) {
       var tab2 = document.getElementById("asset2");
       tab2.style.display = "none";
+      this.name2=results.names[1];
+    }else{
+      this.name3=results.names[2];
+
     }
     var asset1Data = [];
     var asset1With = [];
@@ -53,9 +63,9 @@ export default class Results {
       Data.push(tempPercentiles);
     }
     this.Data = Data;
-   
+
     for (var i = 0; i < data.distributions.length; i++) {
-       var tempAvgWithdrawal = [];
+      var tempAvgWithdrawal = [];
       this.ProbOfSucces.push(data.distributions[i].probabilityOfSuccess);
       for (var j = 0; j < 9; j++) {
         tempAvgWithdrawal.push(data.distributions[i].percentiles[j].averageWithdrawls);
