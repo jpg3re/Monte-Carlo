@@ -63,78 +63,11 @@ namespace MonteCarlo.Models.Model
             for(int element = 0; element < amount * 2; element++)
             {
                 weightRates[element] = new WeightRate(assets[element]);
-                rateTasks.Add(Task.Run((Action)(() => { this.distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Normal, model)); })));
-                rateTasks.Add(Task.Run((Action)(() => { this.distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Laplace, model)); })));
-                rateTasks.Add(Task.Run((Action)(() => { this.distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); })));
-            };
-            Task.WaitAll(rateTasks.ToArray());
+                rateTasks.Add(Task.Run(() => { distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Normal, model)); }));
+                rateTasks.Add(Task.Run(() => { distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Laplace, model)); }));
+                rateTasks.Add(Task.Run(() => { distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); }));
+                Task.WaitAll(rateTasks.ToArray());
+            };           
         }
-
-        //private void CalculateDistributions()
-        //{
-        //    if (amount == 3)
-        //    {
-        //        distributionTasks[0] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Normal, model); });
-        //        distributionTasks[1] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Laplace, model); });
-        //        distributionTasks[2] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.T, model); });
-
-        //        distributionTasks[3] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Normal, model); });
-        //        distributionTasks[4] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Laplace, model); });
-        //        distributionTasks[5] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.T, model); });
-
-        //        distributionTasks[6] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Normal, model); });
-        //        distributionTasks[7] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Laplace, model); });
-        //        distributionTasks[8] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.T, model); });
-
-        //        distributionTasks[9] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Normal, model); });
-        //        distributionTasks[10] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Laplace, model); });
-        //        distributionTasks[11] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.T, model); });
-
-        //        distributionTasks[12] = Task.Run(() => { return new Distributions(assets[4], rateTasks[4].Result, PDFType.Normal, model); });
-        //        distributionTasks[13] = Task.Run(() => { return new Distributions(assets[4], rateTasks[4].Result, PDFType.Laplace, model); });
-        //        distributionTasks[14] = Task.Run(() => { return new Distributions(assets[4], rateTasks[4].Result, PDFType.T, model); });
-
-        //        distributionTasks[15] = Task.Run(() => { return new Distributions(assets[5], rateTasks[5].Result, PDFType.Normal, model); });
-        //        distributionTasks[16] = Task.Run(() => { return new Distributions(assets[5], rateTasks[5].Result, PDFType.Laplace, model); });
-        //        distributionTasks[17] = Task.Run(() => { return new Distributions(assets[5], rateTasks[5].Result, PDFType.T, model); });
-        //    }
-        //    else if (amount == 2)
-        //    {
-        //        distributionTasks[0] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Normal, model); });
-        //        distributionTasks[1] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Laplace, model); });
-        //        distributionTasks[2] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.T, model); });
-
-        //        distributionTasks[3] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Normal, model); });
-        //        distributionTasks[4] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Laplace, model); });
-        //        distributionTasks[5] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.T, model); });
-
-        //        distributionTasks[6] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Normal, model); });
-        //        distributionTasks[7] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.Laplace, model); });
-        //        distributionTasks[8] = Task.Run(() => { return new Distributions(assets[2], rateTasks[2].Result, PDFType.T, model); });
-
-        //        distributionTasks[9] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Normal, model); });
-        //        distributionTasks[10] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.Laplace, model); });
-        //        distributionTasks[11] = Task.Run(() => { return new Distributions(assets[3], rateTasks[3].Result, PDFType.T, model); });
-        //    }
-        //    else
-        //    {
-        //        distributionTasks[0] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Normal, model); });
-        //        distributionTasks[1] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.Laplace, model); });
-        //        distributionTasks[2] = Task.Run(() => { return new Distributions(assets[0], rateTasks[0].Result, PDFType.T, model); });
-
-        //        distributionTasks[3] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Normal, model); });
-        //        distributionTasks[4] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.Laplace, model); });
-        //        distributionTasks[5] = Task.Run(() => { return new Distributions(assets[1], rateTasks[1].Result, PDFType.T, model); });
-        //    }
-
-        //    Parallel.For()
-
-        //    Task.WaitAll(distributionTasks);
-
-        //    for (int i = 0; i < distributionTasks.Length; i++)
-        //    {
-        //        distributions.Add(distributionTasks[i].Result);
-        //    }
-        //}
     }
 }
