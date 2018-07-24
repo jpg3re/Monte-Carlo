@@ -15,9 +15,8 @@ namespace MonteCarlo.Models.Model
         private InputModel model;
         private List<Task> rateTasks;
         private WeightRate[] weightRates;
-        public List<Distributions> distributions;
         public List<string> names;
-        private List<Distributions> allDistributions;
+        public List<Distributions> distributions;
         private double[] historicalRates = { 9.68, 14.68, 10.71, 15.91, 9.32, 19.06, 7.06, 2.91, 9.01, 2.87, 5.84, 2.85, 5.88, 3.48, 0.18, 0.12, 2.32, 2.19 };
 
         public OutputModel(InputModel model)
@@ -28,7 +27,7 @@ namespace MonteCarlo.Models.Model
             weightRates = new WeightRate[amount * 2];
             names = new List<string>(amount);
             rateTasks = new List<Task>(amount * 2);
-            allDistributions = new List<Distributions>(amount * 6);
+            distributions = new List<Distributions>(amount * 6);
             MakeHistoricalAssets();
             Names();
             CalculateWeightRate();
@@ -64,9 +63,9 @@ namespace MonteCarlo.Models.Model
             for(int element = 0; element < amount * 2; element++)
             {
                 weightRates[element] = new WeightRate(assets[element]);
-                rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Normal, model)); }));
-                rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Laplace, model)); }));
-                rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); }));
+                rateTasks.Add(Task.Run((Action)(() => { this.distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Normal, model)); })));
+                rateTasks.Add(Task.Run((Action)(() => { this.distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.Laplace, model)); })));
+                rateTasks.Add(Task.Run((Action)(() => { this.distributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); })));
             };
             Task.WaitAll(rateTasks.ToArray());
         }
