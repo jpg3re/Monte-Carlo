@@ -15,7 +15,7 @@ namespace MonteCarlo.Models
         private double expectedReturn { get; set; }
         private double standardDeviation { get; set; }
         private int time { get; set; } //how many days,months, or years
-        public const int trials = 10000; //how many trials
+        public const int trials = 5000; //how many trials
         public List<List<double>> rates = new List<List<double>>(trials);
         private Ziggurat ziggurat;
 
@@ -41,9 +41,9 @@ namespace MonteCarlo.Models
             {
                 rate.Add(expectedReturn + (standardDeviation * (ziggurat.GetRandom())));
             }
-            rateMutex.WaitOne();
+            //rateMutex.WaitOne();
             rates.Add(rate);
-            rateMutex.ReleaseMutex();
+           // rateMutex.ReleaseMutex();
         }
 
         //private void RunTrials()
