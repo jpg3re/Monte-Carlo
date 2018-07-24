@@ -20,7 +20,7 @@ namespace MonteCarlo.Models.Model
         private double additions;
         private double withdrawls;
         private double initialAmount;
-        private Asset asset;
+        public Asset asset;
         private List<List<double>> weightedRates;
         private Mutex mutex = new Mutex();
         private Mutex withdrawlMutex = new Mutex();
