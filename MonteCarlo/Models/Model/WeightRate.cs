@@ -76,7 +76,7 @@ namespace MonteCarlo.Models.Model
         {
             List<double> weightedTrial;
             double currentTotal = 0;
-            for (int i = 0; i < tasks[0].Result.Count; i++)
+            for(int i = 0; i < tasks[0].Result.Count; i++)
             {
                 weightedTrial = new List<double>(tasks[0].Result[0].Count);
                 for (int j = 0; j < tasks[0].Result[0].Count; j++)

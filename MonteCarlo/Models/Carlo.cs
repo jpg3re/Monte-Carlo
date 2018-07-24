@@ -41,9 +41,9 @@ namespace MonteCarlo.Models
             {
                 rate.Add(expectedReturn + (standardDeviation * (ziggurat.GetRandom())));
             }
-            //rateMutex.WaitOne();
+            rateMutex.WaitOne();
             rates.Add(rate);
-           // rateMutex.ReleaseMutex();
+            rateMutex.ReleaseMutex();
         }
 
         //private void RunTrials()
