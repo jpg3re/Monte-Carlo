@@ -3,46 +3,28 @@
   <require from="../collapse/collapse"></require>
   <require from="./asset.css" rel="stylesheet"></require>
 
-  <div class="header" id="myHeader" style="text-align: center; font-size:40px">
-    <div>
-      <div class="columns">
-        <div class="column" >
-          Projected
-        </div>
 
-        <div class="column" >
-          Historical
-        </div>
-      </div>
-    </div>
+
+  <div class="tabs is-large is-toggle is-fullwidth">
+  <ul>
+    <li class="tabThing is-active" id="dist0" click.delegate="selectDistribution(0)" data-tab="0"><a>Normal Distribution</a></li>
+    <li class="tabThing" id="dist1" click.delegate="selectDistribution(1)" data-tab="1"><a>Laplace Distribution</a></li>
+    <li class="tabThing" id="dist2" click.delegate="selectDistribution(2)" data-tab="2"><a>Cauchy Distribution</a></li>
+  </ul>
   </div>
-
   <div class="columns">
+
     <div class="column" style="background-color:#f4fef4;">
 
-      <graph number=0 title="Normally Distributed Returns" view-model.ref="graph0"></graph>
-      <br>
-      <br>
-      <br>
-      <graph number=1 title="Laplace Distributed Returns" view-model.ref="graph1"></graph>
-      <br>
-      <br>
-      <br>
-      <graph number=2 title="Cauchy Distributed Returns" view-model.ref="graph2"></graph>
+      <graph number=0  view-model.ref="graph0"></graph>
+
     </div>
     <div class="column" style="background-color:	whitesmoke">
-      <!-- <h1 style="position:fixed; text-align:center; font-size:50px" >Historical</h1> -->
-      <graph number=3 title="Normally Distributed Returns" view-model.ref="graph3"></graph>
-      <br>
-      <br>
-      <br>
-      <graph number=4 title="Laplace Distributed Returns" view-model.ref="graph4"></graph>
-      <br>
-      <br>
-      <br>
-      <graph number=5 title="Cauchy Distributed Returns" view-model.ref="graph5"></graph>
+
+      <graph number=1  view-model.ref="graph1"></graph>
+
     </div>
-  </div>
+  
 
 
 </template>
