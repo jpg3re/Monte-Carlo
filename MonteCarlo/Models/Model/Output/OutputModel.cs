@@ -32,7 +32,6 @@ namespace MonteCarlo.Models.Model
             MakeHistoricalAssets();
             Names();
             CalculateWeightRate();
-            SortDistributions();
         }
 
         private void Names()
@@ -70,10 +69,6 @@ namespace MonteCarlo.Models.Model
                 rateTasks.Add(Task.Run(() => { allDistributions.Add(new Distributions(assets[element], weightRates[element], PDFType.T, model)); }));
             };
             Task.WaitAll(rateTasks.ToArray());
-        }
-
-        private void SortDistributions()
-        { 
         }
 
         //private void CalculateDistributions()
