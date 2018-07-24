@@ -40,7 +40,6 @@ export default class HTTPPost {
     }
 
     var Redirect = () => {
-      this.wait(3000);
       var url = window.location.href;
       localStorage.setItem('results', JSON.stringify(self.results));
       window.location.href = "results";
