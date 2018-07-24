@@ -33,10 +33,10 @@ export default class Input {
   
   attached() {
     var url = document.referrer;
-    if (url == "http://localhost:8080/home") {
+    if (url == "http://localhost:8085/home") {
 
      }
-    else if (url == "http://localhost:8080/results") {
+    else if (url == "http://localhost:8085/results") {
       this.model = JSON.parse(localStorage.getItem('model'));
       for (var e = this.model.numberOfAssets; e > 1; e--) {
         this.NewAsset();
