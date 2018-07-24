@@ -21,6 +21,7 @@ namespace MonteCarlo.Models.Model
         private double withdrawls;
         private double initialAmount;
         public Asset asset;
+        public PDFType pdf;
         private List<List<double>> weightedRates;
         private Mutex mutex = new Mutex();
         private Mutex withdrawlMutex = new Mutex();
@@ -30,6 +31,7 @@ namespace MonteCarlo.Models.Model
             yearsOfAdditions = asset.yearsOfAdd;
             yearsOfWithdrawls = asset.yearsOfWith;
             additions = asset.addPerYear;
+            this.pdf = pdf;
             withdrawls = asset.withperYear;
             initialAmount = asset.currAmount;
             this.model = model;
