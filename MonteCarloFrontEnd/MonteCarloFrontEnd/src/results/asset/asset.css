@@ -19,3 +19,53 @@ margin-top:0 !important;
   background-color: white;
 }
 
+.tabs.is-toggle a {
+  border-color: rgba(0,0,0,0);
+  border-style: solid;
+  border-width: 0px !important;
+  margin-bottom: 0;
+  background-color:hsla(141, 71%, 48%, .4)!important;
+  color:#222222 !important;
+  position: relative;
+}
+
+.tabs.is-toggle a:hover {
+  background-color: hsla(141, 71%, 48%, .4) !important;
+  border-color: hsla(141, 71%, 48%, .4)!important;
+ border:0px !important;
+}
+
+.tabs.is-toggle li + li {
+  margin-left: -1px;
+}
+
+.tabs.is-toggle li:first-child a {
+  border-radius: 0px 0 0 0px;
+}
+
+.tabs.is-toggle li:last-child a {
+  border-radius: 0 0px 0px 0;
+}
+
+.tabs.is-toggle li.is-active a {
+  background-color: #3273dc;
+  border-color: #3273dc;
+  color: #fff!important;
+  z-index: 1;
+}
+
+.tabs.is-toggle ul {
+  border-bottom: none;
+}
+
+.tabs.is-toggle.is-toggle-rounded li:first-child a {
+  border-bottom-left-radius: 290486px;
+  border-top-left-radius: 290486px;
+  padding-left: 1.25em;
+}
+
+.tabs.is-toggle.is-toggle-rounded li:last-child a {
+  border-bottom-right-radius: 290486px;
+  border-top-right-radius: 290486px;
+  padding-right: 1.25em;
+}
