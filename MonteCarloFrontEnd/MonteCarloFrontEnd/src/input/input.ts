@@ -9,6 +9,8 @@ export default class Input {
   asset = new Asset();
   post = new HTTPPost();
 
+  onLoad = false;
+
   overSelected = 0;
   selected = 0;
   assetTab = 0;
@@ -33,22 +35,25 @@ export default class Input {
   
   attached() {
     var url = document.referrer;
-    if (url == "http://localhost:8080/home") {
+    if (url == "http://localhost:8085/home") {
 
      }
-    else if (url == "http://localhost:8080/results") {
+    else if (url == "http://localhost:8085/results") {
       this.model = JSON.parse(localStorage.getItem('model'));
+      console.log("seen")
       for (var e = this.model.numberOfAssets; e > 1; e--) {
         this.NewAsset();
       }
+      this.asset = this.model.assetHolder[0];
+      this.ChangeAsset(1);
       this.ChangeAsset(0);
-    }
-    else {
-      window.location.href = "home";
-    }
+      this.ChangeAsset(1);
+      this.ChangeAsset(0);
+     }
 
     this.PieChart([100 , 0 , 0 , 0 , 0])
     this.ConstantRun()
+    this.UpdatePercentages();
   }
 
   UseDefaults() {
@@ -101,7 +106,7 @@ export default class Input {
         labels: ["Remaining" , "Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities" , "Investment Grade" , "High Yield" , "Treasuries" , "CD's" , "Money Market Account" , "Commercial Paper"],
         datasets: [{
           label: "Types",
-          backgroundColor: ['#222222','#CEEB81', '#618D05' , '#A3D444','#FFD536', '#FFE068' , '#FFEA98','#540032', '#820333' , '#C9283E'],
+          backgroundColor: ['#222222','#17883f', '#23d160' , '#64e591','#0d6dac', '#209cee' , '#6fbff4','#ffcc02', '#ffd635' , '#ffe068'],
           data: [data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]]
         }]
       },
@@ -191,7 +196,16 @@ export default class Input {
       this.thirdAssetName = this.nameHold;
     }
 
-    this.PushAsset(this.assetTab);
+    if (this.onLoad != true) {
+      this.PushAsset(this.assetTab);
+    }
+
+    if (this.onLoad == true) {
+      this.erHold = this.asset.stocks.upper.expectedReturn;
+      this.vHold = this.asset.stocks.upper.volatility;
+      this.pwHold = this.asset.stocks.upper.portfolioWeight;
+    }
+
     this.SetAsset(number);
     this.UpdatePercentages();
 
@@ -204,7 +218,7 @@ export default class Input {
         tab = document.getElementById("assetTab" + i);
         text = document.getElementById("assetText" + i);
 
-        tab.style.backgroundColor = "rgb(170, 201, 171)";
+        tab.style.backgroundColor = "hsla(141, 71%, 48%, .4)";
         text.style.color = "#222222";
       }
       i++;
@@ -214,7 +228,7 @@ export default class Input {
     text = document.getElementById("assetText" + number);
 
 
-    tab.style.backgroundColor = "rgb(86, 150, 87)";
+    tab.style.backgroundColor = "hsl(141, 71%, 48%)";
     text.style.color = "white";
     this.assetTab = number;
   }
@@ -306,7 +320,7 @@ export default class Input {
         tab = document.getElementById("tab" + i);
         text = document.getElementById("text" + i);
 
-        tab.style.backgroundColor = "rgb(170, 201, 171)";
+        tab.style.backgroundColor = "hsla(141, 71%, 48%, .4)";
         text.style.color = "#222222";
       }
       i++;
@@ -316,7 +330,7 @@ export default class Input {
     text = document.getElementById("text" + number);
 
     if (tab != null) {
-      tab.style.backgroundColor = "rgb(86, 150, 87)";
+      tab.style.backgroundColor = "hsl(141, 71%, 48%)";
       text.style.color = "white";
     }
 
@@ -327,7 +341,8 @@ export default class Input {
       this.model.numberOfAssets = this.iterator + 1;
       this.SaveSubAsset(this.selected);
       this.PushAsset(this.assetTab);
-      this.post.SendData(this.model, 1);
+      localStorage.setItem('model', JSON.stringify(this.model));
+      window.location.href = "home"
     }
   }
 
@@ -344,7 +359,7 @@ export default class Input {
         tab = document.getElementById("overTab" + i);
         text = document.getElementById("overText" + i);
 
-        tab.style.backgroundColor = "rgb(170, 201, 171)";
+        tab.style.backgroundColor = "hsla(141, 71%, 48%, .4)";
         text.style.color = "#222222";
       }
       i++;
@@ -373,7 +388,7 @@ export default class Input {
     }
 
     if (tab != null) {
-      tab.style.backgroundColor = "rgb(86, 150, 87)";
+      tab.style.backgroundColor = "hsl(141, 71%, 48%)";
       text.style.color = "white";
     }
 

@@ -16,7 +16,7 @@ export class Graph {
   currentTableData;
   myChart;
   distribution;
-
+  max;
   populateGraph() {
     var labels = [];
     var year = (new Date()).getFullYear();
@@ -61,7 +61,7 @@ export class Graph {
 
   createChart(inLabels, inData, title) {
     var tempData = [];
-    var self=this;
+    var self = this;
     for (var i = 0; i < inData.length; i++) {
       var color;
       var label;
@@ -100,7 +100,7 @@ export class Graph {
       }
       tempData.push({
         fill: false,
-        label: label+"th",
+        label: label + "th",
         borderColor: color,
         hidden: hidden,
         data: inData[i]
@@ -126,8 +126,9 @@ export class Graph {
       scales: {
         yAxes: [{
           ticks: {
+            max: (Math.ceil(this.max * 1.1 / 10000) * 10000),
             beginAtZero: true,
-            callback: function(value, index, values) {
+            callback: function (value, index, values) {
               return '$' + self.numberWithCommas(value);
             }
           }
@@ -161,12 +162,13 @@ export class Graph {
     });
   }
 
-  inputData(distribution, prob, withdrawal) {
+  inputData(distribution, prob, withdrawal,max) {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
     this.withdrawalData = withdrawal;
-    this.probOfSuccess = +prob * 100;
+    this.probOfSuccess = (+prob * 100).toFixed(2);
     this.averageWithdrawal = withdrawal[0];
+    this.max=max;
     this.populateGraph();
   }
 }

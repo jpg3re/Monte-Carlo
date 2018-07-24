@@ -1,6 +1,14 @@
 export default class HTTPPost {
   results
 
+  wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+      end = new Date().getTime();
+   }
+ }
+
   SendData(model,asset) {
     var self = this;
     var api;
@@ -32,12 +40,12 @@ export default class HTTPPost {
     }
 
     var Redirect = () => {
+      this.wait(3000);
       var url = window.location.href;
       localStorage.setItem('results', JSON.stringify(self.results));
       window.location.href = "results";
       return this.results;
     }
-
     f().then(Redirect);
   }
 }
