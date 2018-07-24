@@ -35,15 +35,10 @@ export default class Input {
   
   attached() {
     var url = document.referrer;
-<<<<<<< HEAD
-    if (localStorage.getItem('model')) {
-      this.onLoad = true;
-=======
     if (url == "http://localhost:8085/home") {
 
      }
     else if (url == "http://localhost:8085/results") {
->>>>>>> 0b42c4666f338f46065e160c83584f6196a6131f
       this.model = JSON.parse(localStorage.getItem('model'));
       console.log("seen")
       for (var e = this.model.numberOfAssets; e > 1; e--) {
