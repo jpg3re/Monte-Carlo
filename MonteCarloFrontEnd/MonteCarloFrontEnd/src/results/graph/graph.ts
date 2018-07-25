@@ -29,7 +29,7 @@ export class Graph {
     }
     this.createChart(labels, data, this.title);
     this.displayData(this.currentPercentile);
-    
+
   }
 
   selectPercentileData(percentile) {
@@ -43,13 +43,24 @@ export class Graph {
     var newTableData = [];
     var year = (new Date()).getFullYear();
     for (var i = 0; i < amount.length; i++) {
-      newTableData[i] =
-        {
-          'year': +year + +i,
-          'amount': "$" + this.numberWithCommas(amount[i]),
-          'withdrawal': "$" + this.numberWithCommas(withdrawal[i]),
-          'growth': (growth[i] * 100).toFixed(2) + "%"
-        }
+      if (withdrawal[i] < 0) {
+        withdrawal[i]=(withdrawal[i]*-1);
+        newTableData[i] =
+          {
+            'year': +year + +i,
+            'amount': "$" + this.numberWithCommas(amount[i]),
+            'withdrawal': "-$" + this.numberWithCommas(withdrawal[i]),
+            'growth': (growth[i] * 100).toFixed(2) + "%"
+          }
+      } else {
+        newTableData[i] =
+          {
+            'year': +year + +i,
+            'amount': "$" + this.numberWithCommas(amount[i]),
+            'withdrawal': "$" + this.numberWithCommas(withdrawal[i]),
+            'growth': (growth[i] * 100).toFixed(2) + "%"
+          }
+      }
     }
     this.currentTableData = newTableData;
   }
@@ -57,7 +68,7 @@ export class Graph {
     this.currentPercentile = Math.floor((+percentile) / +10) * +10;
     this.selectPercentileData(Math.floor((+percentile - +1) / +10));
     this.table.updateData(this.currentTableData);
-    this.averageWithdrawal = "$"+this.numberWithCommas(this.withdrawalData[(Math.floor((+percentile - +1) / +10))]);
+    this.averageWithdrawal = "$" + this.numberWithCommas(this.withdrawalData[(Math.floor((+percentile - +1) / +10))]);
   }
 
   createChart(inLabels, inData, title) {
@@ -163,25 +174,25 @@ export class Graph {
     });
   }
 
-  inputData(distribution, prob, withdrawal,max,title) {
+  inputData(distribution, prob, withdrawal, max, title) {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
     this.withdrawalData = withdrawal;
-   
+
 
     this.probOfSuccess = (+prob * 100).toFixed(2);
-      var id=document.getElementById("prob"+this.number);
-     console.log(this.probOfSuccess)
-     if(this.probOfSuccess<50){
-     id.style.color="red";
-    }else if(this.probOfSuccess<80){
-      id.style.color="hsl(48, 100%, 67%)";
-    }else{
-      id.style.color="green";
+    var id = document.getElementById("prob" + this.number);
+    console.log(this.probOfSuccess)
+    if (this.probOfSuccess < 50) {
+      id.style.color = "red";
+    } else if (this.probOfSuccess < 80) {
+      id.style.color = "hsl(48, 100%, 67%)";
+    } else {
+      id.style.color = "green";
     }
     this.averageWithdrawal = withdrawal[0];
-    this.max=max;
-    this.title=[title,"Percentile:"];
+    this.max = max;
+    this.title = [title, "Percentile:"];
     this.populateGraph();
   }
 }

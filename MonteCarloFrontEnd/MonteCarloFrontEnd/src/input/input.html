@@ -89,7 +89,7 @@
         <div class="control has-icons-left has-icons-right">
           <input class="input" placeholder="50000" value.bind="asset.withPerYear" style="width:50%">
           <span class="icon is-medium is-left">
-            <i class="fas fa-calendar-minus"></i>
+            <i class="fas fa-hand-holding-usd"></i>
           </span>
         </div>
         <br>
@@ -118,7 +118,7 @@
           </li>
           <li id="tab1" click.delegate="SwitchSelected(1)" style="background-color: hsla(141, 71%, 48%, .4); text-decoration:none; width:29.6vw">
               <a style="text-decoration:none">
-                <span id="text1">Medium Cap Equities</span>
+                <span id="text1">Mid Cap Equities</span>
               </a>
             </li>
           <li id="tab2" click.delegate="SwitchSelected(2)" style="background-color: hsla(141, 71%, 48%, .4); text-decoration:none; width:20vw">
@@ -169,7 +169,7 @@
       </div>
       <div class="content has-text-centered">
         <div style="transform:translate(16vw,-26vh)">
-          <a class="button is-large" style="background-color: hsl(141, 71%, 48%); color:white;position:absolute;" click.delegate="UseDefaults()">
+          <a class="button is-large" style="background-color: hsl(141, 71%, 48%); color:white;position:absolute;" click.delegate="UseDefaults()" id="defaultBtn">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use Default Data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
         </div>
       </div>
