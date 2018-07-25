@@ -1,23 +1,30 @@
 <template>
-  <div>
- <require from="../collapse/collapse"></require>
+  <require from="../collapse/collapse"></require>
   <div style="text-align:center;position:relative; left:70px;">
-  
-    <canvas  width="800px" height="500px"  id="myChart${number}" ></canvas>
+
+    <canvas width="800px" height="500px" id="myChart${number}"></canvas>
   </div>
-  <div style="font-size:160%"  style="float:left">
+  <div style="font-size:160%" style="float:left">
     <div style="text-align: center;">
-      Probability of Success: <span id="prob${number}"> ${probOfSuccess}% </span>
+      <span style="font-weight:bold;">Probability of Success: </span><span id="prob${number}"> ${probOfSuccess}% </span>
     </div>
-   Select Percentile: 
-  <input value=10 type="number" min="10" max="90" step="10" value.bind="percentile" click.delegate="displayData(percentile)" >
   </div>
-<!-- <div>  
+  </div>
+
+<hr style="background-color:#222222; size:10px;">
+  <div style="font-size:160%; z-index:99; transform:translateX(5px);">
+    Select Percentile:
+    <input value=10 type="number" min="10" max="90" step="10" value.bind="percentile" click.delegate="displayData(percentile)">
+  </div>
+  <div style=" transform:translate(550px,-39px); font-size:160%; width:50%;">
+    <span >Average Withdrawal: <span style="color:green; z-index:0;">${averageWithdrawal}</span></span>
+    </div>
+      <!-- <div>  
  <a class="button is-success is-outlined is-fullwidth" click.delegate="displayData(percentile)" style="text-align: center">Outlined</a>
 </div> -->
-  <collapse number="${number}" view-model.ref="table">
-  <span slot="title" style="text-align:center;color:#4a4a4a; font-size:140%">Average Withdrawal: ${averageWithdrawal}</span>
-  </collapse> 
-</div>
-</template>
 
+      <collapse number="${number}" view-model.ref="table">
+        <span slot="title" style="text-align:center;color:#4a4a4a; font-size:140%"></span>
+      </collapse>
+    </div>
+</template>
