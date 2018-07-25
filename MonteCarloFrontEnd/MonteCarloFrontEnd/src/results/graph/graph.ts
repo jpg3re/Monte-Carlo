@@ -29,6 +29,7 @@ export class Graph {
     }
     this.createChart(labels, data, this.title);
     this.displayData(this.currentPercentile);
+    
   }
 
   selectPercentileData(percentile) {
@@ -166,10 +167,21 @@ export class Graph {
     this.currentTableData = distribution[0].amount;
     this.distribution = distribution;
     this.withdrawalData = withdrawal;
+   
+
     this.probOfSuccess = (+prob * 100).toFixed(2);
+      var id=document.getElementById("prob"+this.number);
+     console.log(this.probOfSuccess)
+     if(this.probOfSuccess<50){
+     id.style.color="red";
+    }else if(this.probOfSuccess<80){
+      id.style.color="hsl(48, 100%, 67%)";
+    }else{
+      id.style.color="green";
+    }
     this.averageWithdrawal = withdrawal[0];
     this.max=max;
-    this.title=title;
+    this.title=[title,"Percentile:"];
     this.populateGraph();
   }
 }

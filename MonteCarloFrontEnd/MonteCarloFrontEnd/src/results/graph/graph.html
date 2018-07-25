@@ -7,16 +7,16 @@
   </div>
   <div style="font-size:160%"  style="float:left">
     <div style="text-align: center;">
-      Probability of Success: ${probOfSuccess}%
+      Probability of Success: <span id="prob${number}"> ${probOfSuccess}% </span>
     </div>
-  Percentile: 
+   Select Percentile: 
   <input value=10 type="number" min="10" max="90" step="10" value.bind="percentile" click.delegate="displayData(percentile)" >
   </div>
 <!-- <div>  
  <a class="button is-success is-outlined is-fullwidth" click.delegate="displayData(percentile)" style="text-align: center">Outlined</a>
 </div> -->
   <collapse number="${number}" view-model.ref="table">
-  <span slot="title" style="text-align:center;color:black;">Average Withdrawal: ${averageWithdrawal}</span>
+  <span slot="title" style="text-align:center;color:#4a4a4a; font-size:140%">Average Withdrawal: ${averageWithdrawal}</span>
   </collapse> 
 </div>
 </template>
