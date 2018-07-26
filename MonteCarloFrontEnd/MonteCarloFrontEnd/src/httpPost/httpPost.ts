@@ -117,7 +117,6 @@ export default class HTTPPost {
         if(element.yearsOfWith == null){
           model.assetHolder[counter].yearsOfWith = 0;
         }
-        counter++;
       }
     console.log(JSON.stringify(model));
     if (asset == 1) {

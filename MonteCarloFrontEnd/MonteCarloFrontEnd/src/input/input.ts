@@ -45,6 +45,8 @@ export default class Input {
       this.asset = this.model.assetHolder[0];
       this.ChangeAsset(1);
       this.ChangeAsset(0);
+      this.ChangeAsset(2);
+      this.ChangeAsset(2);
       this.ChangeAsset(1);
       this.ChangeAsset(0);
      }
