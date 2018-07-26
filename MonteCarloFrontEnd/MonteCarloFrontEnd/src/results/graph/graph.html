@@ -16,8 +16,11 @@
     Select Percentile:
     <input value=10 type="number" min="10" max="90" step="10" value.bind="percentile" click.delegate="displayData(percentile)">
   </div>
-  <div style=" transform:translate(550px,-39px); font-size:160%; width:50%;">
-    <span >Average Withdrawal: <span style="color:green; z-index:0;">${averageWithdrawal}</span></span>
+  <div style=" transform:translate(450px,-39px); font-size:160%; width:50%;">
+    <span >Average Withdrawal for ${percentile}th Percentile: </span>
+    <div style="transform:translate(150px);">
+    <span style="color:green; z-index:0;  ">${averageWithdrawal}</span>
+    </div>
     </div>
       <!-- <div>  
  <a class="button is-success is-outlined is-fullwidth" click.delegate="displayData(percentile)" style="text-align: center">Outlined</a>
