@@ -145,7 +145,7 @@ namespace MonteCarlo.Models.Model
                     successCount++;
                 }
             });
-            probabilityOfSuccess = (double)successCount / (double)Carlo.trials;
+            probabilityOfSuccess = (double)successCount / (double)Allpercentiles.Count;
         }
     }
 }
