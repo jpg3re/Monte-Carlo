@@ -76,7 +76,7 @@ namespace MonteCarlo.Models.Model
             {
                 currentValue += additions;
                 currentValue += currentValue * rate[i];
-                Math.Max(currentValue, 0);
+                currentValue = Math.Max(currentValue, 0);
                 yearlies.Add(new Yearly(Math.Round(currentValue, 2), Math.Round(additions, 2), Math.Round(rate[i], 4)));
             }
             for (int i = yearsOfAdditions; i < yearsOfWithdrawls + yearsOfAdditions; i++)
@@ -105,6 +105,10 @@ namespace MonteCarlo.Models.Model
                 }
                 withdrawlMutex.WaitOne();
                 Allpercentiles[i].averageWithdrawls = (Math.Round(total / yearsOfWithdrawls, 2));
+                if (Double.IsNaN(Allpercentiles[i].averageWithdrawls))
+                {
+                    Allpercentiles[i].averageWithdrawls = 0;
+                }
                 withdrawlMutex.ReleaseMutex();
             });
         }

@@ -1,4 +1,6 @@
+import Asset from "input/asset/asset";
+
 export default class Model {
-  assetHolder = new Array(3);
+  assetHolder:Asset[] = new Array(3);
   numberOfAssets = 0;
 }

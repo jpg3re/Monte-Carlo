@@ -18,7 +18,7 @@ namespace MonteCarlo.Models.Model
         public double withperYear { get; set; } = 0;
         public string name { get; set; }
 
-        public Asset(Stocks stocks, Bonds bonds, Cash cash, double currAmount, double addPerYear, int yearsOfAdd, int yearsOfWith, double withperYear, string name)
+        public Asset(Stocks stocks = null, Bonds bonds = null, Cash cash = null,  double currAmount = 0, double addPerYear = 0, int yearsOfAdd = 0, int yearsOfWith = 0, double withperYear = 0, string name = "")
         {
             this.stocks = stocks;
             this.bonds = bonds;

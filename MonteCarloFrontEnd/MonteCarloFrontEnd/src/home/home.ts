@@ -4,7 +4,7 @@ export default class Home {
   post = new HTTPPost();
 
   attached() {
-    var model = JSON.parse(localStorage.getItem('model'));
+    var model = JSON.parse(sessionStorage.getItem('model'));
     this.post.SendData(model, 1);
   }
 

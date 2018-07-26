@@ -28,7 +28,7 @@ namespace MonteCarlo.Models.Model.UpperMidLower
         }
         private double _portfolioWeight = 0;
 
-        protected Breakdown(double expectedReturn, double volatility, double portfolioWeight)
+        protected Breakdown(double expectedReturn = 0, double volatility = 0, double portfolioWeight = 0)
         {
             this.expectedReturn = expectedReturn;
             this.portfolioWeight = portfolioWeight;

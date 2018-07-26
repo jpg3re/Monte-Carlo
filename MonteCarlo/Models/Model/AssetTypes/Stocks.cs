@@ -17,5 +17,12 @@ namespace MonteCarlo.Models.Model
             this.mid = mid;
             this.upper = upper;
         }
+
+        public Stocks()
+        {
+            lower = new Lower(0, 0, 0);
+            mid = new Mid(0, 0, 0);
+            upper = new Upper(0, 0, 0);
+        }
     }
 }
