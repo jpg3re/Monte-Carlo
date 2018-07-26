@@ -186,7 +186,7 @@ export class Graph {
     if (this.probOfSuccess < 50) {
       id.style.color = "red";
     } else if (this.probOfSuccess < 80) {
-      id.style.color = "hsl(48, 100%, 67%)";
+      id.style.color = "#ffae42";
     } else {
       id.style.color = "green";
     }
