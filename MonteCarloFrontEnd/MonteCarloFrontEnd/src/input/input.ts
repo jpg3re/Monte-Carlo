@@ -11,7 +11,7 @@ export default class Input {
 
   onLoad = false;
 
-  overSelected = 1;
+  overSelected = 0;
   selected = 0;
   assetTab = 0;
 
