@@ -15,9 +15,9 @@ export default class Input {
   selected = 0;
   assetTab = 0;
 
-  stockNames = ["Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities"];
-  bondNames = ["Investment Grade" , "Noninvestment Grade" , "Treasuries"];
-  cashNames = ["CD's" , "Money Market Account" , "Commercial Paper"];
+  stockNames = ["Large Cap Equities" , "Mid Cap Equities" , "Small Cap Equities"];
+  bondNames = ["Investment Grade" , "High Yield" , "Treasuries"];
+  cashNames = ["Certificate of Deposits" , "Money Market Account" , "Commercial Paper"];
 
   firstAssetName = "Asset 1";
   secondAssetName = "Asset 2";
@@ -57,14 +57,14 @@ export default class Input {
   UseDefaults() {
     this.SwitchOverSelected(0);
 
-    this.erHold = 5.333;
-    this.vHold = 17.667;
+    this.erHold = 5;
+    this.vHold = 16.7;
 
-    this.asset.stocks.mid.expectedReturn = 5.333;
-    this.asset.stocks.mid.volatility = 17.667;
+    this.asset.stocks.mid.expectedReturn = 5;
+    this.asset.stocks.mid.volatility = 17.95;
 
-    this.asset.stocks.lower.expectedReturn = 5.333;
-    this.asset.stocks.lower.volatility = 17.667;
+    this.asset.stocks.lower.expectedReturn = 5;
+    this.asset.stocks.lower.volatility = 18.35;
 
     this.asset.bonds.upper.expectedReturn = 2.9;
     this.asset.bonds.upper.volatility = 4.95;
@@ -101,10 +101,10 @@ export default class Input {
     this.myPieChart = new Chart(document.getElementById("pie-chart"), {
       type: 'pie',
       data: {
-        labels: ["Remaining" , "Large Cap Equities" , "Medium Cap Equities" , "Small Cap Equities" , "Investment Grade" , "High Yield" , "Treasuries" , "CD's" , "Money Market Account" , "Commercial Paper"],
+        labels: ["Remaining" , "Large Cap Equities" , "Mid Cap Equities" , "Small Cap Equities" , "Investment Grade" , "High Yield" , "Treasuries" , "CD's" , "Money Market Account" , "Commercial Paper"],
         datasets: [{
           label: "Types",
-          backgroundColor: ['#222222','#17883f', '#23d160' , '#64e591','#0d6dac', '#209cee' , '#6fbff4','#ffcc02', '#ffd635' , '#ffe068'],
+          backgroundColor: ['#222222','#17883f', '#23d160' , '#64e591','#0d6dac', '#209cee' , '#6fbff4','#1D1058', '#3C0874' , '#830DD9'],
           data: [data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9]]
         }]
       },
