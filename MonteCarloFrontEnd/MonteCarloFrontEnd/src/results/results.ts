@@ -11,7 +11,7 @@ export default class Results {
   @bindable name2;
   @bindable name3;
   attached() {
-    var results = JSON.parse(localStorage.getItem('results'));
+    var results = JSON.parse(sessionStorage.getItem('results'));
     console.log(results);
     this.formatData(results);
     this.name1=results.names[0];
@@ -30,7 +30,6 @@ export default class Results {
     }else{
       this.name3=results.names[2];
       this.name2=results.names[1];
-
     }
     var asset1Data = [];
     var asset1With = [];

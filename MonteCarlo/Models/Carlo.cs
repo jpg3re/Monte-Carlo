@@ -45,24 +45,5 @@ namespace MonteCarlo.Models
             rates.Add(rate);
             rateMutex.ReleaseMutex();
         }
-
-        //private void RunTrials()
-        //{
-        //    double change;
-        //    double trialValue = currentValue;
-        //    List<double> trial = new List<double> { }; //record the current trial
-
-        //    for (int j = 0; j < time; j++)
-        //    {
-        //        change = trialValue * ((expectedReturn) + (standardDeviation * (ziggurat.GetRandom())));
-        //        trialValue += change;
-        //        trial.Add(trialValue);
-        //    }
-        //    //trial = trial.Select(x => Math.Round(x, 2)).ToList();
-
-        //    mutex.WaitOne();
-        //    distribution.Add(trial); //make sure only one thread accesses the list at any given time to record its trial
-        //    mutex.ReleaseMutex();
-        //}
     }
 }

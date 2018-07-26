@@ -31,7 +31,8 @@ namespace MonteCarlo.Models.Model
         {
             Task<List<List<double>>>[] tasks = new Task<List<List<double>>>[9];
 
-            tasks[0] = (Task.Run(() => RunCarlo(asset.stocks.lower, pdf)));
+            tasks[0] = (Task.Run(() => 
+            RunCarlo(asset.stocks.lower, pdf)));
             tasks[1] = (Task.Run(() => RunCarlo(asset.stocks.mid, pdf)));
             tasks[2] = (Task.Run(() => RunCarlo(asset.stocks.upper, pdf)));
 
@@ -67,7 +68,17 @@ namespace MonteCarlo.Models.Model
             }
 
             Carlo carlo = Task.Run(() => new Carlo(breakdown.expectedReturn, breakdown.volatility, asset.yearsOfAdd + asset.yearsOfWith, zigg)).Result;
-            List<List<double>> rates = carlo.rates.Select(element => element.Select(individual => individual * breakdown.portfolioWeight).ToList()).ToList(); //multiplies every rate by its portfolio weight
+            List<List<double>> rates = new List<List<double>>(carlo.rates.Count);
+            List<double> rate;
+            for (int i = 0; i < carlo.rates.Count; i++)
+            {
+                rate = new List<double>(carlo.rates[i].Count);
+                for(int j = 0; j < carlo.rates[i].Count; j++)
+                {
+                    rate.Add(carlo.rates[i][j] * breakdown.portfolioWeight);
+                }
+                rates.Add(rate);
+            }
             return rates;
         }
 

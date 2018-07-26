@@ -35,9 +35,9 @@ export default class Input {
   
   attached() {
     var url = document.referrer;
-    if (localStorage.getItem('model')) {
+    if (sessionStorage.getItem('model')) {
       this.onLoad = true;
-      this.model = JSON.parse(localStorage.getItem('model'));
+      this.model = JSON.parse(sessionStorage.getItem('model'));
       console.log("seen")
       for (var e = this.model.numberOfAssets; e > 1; e--) {
         this.NewAsset();
@@ -45,6 +45,8 @@ export default class Input {
       this.asset = this.model.assetHolder[0];
       this.ChangeAsset(1);
       this.ChangeAsset(0);
+      this.ChangeAsset(2);
+      this.ChangeAsset(2);
       this.ChangeAsset(1);
       this.ChangeAsset(0);
      }
@@ -339,7 +341,7 @@ export default class Input {
       this.model.numberOfAssets = this.iterator + 1;
       this.SaveSubAsset(this.selected);
       this.PushAsset(this.assetTab);
-      localStorage.setItem('model', JSON.stringify(this.model));
+      sessionStorage.setItem('model', JSON.stringify(this.model));
       window.location.href = "home"
     }
   }
@@ -500,6 +502,7 @@ export default class Input {
         this.pwHold = this.asset.cash.lower.portfolioWeight;
       }
     }
+    
   }
 
   SaveAsset(number) {

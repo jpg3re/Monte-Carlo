@@ -1,5 +1,5 @@
 export default class AssetInfo {
-  expectedReturn: number;
-  volatility: number;
-  portfolioWeight:number;
+  expectedReturn: number = null;
+  volatility: number = null;
+  portfolioWeight:number = null;
 }

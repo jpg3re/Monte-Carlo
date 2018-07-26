@@ -8,7 +8,7 @@ namespace MonteCarlo.Models.Model
 {
     public class Upper : Breakdown
     {
-        public Upper(double expectedReturn, double volatility, double portfolioWeight) : base(expectedReturn, volatility, portfolioWeight)
+        public Upper(double expectedReturn , double volatility, double portfolioWeight) : base(expectedReturn, volatility, portfolioWeight)
         {
         }
     }
