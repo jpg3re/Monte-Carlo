@@ -83,9 +83,10 @@ namespace MonteCarlo.Models.Model
             {
                 previousYear = currentValue;
                 withdrawls = PaymentCalculator.GetPayments(previousYear, rate[i], (yearsOfWithdrawls + yearsOfAdditions) - i);
+                withdrawls = Math.Max(withdrawls,0);
                 currentValue += currentValue * rate[i];
                 currentValue -= withdrawls;
-
+                currentValue = Math.Max(currentValue, 0);
                 yearlies.Add(new Yearly(Math.Round(currentValue, 2), Math.Round(-withdrawls, 2), Math.Round(rate[i], 4)));
             }
 
