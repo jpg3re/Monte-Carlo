@@ -19,8 +19,8 @@
 
 #### Basic structure:
 
-* Back-end code can be found in the `GuaranteedIncome` directory
-* Front-end code can be found in the `web-app` directory
+* Back-end code can be found in the `MonteCarlo` directory
+* Front-end code can be found in the `MonteCarloFrontEnd` directory
 
 This code was never deployed; it was an intern project and the goal was to have a functional development build. The only way it has ever been run is a Webpack development server for the front-end and the Visual Studio built-in IIS Express server for the back-end. To run it on any other configuration, the fetch URL on the front-end will have to be changed, and, depending on the configuration, CORS may have to be reconfigured.
 
