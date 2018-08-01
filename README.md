@@ -1,6 +1,6 @@
 # Tax Planning
 
-> This web application compares annuity options and shows performance projections for various annuities with various riders based on market scenarios generated with a basic Monte Carlo method. It was built for the [PIEtech, Inc](https://www.moneyguidepro.com/ifa/). internship in summer 2018, as the second of three projects. It was built by a team of five interns: two business/technical analysts, two back-end developers, and a front-end developer.
+> This web application displays different scenarios of a user's portfolio using a Monte-Carlo method to model the markets. The application could compare three different assets with different specifications and displays the projected gains using three different probability functions. It was built for the [PIEtech, Inc](https://www.moneyguidepro.com/ifa/). internship in summer 2018, as the third of three projects. It was built by a team of five interns: two business/technical analysts, two front-end developers, and a back-end developer. The time constraint for this project was three weeks.
 
 ---
 
@@ -12,8 +12,9 @@
 ---
 
 #### My contributions:
-* Built majority of the back-end using C# with .NET framework
-* The contents of the Model and Controllers folder were primarily handled by me
+* Worked together with another front end developer on the front end
+* I did the results page which can be found in the results directory
+* I did some work on the back-end which included handling the input model
 
 
 #### Basic structure:
